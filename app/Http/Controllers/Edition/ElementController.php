@@ -35,29 +35,21 @@ class ElementController extends Controller
         //
     }
 
-    // public function store(Request $request)
     public function store(StoreElementRequest $request)
     {
         $project_id = $request->project_id;
         try {
-            throw new \Exception('Error al crear elementos');
             $this->elementService->store(
                 $request->elementsData,
             );
 
-            // to_route('projects.show', [
-            //     'id' => $project_id,
-            // ])->with('success', 'Elementos creados correctamente');
-            redirect()->route('projects.show', [
+            to_route('projects.show', [
                 'id' => $project_id,
             ])->with('success', 'Elementos creados correctamente');
         } catch (\Throwable $th) {
-            redirect()->route('projects.show', [
+            to_route('projects.show', [
                 'id' => $project_id,
             ])->with('error', 'Error al crear elementos');
-            // to_route('projects.show', [
-            //     'id' => $project_id,
-            // ])->with('error', 'Error al crear elementos');
         }
     }
 
