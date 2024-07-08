@@ -6,7 +6,8 @@ interface ProjectBase {
 }
 
 export interface ProjectCreate extends ProjectBase {
-    cover_url?: File;
+    id?: string;
+    cover_url?: File | string;
     presenter_id: string;
 }
 

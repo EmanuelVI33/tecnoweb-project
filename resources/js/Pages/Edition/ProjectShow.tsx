@@ -4,10 +4,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shadcn/ui/tabs"
 import { Button } from "@/shadcn/ui/button";
 import { useSelectedProjectStore } from "@/store/selected-project";
 import { ElementMapper } from "@/Pages/Edition/mappers/element.mapper";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { ElementType } from "@/Pages/Edition/enum/element-type";
-import Player from "@/Components/Edition/Project/Player";
-import { router, useForm, usePage } from "@inertiajs/react";
+import { router, useForm } from "@inertiajs/react";
 import { toast } from "sonner";
 import { Element } from "@/Pages/Edition/models/element.model";
 import TabPresenter from "./Components/Project/TabPresenter";
@@ -15,10 +14,11 @@ import TabVideo from "./Components/Project/TabVideo";
 import Timeline from "./Components/Project/Timeline";
 import withModal, { useModal } from "@/Contexts/ModalContext";
 import ErrorModal from "@/Components/Ui/ErrorModal";
+import Player from "./Components/Project/Player";
 
-function Show({ project, flash} : ProjectShowPageProps) {
+function ProjectShow({ project, flash} : ProjectShowPageProps) {
     console.log(flash);
-    const { open, toggleModal } = useModal();
+    const { toggleModal } = useModal();
     const { initElement, elements, togleSave } = useSelectedProjectStore();
     const { post, wasSuccessful, errors } = useForm<{elements: Element[], project_id: string;}>({
         elements: [],
@@ -90,4 +90,4 @@ function Show({ project, flash} : ProjectShowPageProps) {
     )
 }
 
-export default withModal(Show);
+export default withModal(ProjectShow);
