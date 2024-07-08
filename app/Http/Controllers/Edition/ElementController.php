@@ -39,6 +39,7 @@ class ElementController extends Controller
     {
         $project_id = $request->project_id;
         try {
+            throw new \Exception('Error al crear elementos', 403);
             $this->elementService->store(
                 $request->elementsData,
             );
@@ -46,10 +47,11 @@ class ElementController extends Controller
             to_route('projects.show', [
                 'id' => $project_id,
             ])->with('success', 'Elementos creados correctamente');
-        } catch (\Throwable $th) {
-            to_route('projects.show', [
-                'id' => $project_id,
-            ])->with('error', 'Error al crear elementos');
+        } catch (\Exception $e) {
+            return back()->with('error', [
+                'statu' => $e->getCode(),
+                'message' => $e->getMessage(),
+            ]);
         }
     }
 
@@ -63,7 +65,10 @@ class ElementController extends Controller
                 'id' => $projectId,
             ]);
         } catch (\Exception $e) {
-            return back()->with('error', $e->getMessage());
+            return back()->with('error', [
+                'statu' => $e->getCode(),
+                'message' => $e->getMessage(),
+            ]);
         }
     }
 
