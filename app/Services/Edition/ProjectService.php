@@ -5,9 +5,12 @@ namespace App\Services\Edition;
 use App\Clases\UploadFileStrategy\FileUploader;
 use App\Clases\UploadFileStrategy\UploadFileSystemStrategy;
 use App\Models\Edition\Project;
+use Illuminate\Http\UploadedFile;
 
 class ProjectService
 {
+    const FOLDER = 'projects/';
+
     public function __construct(
         private FileUploader $fileUploader,
         private ElementService $elementService,
@@ -17,6 +20,7 @@ class ProjectService
     public function getAll()
     {
         $projects = Project::with('presenter')
+            ->orderBy('created_at', 'desc')
             ->get();
         return $projects;
     }
@@ -24,11 +28,11 @@ class ProjectService
     public function store(array $data, $image): Project
     {
         $this->fileUploader->setStrategy(new UploadFileSystemStrategy());
-        $folder = "projects/";
-        // Guardar imagen
-        $path = $this->fileUploader->uploadFile($image, $folder);
-        $data['cover_url'] = $path;
-        // Estado por default
+
+        if ($image) {
+            $data['cover_url'] = $this->savaImage($image);
+        }
+
         $project = Project::create($data);
         return $project;
     }
@@ -50,9 +54,14 @@ class ProjectService
         }
     }
 
-    public function update(array $data, int $id): void
+    public function update(int $id, array $data, ?UploadedFile $image): void
     {
         $project = $this->findOne($id);
+
+        if ($image) {
+            $data['cover_url'] = $this->savaImage($image);
+        }
+
         $project->update($data);
     }
 
@@ -65,5 +74,12 @@ class ProjectService
     public function updateElement(array $elementsData): void
     {
         $this->elementService->store($elementsData);
+    }
+
+    private function savaImage(UploadedFile $image)
+    {
+        $this->fileUploader->setStrategy(new UploadFileSystemStrategy());
+        $path = $this->fileUploader->uploadFile($image, self::FOLDER);
+        return $path;
     }
 }

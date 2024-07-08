@@ -11,6 +11,7 @@ type DialogProps = {
     children?: ReactElement | ReactElement
     title: string
     titleButton: string
+    icon?: ReactElement
 }
 
 interface CustomDialogContextProps {
@@ -21,7 +22,7 @@ interface CustomDialogContextProps {
 export const CustomDialogContext = createContext({} as CustomDialogContextProps);
 const { Provider } = CustomDialogContext;
 
-export function CustomDialog({ children, titleButton, title } : PropsWithChildren<DialogProps>) {
+export function CustomDialog({ children, titleButton, title, icon } : PropsWithChildren<DialogProps>) {
     const [open, setOpen] = useState(false);
 
     const handleTogle = () => {
@@ -34,7 +35,12 @@ export function CustomDialog({ children, titleButton, title } : PropsWithChildre
             handleTogle,
         }}>
             <DialogShadcn open={open} onOpenChange={handleTogle}>
-                <Button onClick={() => handleTogle()}>{titleButton}</Button>
+                <Button className="flex gap-2" onClick={() => handleTogle()}>
+                    <span>
+                        {titleButton}
+                    </span>
+                    {icon ? icon : null}
+                </Button>
                 <DialogContent className="sm:max-w-[625px]">
                     <DialogHeader>
                         <DialogTitle>{title}</DialogTitle>

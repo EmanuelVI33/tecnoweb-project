@@ -5,7 +5,7 @@ import ResponsiveNavLink from "../ResponsiveNavLink"
 import { useState } from "react"
 import { ProjectShowPageProps } from '../../types/index';
 import { IconStar } from '../icons/icon';
-import SaveToogle from "../Edition/Project/SaveToogle"
+import SaveToogle from "./SaveToogle"
 
 function Navbar() {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);

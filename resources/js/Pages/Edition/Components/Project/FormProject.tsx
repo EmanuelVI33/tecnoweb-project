@@ -1,7 +1,6 @@
-import { CustomDialogContext } from "@/Components/Ui/CustomDialog";
-import { ProjectCreate } from "@/Pages/Edition/models/project";
+import { Project, ProjectCreate } from "@/Pages/Edition/models/project";
 import { useForm, usePage } from "@inertiajs/react";
-import { useContext, useEffect, useRef } from "react"
+import { useCallback, useEffect } from "react"
 import { z } from "zod";
 import { useForm as useReactForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shadcn/ui/form";
@@ -13,55 +12,72 @@ import { Textarea } from "@/shadcn/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/shadcn/ui/radio-group";
 import CreateOrEdit from "../Presenter/CreateOrEdit";
 import { ProjectPageProps } from "@/types";
+import { useModalStore } from "@/store/modal-store";
+import { useDropzone } from 'react-dropzone';
 
 const formSchema = z.object({
     name: z.string().min(3),
     description: z.string().optional(),
-    cover_url: z.string(),
+    cover_url: z.union([z.string(), z.instanceof(File)]), 
     presenter_id: z.string(),
 });
 
-const project: ProjectCreate = {
+const projectForm = {
+    id: '',
     name: '',
     description: '',
-    cover_url: undefined,
+    cover_url: '',
     presenter_id: '',
 }
 
-function FormCreateOrEdit() {
-  const { data, post, processing, errors, progress, wasSuccessful } = useForm<ProjectCreate>(project);
-  const { props: { presenters }} = usePage<ProjectPageProps>();
-  const { handleTogle } = useContext(CustomDialogContext);
+interface FormCreateOrEditProps {
+  modalKey: string;
+}
+
+function FormProject({ modalKey }: FormCreateOrEditProps) {
+  const { props: { presenters, projects }} = usePage<ProjectPageProps>();
+  const { modals, toggleModal } = useModalStore();
+  const modalState = modals[modalKey] || { open: false, isEditing: false, currentId: null };
+  const project = getInitialProject(modalState, projects) || projectForm;
+  const { data, post, wasSuccessful, progress, processing, errors } = useForm({
+    ...project, 
+    _method: modalState.isEditing ? 'PUT' : undefined,
+  });
   const form = useReactForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      ...project
+    },
   }); 
-  const coverRef = useRef<HTMLInputElement>(null);
+  const onDrop =  useCallback((acceptedFiles: File[]) => {
+  }, []);
 
-  console.log(`Desde el form: ${presenters}`)
+  const { getRootProps, getInputProps, acceptedFiles } = useDropzone({ onDrop });
 
   const submit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
-    if (coverRef.current && coverRef.current.files) {
-        data.cover_url = coverRef.current?.files[0];
-    }
+    console.log(values, data)
 
     data.name = values.name;
     data.description = values.description;
-    data.presenter_id = values.presenter_id;
-    
-    post('/projects');
-  };
+    data.presenter_id = values.presenter_id; 
+    data.cover_url = acceptedFiles[0] || values.cover_url;
+
+    modalState.isEditing 
+      ? post(route("projects.update", modalState.currentId!))
+      : post(route("projects.store"));
+  }
 
   useEffect(() => {
     if (wasSuccessful) {
-      toast.success('Presentador registrado exitosamente');
-      handleTogle();
+      toast.success(`Projecto ${modalState.isEditing ? 'actualizado' : 'creado'} exitosamente`);
+      toggleModal(modalKey);
     }
   }, [wasSuccessful]);
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(submit)}>
+        {errors.id && <p className="mt-2 text-sm text-red-600">{errors.id}</p>}
         <FormField
           control={form.control}
           name="name"
@@ -105,12 +121,25 @@ function FormCreateOrEdit() {
             <FormItem className="mb-3">
               <FormLabel>Portada</FormLabel>
               <FormControl>
-                <Input 
-                    type="file" 
-                    placeholder="foto"
-                    {...field} 
-                    ref={coverRef}
-                />
+                <>
+                  {modalState.isEditing && project.cover_url && !acceptedFiles[0] && (
+                    <div>
+                      <img src={project.cover_url as string} alt="Current Cover" style={{ width: '100px' }} />
+                    </div>
+                  )}
+                  {acceptedFiles[0] && (
+                    <div>
+                      <img src={URL.createObjectURL(acceptedFiles[0])} alt="Preview" style={{ width: '100px' }} />
+                    </div>
+                  )}
+                  <div
+                    {...getRootProps()}
+                    style={{ border: '2px dashed #ccc', padding: '20px', marginBottom: '10px', textAlign: 'center' }}
+                  >
+                    <input {...getInputProps()} />
+                    Drag & Drop to Upload Image or Click to Select
+                  </div>
+                </>
               </FormControl>
               <FormMessage />
               {errors.cover_url && <p className="mt-2 text-sm text-red-600">{errors.cover_url}</p>}
@@ -163,12 +192,32 @@ function FormCreateOrEdit() {
         )}
 
         <div className="flex justify-between gap-5 mt-5">
-            <Button type="button" variant="destructive" onClick={() => handleTogle()}>Cancelar</Button>
-            <Button type="submit" disabled={processing}>Registrar</Button>
+            <Button type="button" variant="destructive" onClick={() => toggleModal(modalKey)}>Cancelar</Button>
+            <Button type="submit" disabled={processing}>{modalState.isEditing ? 'Actualizar' : 'Registrar'}</Button>
         </div>
       </form>
     </Form>
   )
 }
 
-export default FormCreateOrEdit
+// Function to get initial project data for editing
+const getInitialProject = (
+  modalState: { isEditing: boolean, currentId: string | null },
+  projects: Project[],
+): ProjectCreate | null => {
+  if (modalState.isEditing) {
+    const projectInit = projects.find(project => project.id === modalState.currentId);
+    if (projectInit) {  
+      return {
+        id: projectInit.id,
+        name: projectInit.name,
+        description: projectInit.description,
+        cover_url: projectInit.cover_url,
+        presenter_id: projectInit.presenter.id.toString(),
+      };
+    }
+  }
+  return null;
+};
+
+export default FormProject

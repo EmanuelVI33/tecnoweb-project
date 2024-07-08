@@ -1,8 +1,8 @@
 import { Project } from "@/Pages/Edition/models/project"
 import { PageProps } from "@/types";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
-import Table from "./Components/Project/Table";
-import CreateOrEdit from "./Components/Project/CreateOrEdit";
+import TableProject from "./Components/Project/Table";
+import DialogProject from "./Components/Project/DialogProject";
 
 function Index({ auth, projects } : PageProps<{ projects: Project[] }>) {
     console.log(projects)
@@ -15,11 +15,11 @@ function Index({ auth, projects } : PageProps<{ projects: Project[] }>) {
                 <h1 className="scroll-m-20 text-2xl lg:text-3xl font-bold tracking-tight">
                     Mis proyectos
                 </h1>
-                <CreateOrEdit />
+                <DialogProject />
             </div>
 
             <div className="w-3/4 m-auto">
-                <Table />
+                <TableProject />
             </div>
         </Authenticated>
     )
