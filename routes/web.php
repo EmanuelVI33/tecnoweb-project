@@ -41,7 +41,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/', [ProjectController::class, 'store'])->name('projects.store');
         Route::get('{id}', [ProjectController::class, 'show'])->name('projects.show');
         Route::put('/{id}', [ProjectController::class, 'update'])->name('projects.update');
-        Route::delete('/{id}', [ProjectController::class, 'destroy'])->name('projects.delete');
+        Route::delete('/{id}', [ProjectController::class, 'destroy'])->name('projects.destroy');
     });
 
     Route::group(['prefix' => '/elements'], function () {
