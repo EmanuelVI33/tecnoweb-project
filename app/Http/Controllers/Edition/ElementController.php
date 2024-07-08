@@ -39,7 +39,6 @@ class ElementController extends Controller
     {
         $project_id = $request->project_id;
         try {
-            throw new \Exception('Error al crear elementos', 403);
             $this->elementService->store(
                 $request->elementsData,
             );
