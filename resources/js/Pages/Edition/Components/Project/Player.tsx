@@ -54,7 +54,7 @@ function Player() {
     }, [currentIndex]);
 
     return (
-        <div className="py-2 bg-gray-700 text-white flex flex-col items-center justify-between border-8 border-slate-900">
+        <div className="py-2 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 flex flex-col items-center justify-between border-8 border-slate-200 dark:border-slate-900">
             <video ref={videoRef} controls className="w-full max-w-lg h-full rounded-lg mb-4">
                 {currentIndex !== -1 && (
                     <source src={`${appURL}/${elements[currentIndex]?.videoUrl}`} type="video/mp4" />

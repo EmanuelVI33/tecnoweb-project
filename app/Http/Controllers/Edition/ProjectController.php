@@ -58,7 +58,6 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, int $id)
     {
-        // dd($request);
         $this->projectService->update(
             $id,
             $request->validated(),

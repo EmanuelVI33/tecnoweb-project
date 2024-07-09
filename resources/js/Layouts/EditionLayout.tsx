@@ -7,7 +7,7 @@ function EditionLayout({ children }: PropsWithChildren) {
         <div className="min-h-screen bg-gray-100">
             <Navbar />
             <Toaster />
-            <main className="">{children}</main>
+            <main className="h-screen">{children}</main>
         </div>
     )
 }

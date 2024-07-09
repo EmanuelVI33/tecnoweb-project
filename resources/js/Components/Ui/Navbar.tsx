@@ -13,8 +13,12 @@ function Navbar() {
     const { auth: { user } } = props;
     const selectedProject = props.project;
 
+    const toggleDarkMode = () => {
+        document.documentElement.classList.toggle('dark');
+    };
+
     return (
-        <nav className="bg-white border-b border-gray-100">
+        <nav className="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 border-b border-gray-100 dark:border-gray-800">
             <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between ali h-16">
                     <div className="flex">
@@ -41,18 +45,20 @@ function Navbar() {
 
                     <div className="flex items-center">
                         <div className="hidden sm:flex sm:items-center sm:ms-6">
+                            <button
+                                className="rounded text-gray-900 dark:text-gray-100 hover:bg-slate-100 dark:hover:bg-slate-700 px-1 ml-4"
+                                onClick={toggleDarkMode}
+                            >
+                                🌙
+                            </button>
                             <div className="ms-3 relative">
                                 <Dropdown>
                                     <Dropdown.Trigger>
-                                        <div className='flex gap-2 justify-center items-center'>
-                                            <span className="flex gap-1">
-                                                {user.pointer}
-                                                <IconStar />
-                                            </span>
+                                        <div className=' text-slate-600 dark:bg-transparent dark:bg-slate-800 dark:text-white flex gap-2 justify-center items-center'>
                                             <span className="inline-flex rounded-md">
                                                 <button
                                                     type="button"
-                                                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white dark:bg-gray-700 dark:text-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                                 >
                                                 
                                                     {user.name}
@@ -75,9 +81,9 @@ function Navbar() {
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
-                                        <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
+                                        <Dropdown.Link href={route('profile.edit')}>Perfil</Dropdown.Link>
                                         <Dropdown.Link href={route('logout')} method="post" as="button">
-                                            Log Out
+                                            Cerrar Sesión
                                         </Dropdown.Link>
                                     </Dropdown.Content>
                                 </Dropdown>
@@ -129,9 +135,9 @@ function Navbar() {
                     </div>
 
                     <div className="mt-3 space-y-1">
-                        <ResponsiveNavLink href={route('profile.edit')}>Profile</ResponsiveNavLink>
+                        <ResponsiveNavLink href={route('profile.edit')}>Perfil</ResponsiveNavLink>
                         <ResponsiveNavLink method="post" href={route('logout')} as="button">
-                            Log Out
+                            Cerrar Sesión
                         </ResponsiveNavLink>
                     </div>
                 </div>

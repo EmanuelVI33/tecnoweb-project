@@ -58,9 +58,9 @@ function ProjectShow({ project, flash} : ProjectShowPageProps) {
     return (
         <EditionLayout
         >
-            <div className="grid grid-rows-4 h-1/3">
-                <div className="row-span-3 grid grid-cols-2">
-                    <Tabs defaultValue="account" className="bg-slate-300 px-4 py-1" color="">
+            <div className="grid grid-rows-4 h-full">
+                <div className="row-span-3 grid grid-cols-2 h-full">
+                    <Tabs defaultValue="account" className="bg-gray-200 dark:bg-gray-900 text-gray-900 dark:text-gray-100 px-4 py-1" color="">
                         <TabsList className="">
                             <TabsTrigger value="account" className="">Presentador</TabsTrigger>
                             <TabsTrigger value="password">Video</TabsTrigger>
@@ -76,7 +76,7 @@ function ProjectShow({ project, flash} : ProjectShowPageProps) {
                     <Player />
                 </div>
                 {/* Este div ocupa 1/4 de la pantalla */}
-                <div className="text-white row-span-1 bg-slate-700">
+                <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-100 row-span-1 ">
                     <div className="flex justify-between mx-5">
                         <h1 className="text-2xl tracking-tight hover:tracking-wid font-bold">Guion</h1>
                         <Button onClick={handleGenerate}>Generar contenido</Button>

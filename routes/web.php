@@ -18,9 +18,9 @@ Route::get('/', function () {
     ]);
 });
 
-// Route::get('/dashboard', function () {
-//     return Inertia::render('Dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/nosotros', [NosotrosController::class, 'index'])->name('nosotros');
@@ -33,25 +33,27 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [PresenterController::class, 'index'])->name('presenters.index');
         Route::post('/', [PresenterController::class, 'store'])->name('presenters.store');
     });
-
-    // Route::apiResource('/projects', ProjectController::class);
-
     Route::group(['prefix' => '/projects'], function () {
         Route::get('/', [ProjectController::class, 'index'])->name('projects.index');
         Route::post('/', [ProjectController::class, 'store'])->name('projects.store');
         Route::get('{id}', [ProjectController::class, 'show'])->name('projects.show');
         Route::put('/{id}', [ProjectController::class, 'update'])->name('projects.update');
-        Route::delete('/{id}', [ProjectController::class, 'destroy'])->name('projects.delete');
+        Route::delete('/{id}', [ProjectController::class, 'destroy'])->name('projects.destroy');
     });
-
     Route::group(['prefix' => '/elements'], function () {
         Route::post('/', [ElementController::class, 'store'])->name('elements.store');
         Route::post('/generate/{projectId}', [ElementController::class, 'generateElements']);
     });
 
-    Route::group(['prefix' => '/news'], function () {
-        Route::get('/', [ElementController::class, 'index'])->name('news.index');
-        // Route::post('/', [ElementController::class, 'index'])->name('projects.index');
+    Route::group(['prefix' => '/admin'], function () {
+        Route::get('/', function () {
+            return Inertia::render('Admin/Dashboard');
+        })->name('admin.dashboard');
+
+        Route::group(['prefix' => '/news'], function () {
+            Route::get('/', [ElementController::class, 'index'])->name('news.index');
+            // Route::post('/', [ElementController::class, 'index'])->name('projects.index');
+        });
     });
 });
 
