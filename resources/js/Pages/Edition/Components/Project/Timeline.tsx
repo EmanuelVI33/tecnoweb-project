@@ -13,8 +13,8 @@ function Timeline() {
                     const w = title.length * 0.4;
 
                     return (
-                        <Card className={`w[${w}rem] ${currentElement === index ? 'bg-slate-800 text-white' : ''}`} onClick={() => selectElement(index)}>
-                            <CardHeader key={index}>
+                        <Card key={index} className={`w[${w}rem] ${currentElement === index ? 'bg-slate-800 text-white' : ''}`} onClick={() => selectElement(index)}>
+                            <CardHeader >
                                 <CardTitle>{element.title}</CardTitle>
                                 <CardDescription>{element.labelTypeElement}</CardDescription>
                             </CardHeader>

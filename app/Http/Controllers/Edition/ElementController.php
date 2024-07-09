@@ -46,10 +46,11 @@ class ElementController extends Controller
             to_route('projects.show', [
                 'id' => $project_id,
             ])->with('success', 'Elementos creados correctamente');
-        } catch (\Throwable $th) {
-            to_route('projects.show', [
-                'id' => $project_id,
-            ])->with('error', 'Error al crear elementos');
+        } catch (\Exception $e) {
+            return back()->with('error', [
+                'statu' => $e->getCode(),
+                'message' => $e->getMessage(),
+            ]);
         }
     }
 
@@ -63,7 +64,10 @@ class ElementController extends Controller
                 'id' => $projectId,
             ]);
         } catch (\Exception $e) {
-            return back()->with('error', $e->getMessage());
+            return back()->with('error', [
+                'statu' => $e->getCode(),
+                'message' => $e->getMessage(),
+            ]);
         }
     }
 

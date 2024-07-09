@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Edition;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Edition\ElementController\StoreElementRequest;
 use App\Http\Requests\Edition\ProjectController\StoreProjectRequest;
+use App\Http\Requests\Edition\ProjectController\UpdateProjectRequest;
 use App\Services\Edition\ProjectService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -55,11 +56,13 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, int $id)
+    public function update(UpdateProjectRequest $request, int $id)
     {
+        // dd($request);
         $this->projectService->update(
-            $request->validate(),
-            $id
+            $id,
+            $request->validated(),
+            $request->file('cover_url')
         );
         to_route(self::BASE_ROUTE . '.index');
     }

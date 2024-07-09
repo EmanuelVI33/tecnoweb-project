@@ -1,4 +1,5 @@
 import { IconSave } from "@/Components/icons/icon-save"
+import { useModal } from "@/Contexts/ModalContext";
 import { Element } from "@/Pages/Edition/models/element.model";
 import { Toggle } from "@/shadcn/ui/toggle"
 import { useSelectedProjectStore } from "@/store/selected-project";
@@ -8,35 +9,26 @@ import { useEffect } from "react";
 import { toast } from "sonner";
 
 function SaveToogle() {
+    const { toggleModal } = useModal();
+    const { flash } = usePage<ProjectShowPageProps>().props;
     const { isSave, togleSave, elements } = useSelectedProjectStore();
     const { props: { project } } = usePage<ProjectShowPageProps>();
-    const { data, post, wasSuccessful, errors, hasErrors } = useForm<{elements: Element[], project_id: string;}>({
+    const { data, post, wasSuccessful, errors } = useForm<{elements: Element[], project_id: string;}>({
         elements: [],
         project_id: project.id.toString()
     });
-    const { error, success } = usePage<ProjectShowPageProps>().props;
 
-    useEffect(() => {
-        console.log(`Error ${error} and ${success}`)
-        console.log(`Error ${JSON.stringify(errors)}`)
-        if (!error && wasSuccessful) {
-            toast.success('Elemento registrado exitosamente');
-            // Si se guarda exitosamente, el proyecto esta guardado
-            togleSave();
-        } else if (error) {
-            toast.error(error);
-        }
-    }, [wasSuccessful, error]);
-
-    useEffect(() => {
-        if (errors.elements) {
-            toast.error('Error al guardar proyecto');
-        }
-    }, [errors.elements]);
+    // useEffect(() => {
+    //     console.log('activado2')
+    //     if (flash.error == null && wasSuccessful) {
+    //         toast.success('Generando vídeos');
+    //         togleSave();
+    //     } else if (flash.error != null) {
+    //         toggleModal(); 
+    //     }
+    // }, [wasSuccessful, flash.error]);
 
     const handleSave = () => {
-        // const elements = getNewElement();
-        // Si esta guardado o no tiene elementos
         if (isSave || elements.length < 1) return;
         
         data.elements = elements;

@@ -11,13 +11,20 @@ export interface User {
     pointer: number;
 }
 
+export interface ErrorMessage {
+    message: string;
+    statu: string;
+}
+
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
     auth: {
         user: User;
     };
     presenters: Presenter[];
-    success: string;
-    error: string;
+    flash: {
+        success: string;
+        error: ErrorMessage;
+    },
 };
 
 export type ProjectPageProps = PageProps & {
