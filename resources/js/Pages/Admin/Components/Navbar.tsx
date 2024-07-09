@@ -5,7 +5,6 @@ import { Link, usePage } from "@inertiajs/react";
 import { useState } from "react";
 import { Icon } from '@iconify/react';
 import menuIcon from '@iconify/icons-mdi/menu';
-import { Button } from "@/shadcn/ui/button";
 
 interface NavbarProps {
   toggleSidebar: () => void;

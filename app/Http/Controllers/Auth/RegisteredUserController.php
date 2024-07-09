@@ -48,6 +48,12 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('projects.index', absolute: false));
+        if ($user->hasRole('administrative')) {
+            return redirect()->intended(route('admin.dashboard', absolute: false));
+        } else if ($user->hasRole('editor')) {
+            return redirect()->intended(route('projects.index', absolute: false));
+        }
+
+        return redirect()->intended(route('dashboard', absolute: false));
     }
 }

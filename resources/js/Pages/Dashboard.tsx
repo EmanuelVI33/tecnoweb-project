@@ -8,6 +8,7 @@ export default function Dashboard({ auth, presenters }: PageProps) {
         <AuthenticatedLayout
             user={auth.user}
         >
+            <p>Vista user</p>
         </AuthenticatedLayout>
     );
 }
