@@ -13,7 +13,11 @@ class UploadFileSystemStrategy implements UploadFileStrategy
         $nameVideo = hexdec(uniqid()) . '.' . $file->getClientOriginalExtension();
 
         $folder = storage_path(self::PATH . $path);
-        File::makeDirectory($folder, 0755, true, true);
+
+        // Verificamos si la carpeta existe, si no, la creamos
+        if (!File::exists($folder)) {
+            File::makeDirectory($folder, 0755, true, true);
+        }
 
         $file->move($folder, $nameVideo);
 
