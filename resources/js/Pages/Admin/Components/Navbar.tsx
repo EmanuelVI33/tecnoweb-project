@@ -1,58 +1,59 @@
-import { Link, usePage } from "@inertiajs/react"
-import NavLink from "../NavLink"
-import Dropdown from "../Dropdown"
-import ResponsiveNavLink from "../ResponsiveNavLink"
-import { useState } from "react"
-import { ProjectShowPageProps } from '../../types/index';
-import { IconStar } from '../icons/icon';
-import SaveToogle from "./SaveToogle"
+import Dropdown from "@/Components/Dropdown";
+import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
+import { PageProps } from "@/types";
+import { Link, usePage } from "@inertiajs/react";
+import { useState } from "react";
+import { Icon } from '@iconify/react';
+import menuIcon from '@iconify/icons-mdi/menu';
+import { Button } from "@/shadcn/ui/button";
 
-function Navbar() {
+interface NavbarProps {
+  toggleSidebar: () => void;
+}
+
+function Navbar({ toggleSidebar } : NavbarProps) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
-    const { props } = usePage<ProjectShowPageProps>();
+    const toggleDarkMode = () => {
+        document.documentElement.classList.toggle('dark');
+    };
+    const { props } = usePage<PageProps>();
     const { auth: { user } } = props;
-    const selectedProject = props.project;
 
     return (
-        <nav className="bg-white dark:bg-gray-800 border-b border-gray-100">
+        <nav className="fixed top-0 left-0 w-full bg-white dark:bg-gray-800 shadow-md px-4 py-2 z-50">
             <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between ali h-16">
-                    <div className="flex">
+                    <div className="flex gap-5">
+                        <button
+                            className=""
+                            onClick={toggleSidebar}
+                        >
+                            <Icon className="text-black dark:text-white" icon={menuIcon} width="24" height="24"/>
+                        </button>
+
                         <div className="shrink-0 flex items-center">
                             <Link href="/">
                                 <img className="h-14" src="/Logo.jpg" alt=""  />
                             </Link>
                         </div>
-
-                        <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                            <NavLink href={route('projects.index')} active={route().current('projects')}>
-                                Proyectos
-                            </NavLink>
-                            
-                        </div>
                     </div>
 
-                    {selectedProject &&
-                        <div className="flex flex-col md:flex-row gap-2 justify-center items-center text-xs md:text-sm text-center truncate ">
-                            <p className="font-medium">{selectedProject.name}</p>
-                            <p>{selectedProject.presenter.full_name}</p>
-                        </div>
-                    }
-
-                    <div className="flex items-center">
+                    <div className="flex items-center bg-transparent">
                         <div className="hidden sm:flex sm:items-center sm:ms-6">
+                            <button
+                                className="rounded text-gray-900 dark:text-gray-100 hover:bg-slate-100 dark:hover:bg-slate-700 px-1 ml-4"
+                                onClick={toggleDarkMode}
+                            >
+                                🌙
+                            </button>
                             <div className="ms-3 relative">
                                 <Dropdown>
                                     <Dropdown.Trigger>
-                                        <div className=' text-slate-600 dark:bg-transparent dark:bg-slate-800 dark:text-white flex gap-2 justify-center items-center'>
-                                            <span className="flex gap-1">
-                                                {user.pointer}
-                                                <IconStar />
-                                            </span>
+                                        <div className='flex gap-5 justify-center items-center'>
                                             <span className="inline-flex rounded-md">
                                                 <button
                                                     type="button"
-                                                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white dark:bg-gray-700 dark:text-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white dark:text-white dark:bg-gray-800 hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                                 >
                                                 
                                                     {user.name}
@@ -83,8 +84,6 @@ function Navbar() {
                                 </Dropdown>
                             </div>
                         </div>
-
-                        <SaveToogle />
                     </div>
 
                     <div className="-me-2 flex items-center sm:hidden">
