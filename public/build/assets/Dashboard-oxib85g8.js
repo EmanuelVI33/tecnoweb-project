@@ -1,0 +1,1 @@
+import{j as t}from"./app-CtOOS7DE.js";import{A as s}from"./AuthenticatedLayout-DpvhGbd5.js";import"./ResponsiveNavLink-DyQfDSFr.js";import"./transition-DeeN6His.js";import"./sonner-DaLyzcpo.js";import"./index-DdRWKeN6.js";function n({auth:o,presenters:r}){return console.log(r),t.jsx(s,{user:o.user})}export{n as default};
