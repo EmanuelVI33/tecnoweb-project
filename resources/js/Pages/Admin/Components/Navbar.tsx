@@ -3,8 +3,8 @@ import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { PageProps } from "@/types";
 import { Link, usePage } from "@inertiajs/react";
 import { useState } from "react";
-import { Icon } from '@iconify/react';
 import menuIcon from '@iconify/icons-mdi/menu';
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 interface NavbarProps {
   toggleSidebar: () => void;
@@ -19,9 +19,9 @@ function Navbar({ toggleSidebar } : NavbarProps) {
     const { auth: { user } } = props;
 
     return (
-        <nav className="fixed top-0 left-0 w-full bg-white dark:bg-gray-800 shadow-md px-4 py-2 z-50">
+        <nav className="w-full h-20 bg-white dark:bg-gray-800 shadow-md px-4 py-2">
             <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between ali h-16">
+                <div className="flex justify-between h-16">
                     <div className="flex gap-5">
                         <button
                             className=""

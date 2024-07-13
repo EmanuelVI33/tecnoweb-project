@@ -5,7 +5,6 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
 import { User } from '@/types';
 import { Toaster } from '@/shadcn/ui/sonner';
-import { IconStar } from '@/Components/icons/icon';
 
 export default function Authenticated({ user, header, children, sidebar }: PropsWithChildren<{ user: User, header?: ReactNode, sidebar?: ReactNode}>) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
