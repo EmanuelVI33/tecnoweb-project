@@ -21,10 +21,8 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
         user: User;
     };
     presenters: Presenter[];
-    flash: {
-        success: string;
-        error: ErrorMessage;
-    },
+    success: string;
+    error: ErrorMessage;
 };
 
 export type ProjectPageProps = PageProps & {

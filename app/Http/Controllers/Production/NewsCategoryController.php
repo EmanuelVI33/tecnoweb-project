@@ -6,19 +6,19 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Production\NewsCategory\StoreNewsCategoryRequest;
 use App\Http\Requests\Production\NewsCategory\UpdateNewsCategoryRequest;
 use App\Services\Production\NewsCategoryService;
-use App\Traits\ErrorHandlerTrait;
+use App\Traits\ResponseControllerTrait;
 use Inertia\Inertia;
 
 class NewsCategoryController extends Controller
 {
-    use ErrorHandlerTrait;
+    use ResponseControllerTrait;
 
-    // Ruta de la page en el front
-    private const PAGE = 'Production/Category';
     private const BASE_ROUTE = 'news-categories';
+    private $page;
 
     public function __construct(private NewsCategoryService $newsCategoryService)
     {
+        $this->page = config('pages.admin.' . self::BASE_ROUTE);
     }
 
     /**
@@ -28,7 +28,16 @@ class NewsCategoryController extends Controller
     {
         try {
             $newsCategory = $this->newsCategoryService->getAll();
-            return Inertia::render(self::PAGE . '/Index', compact('newsCategory'));
+
+            return Inertia::render($this->page . 'Index', [
+                'newsCategory' => $newsCategory,
+            ]);
+
+            // return $this->handleResponse(
+            //     route: $this->page . 'Index',
+            //     data: compact('newsCategory'),
+            //     message: 'Listado de categorías de noticias',
+            // );
         } catch (\Exception $e) {
             return $this->handleError($e);
         }
@@ -41,7 +50,10 @@ class NewsCategoryController extends Controller
     {
         try {
             $this->newsCategoryService->create($request->validated());
-            return to_route(self::BASE_ROUTE . '.index');
+            return $this->handleSuccess(
+                route: self::BASE_ROUTE . '.index',
+                message: 'Categoría creada correctamente'
+            );
         } catch (\Exception $e) {
             return $this->handleError($e);
         }
@@ -54,7 +66,10 @@ class NewsCategoryController extends Controller
     {
         try {
             $newsCategory = $this->newsCategoryService->getOne($id);
-            return Inertia::render(self::BASE_ROUTE . '/Show', ['newsCategory' => $newsCategory]);
+            return $this->handleSuccess(
+                route: $this->page . 'Show',
+                data: ['newsCategory' => $newsCategory]
+            );
         } catch (\Exception $e) {
             return $this->handleError($e);
         }
@@ -67,7 +82,10 @@ class NewsCategoryController extends Controller
     {
         try {
             $this->newsCategoryService->update($id, $request->validated());
-            return to_route(self::BASE_ROUTE . '.index');
+            return $this->handleSuccess(
+                route: self::BASE_ROUTE . '.index',
+                message: 'Categoría actualizada correctamente'
+            );
         } catch (\Exception $e) {
             return $this->handleError($e);
         }
@@ -80,7 +98,10 @@ class NewsCategoryController extends Controller
     {
         try {
             $this->newsCategoryService->delete($id);
-            return to_route(self::BASE_ROUTE . '.index');
+            return $this->handleSuccess(
+                route: self::BASE_ROUTE . '.index',
+                message: 'Categoría eliminada correctamente'
+            );
         } catch (\Exception $e) {
             return $this->handleError($e);
         }

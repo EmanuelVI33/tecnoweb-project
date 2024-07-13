@@ -4,6 +4,7 @@ use App\Http\Controllers\Edition\ElementController;
 use App\Http\Controllers\Edition\PresenterController;
 use App\Http\Controllers\Edition\ProjectController;
 use App\Http\Controllers\NosotrosController;
+use App\Http\Controllers\Production\NewsCategoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -16,7 +17,7 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('welcome');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -53,6 +54,14 @@ Route::middleware('auth')->group(function () {
         Route::group(['prefix' => '/news'], function () {
             Route::get('/', [ElementController::class, 'index'])->name('news.index');
             // Route::post('/', [ElementController::class, 'index'])->name('projects.index');
+        });
+
+        Route::group(['prefix' => '/news-categories'], function () {
+            Route::get('/', [NewsCategoryController::class, 'index'])->name('news-categories.index');
+            Route::post('/', [NewsCategoryController::class, 'store'])->name('news-categories.store');
+            Route::get('{id}', [NewsCategoryController::class, 'show'])->name('news-categories.show');
+            Route::put('/{id}', [NewsCategoryController::class, 'update'])->name('news-categories.update');
+            Route::delete('/{id}', [NewsCategoryController::class, 'destroy'])->name('news-categories.destroy');
         });
     });
 });
