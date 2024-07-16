@@ -4,6 +4,11 @@ namespace App\Http\Requests\Production\NewsCategory;
 
 trait NewsCategoryValidationTrait
 {
+    const ruleArray = [
+        'name' => 'required|string|max:255',
+        'description' => 'nullable|string',
+    ];
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -11,9 +16,6 @@ trait NewsCategoryValidationTrait
      */
     public function rules(): array
     {
-        return [
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string|max:255',
-        ];
+        return self::ruleArray;
     }
 }

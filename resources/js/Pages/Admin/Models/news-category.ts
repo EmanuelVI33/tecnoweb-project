@@ -1,7 +1,6 @@
-interface NewsCategory {
-    id: number;
+import { Model } from "@/types";
+
+export interface NewsCategory extends Model  {
     name: string;
-    description: string;
-    created_at: string;
-    updated_at: string;
+    description?: string;
 }

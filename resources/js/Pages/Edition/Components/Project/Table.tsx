@@ -12,7 +12,6 @@ import {
 import { useSelectedProjectStore } from "@/store/selected-project";
 import { ProjectPageProps } from "@/types";
 import { router, usePage } from "@inertiajs/react";
-import { IconEdit, IconFolderOpen } from "@/Components/icons/icon";
 import { useModalStore } from "@/store/modal-store";
 import { projectModalKey } from "./DialogProject";
 import { useState } from "react";

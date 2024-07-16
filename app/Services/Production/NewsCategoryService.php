@@ -51,7 +51,6 @@ class NewsCategoryService
     {
         $newsCategory = $this->getOne($id);
         $newsCategory->delete();
-
         return true;
     }
 }

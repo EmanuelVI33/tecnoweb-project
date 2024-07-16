@@ -2,9 +2,13 @@ import { Project } from '@/Pages/Edition/models/project';
 import { Presenter } from '../Pages/Edition/models/presenter';
 import { ProjectResponse } from '@/Pages/Edition/models/response';
 
+// type ID = string | number;
 
-export interface User {
-    id: number;
+export interface Model {
+    id?: string;
+}
+
+export interface User extends Model {
     name: string;
     email: string;
     email_verified_at: string;

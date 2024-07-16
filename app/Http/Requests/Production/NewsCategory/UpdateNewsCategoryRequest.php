@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Production\NewsCategory;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Route;
 
 class UpdateNewsCategoryRequest extends FormRequest
 {
@@ -16,6 +17,13 @@ class UpdateNewsCategoryRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'id' => Route::current()->parameter('id'),
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -23,7 +31,7 @@ class UpdateNewsCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
-        return array_merge(parent::rules(), [
+        return array_merge(self::ruleArray, [
             'id' => 'required|exists:news_categories,id',
         ]);
     }
