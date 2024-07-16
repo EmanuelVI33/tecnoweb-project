@@ -29,15 +29,11 @@ class NewsCategoryController extends Controller
         try {
             $newsCategory = $this->newsCategoryService->getAll();
 
-            return Inertia::render($this->page . 'Index', [
-                'newsCategory' => $newsCategory,
-            ]);
-
-            // return $this->handleResponse(
-            //     route: $this->page . 'Index',
-            //     data: compact('newsCategory'),
-            //     message: 'Listado de categorías de noticias',
-            // );
+            return $this->handleResponse(
+                route: $this->page . 'Index',
+                data: compact('newsCategory'),
+                message: 'Listado de categorías de noticias',
+            );
         } catch (\Exception $e) {
             return $this->handleError($e);
         }
@@ -66,9 +62,9 @@ class NewsCategoryController extends Controller
     {
         try {
             $newsCategory = $this->newsCategoryService->getOne($id);
-            return $this->handleSuccess(
+            return $this->handleResponse(
                 route: $this->page . 'Show',
-                data: ['newsCategory' => $newsCategory]
+                data: compact('newsCategory'),
             );
         } catch (\Exception $e) {
             return $this->handleError($e);
