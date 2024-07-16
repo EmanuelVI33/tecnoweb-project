@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Production;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Production\News\StoreNewsRequest;
 use App\Http\Requests\Production\News\UpdateNewsRequest;
+use App\Services\Production\NewsCategoryService;
 use App\Services\Production\NewsService;
 use App\Traits\ResponseControllerTrait;
 
@@ -14,7 +15,7 @@ class NewsController extends Controller
     private const BASE_ROUTE = 'news';
     private $page;
 
-    public function __construct(private NewsService $newsService)
+    public function __construct(private NewsService $newsService, private NewsCategoryService $newsCategoryService)
     {
         $this->page = config('pages.admin.' . self::BASE_ROUTE);
     }
@@ -26,10 +27,11 @@ class NewsController extends Controller
     {
         try {
             $news = $this->newsService->getAll();
+            $newsCategories = $this->newsCategoryService->getAll();
 
             return $this->handleResponse(
                 route: $this->page . 'Index',
-                data: compact('news'),
+                data: compact('news', 'newsCategories'),
                 message: 'Listado de noticias',
             );
         } catch (\Exception $e) {
@@ -49,6 +51,7 @@ class NewsController extends Controller
                 message: 'Noticia creada correctamente'
             );
         } catch (\Exception $e) {
+            dd($e);
             return $this->handleError($e);
         }
     }

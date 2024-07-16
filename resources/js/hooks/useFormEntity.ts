@@ -5,7 +5,6 @@ import { z, ZodType } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 import { useModalStore } from '@/store/modal-store';
-import { getEntity } from '@/utils/modal';
 import { Model } from '@/types';
 
 export interface UseEntityFormProps<T> {

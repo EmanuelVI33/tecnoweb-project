@@ -6,10 +6,10 @@ trait NewsValidationTrait
 {
     const ruleArray = [
         'title' => 'required|string|max:255',
-        'content' => 'string',
+        'content' => 'required|string',
         'is_public' => 'nullable|boolean',
         'project_id' => 'nullable|exists:projects,id',
-        'news_category_id' => 'nullable|exists:news_categories,id',
+        'news_category_id' => 'required|exists:news_categories,id',
         'publication_date' => 'nullable|date',
     ];
 

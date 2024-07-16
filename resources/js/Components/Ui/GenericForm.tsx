@@ -2,10 +2,11 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Button } from '@/shadcn/ui/button';
 import { Input } from '@/shadcn/ui/input';
 import { Textarea } from '@/shadcn/ui/textarea';
-import { Select, SelectItem } from '@/shadcn/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger } from '@/shadcn/ui/select';
 import { RadioGroup, RadioGroupItem } from '@/shadcn/ui/radio-group';
 import { useEntityForm, UseEntityFormProps } from '@/hooks/useFormEntity';
 import { Model } from '@/types';
+import { SelectValue } from '@radix-ui/react-select';
 
 export enum FormFieldType {
   TEXT = 'text',
@@ -14,7 +15,7 @@ export enum FormFieldType {
   RADIO = 'radio',
 };
 
-interface FormFieldConfig {
+export interface FormFieldConfig {
     name: string;
     label: string;
     placeholder?: string;
@@ -34,6 +35,8 @@ function GenericForm<T extends Model>({ modalKey, schema, defaultValues, entityR
     defaultValues,
     entityRoute,
   });
+
+  console.log(`Campos ${JSON.stringify(fields)}`)
 
   return (
     <Form {...form}>
@@ -56,11 +59,16 @@ function GenericForm<T extends Model>({ modalKey, schema, defaultValues, entityR
                     )}
                     {field.type === FormFieldType.SELECT && (
                       <Select defaultValue={formField.value} onValueChange={formField.onChange}>
-                        {field.options?.map(option => (
-                          <SelectItem key={option.value} value={option.value+''}>
-                            {option.label}
-                          </SelectItem>
-                        ))}
+                        <SelectTrigger>
+                          <SelectValue placeholder={field.placeholder} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {field.options?.map(option => (
+                            <SelectItem key={option.value} value={option.value+''}>
+                              {option.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
                       </Select>
                     )}
                     {field.type === FormFieldType.RADIO && (

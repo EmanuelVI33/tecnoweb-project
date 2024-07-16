@@ -12,7 +12,7 @@ class NewsService
 
     public function getAll()
     {
-        return $this->news->all();
+        return $this->news::with('project', 'newsCategory')->get();
     }
 
     public function getOne(int $id)
@@ -24,8 +24,8 @@ class NewsService
     {
         try {
             return $this->news->create($data);
-        } catch (\Exception $th) {
-            throw new \Exception('news-servive.create Error al crear la noticia', 500);
+        } catch (\Exception $e) {
+            throw new \Exception('news-servive.create Error al crear la noticia', 500, $e);
         }
     }
 
