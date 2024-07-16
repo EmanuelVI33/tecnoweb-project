@@ -5,6 +5,7 @@ use App\Http\Controllers\Edition\PresenterController;
 use App\Http\Controllers\Edition\ProjectController;
 use App\Http\Controllers\NosotrosController;
 use App\Http\Controllers\Production\NewsCategoryController;
+use App\Http\Controllers\Production\NewsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -52,8 +53,11 @@ Route::middleware('auth')->group(function () {
         })->name('admin.dashboard');
 
         Route::group(['prefix' => '/news'], function () {
-            Route::get('/', [ElementController::class, 'index'])->name('news.index');
-            // Route::post('/', [ElementController::class, 'index'])->name('projects.index');
+            Route::get('/', [NewsController::class, 'index'])->name('news.index');
+            Route::post('/', [NewsController::class, 'store'])->name('news.store');
+            Route::get('{id}', [NewsController::class, 'show'])->name('news.show');
+            Route::put('/{id}', [NewsController::class, 'update'])->name('news.update');
+            Route::delete('/{id}', [NewsController::class, 'destroy'])->name('news.destroy');
         });
 
         Route::group(['prefix' => '/news-categories'], function () {
@@ -68,25 +72,5 @@ Route::middleware('auth')->group(function () {
 
 // Aplicar excepcion del token
 Route::post('/elements/webhook', [ElementController::class, 'handleWebhook'])->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
-
-
-// Route::get('/', function () {
-//     return Inertia::render('Welcome', [
-//         'canLogin' => Route::has('login'),
-//         'canRegister' => Route::has('register'),
-//         'laravelVersion' => Application::VERSION,
-//         'phpVersion' => PHP_VERSION,
-//     ]);
-// });
-
-// Route::get('/dashboard', function () {
-//     return Inertia::render('Dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
-// Route::middleware('auth')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
 
 require __DIR__ . '/auth.php';
