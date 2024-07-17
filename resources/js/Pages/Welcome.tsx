@@ -6,14 +6,6 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
   return (
     <>
       <Head title="Welcome">
-        {/* <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml" />
-        <link rel="stylesheet" href="/assets/css/style.css" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
-        <script src="/assets/js/script.js"></script>
-        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-        <script noModule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script> */}
       </Head>
       <div className="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
         <div className="sm:fixed sm:top-0 sm:right-0 p-6 text-end">
