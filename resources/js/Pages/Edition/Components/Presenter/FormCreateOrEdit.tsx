@@ -9,6 +9,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/shadcn/ui/input";
 import { PresenterCreate, Sex } from "@/Pages/Edition/models/presenter";
 import { useEffect, useRef } from "react";
+import { useModalStore } from "@/store/modal-store";
 
 type FormCreateOrEditProps = {
   handleCloseModal: () => void;
@@ -56,7 +57,7 @@ function FormCreateOrEdit({ modalKey }: { modalKey: string }) {
     useEffect(() => {
       if (wasSuccessful) {
         toast.success('Presentador registrado exitosamente');
-        handleCloseModal();
+        toggleModal(modalKey);
       }
     }, [wasSuccessful]);
 
@@ -144,7 +145,7 @@ function FormCreateOrEdit({ modalKey }: { modalKey: string }) {
           )}
 
             <div className="flex justify-between gap-5 mt-5">
-                <Button type="button" variant="destructive" onClick={() => handleCloseModal()}>Cancelar</Button>
+                <Button type="button" variant="destructive" onClick={() => toggleModal(modalKey)}>Cancelar</Button>
                 <Button type="submit" disabled={processing}>Registrar</Button>
             </div>
           </form>

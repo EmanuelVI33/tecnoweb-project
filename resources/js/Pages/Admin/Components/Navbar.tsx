@@ -4,11 +4,8 @@ import { PageProps } from "@/types";
 import { Link, usePage } from "@inertiajs/react";
 import { useState } from "react";
 import menuIcon from '@iconify/icons-mdi/menu';
-<<<<<<< Updated upstream
-=======
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useLocalStorage } from "@uidotdev/usehooks";
->>>>>>> Stashed changes
 
 interface NavbarProps {
   toggleSidebar: () => void;
