@@ -47,7 +47,6 @@ function TableProject() {
                 <TableCaption>Lista de Proyectos</TableCaption>
                 <TableHeader>
                     <TableRow>
-                        <TableHead>Nombre</TableHead>
                         <TableHead>Portada</TableHead>
                         <TableHead className="text-center">Acciones</TableHead>
                     </TableRow>

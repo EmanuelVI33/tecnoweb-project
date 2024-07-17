@@ -5,6 +5,7 @@ import { Link, usePage } from "@inertiajs/react";
 import { useState } from "react";
 import menuIcon from '@iconify/icons-mdi/menu';
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { useLocalStorage } from "@uidotdev/usehooks";
 
 interface NavbarProps {
   toggleSidebar: () => void;
@@ -12,9 +13,13 @@ interface NavbarProps {
 
 function Navbar({ toggleSidebar } : NavbarProps) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+    const [dark, setDark] = useLocalStorage("dark", false);
+
     const toggleDarkMode = () => {
         document.documentElement.classList.toggle('dark');
+        setDark(!dark);
     };
+    
     const { props } = usePage<PageProps>();
     const { auth: { user } } = props;
 

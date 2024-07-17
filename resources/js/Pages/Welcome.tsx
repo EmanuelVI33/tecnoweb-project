@@ -3,6 +3,7 @@ import { PageProps } from '@/types';
 import { IonIcon } from '@ionic/react'; // Asegúrate de importar IonIcon
 
 export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<{ laravelVersion: string, phpVersion: string }>) {
+
   return (
     <>
       <Head title="Welcome">

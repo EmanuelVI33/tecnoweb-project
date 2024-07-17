@@ -54,6 +54,6 @@ class RegisteredUserController extends Controller
             return redirect()->intended(route('projects.index', absolute: false));
         }
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended(route('user.index', absolute: false));
     }
 }
