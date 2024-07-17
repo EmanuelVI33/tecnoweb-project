@@ -60,49 +60,20 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
             <nav className="navbar" data-navbar>
               <ul className="navbar-list">
 
-                <li className="navbar-item">
-                  <a href="#hero" className="navbar-link">Inicio</a>
-                </li>
+                <Link
+                  href={route('login')}
+                  className="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
+                >
+                  Log in
+                </Link>
 
-                <li className="navbar-item">
-                  <a href="#programacion" className="navbar-link">Programación</a>
-                </li>
-
-                <li className="navbar-item">
-                  <a href="#" className="navbar-link">Presentadores</a>
-                </li>
-
-                <li className="navbar-item">
-                  <a href="#" className="navbar-link">Noticias</a>
-                </li>
-
-                <li className="navbar-item">
-                  <a href="#" className="navbar-link">Contacto</a>
-                </li>
-
+                <Link
+                  href={route('register')}
+                  className="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
+                >
+                  Register
+                </Link>
               </ul>
-
-              <div className="navbar-actions">
-
-                <button className="navbar-btn">
-                  <IonIcon name="search-outline"></IonIcon>
-                </button>
-
-                <button className="navbar-btn">
-                  <IonIcon name="log-in-outline"></IonIcon>
-                </button>
-
-                <button className="navbar-btn">
-                  <IonIcon name="cart-outline"></IonIcon>
-                </button>
-
-                <button className="btn">
-                  <IonIcon name="logo-paypal"></IonIcon>
-
-                  <span>Suscripción</span>
-                </button>
-
-              </div>
             </nav>
 
           </div>
