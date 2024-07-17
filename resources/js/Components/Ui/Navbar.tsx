@@ -2,10 +2,10 @@ import { Link, usePage } from "@inertiajs/react"
 import NavLink from "../NavLink"
 import Dropdown from "../Dropdown"
 import ResponsiveNavLink from "../ResponsiveNavLink"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ProjectShowPageProps } from '../../types/index';
-import { IconStar } from '../icons/icon';
 import SaveToogle from "./SaveToogle"
+import { useLocalStorage } from "@uidotdev/usehooks"
 
 function Navbar() {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
@@ -13,9 +13,34 @@ function Navbar() {
     const { auth: { user } } = props;
     const selectedProject = props.project;
 
+    const [dark, setDark] = useLocalStorage("dark", false);
+    const [fontSize, setFontSize] = useLocalStorage("fontSize", "text-base");
+
+    useEffect(() => {
+        if (dark) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    },[]);
+
+    useEffect(() => {
+        document.documentElement.classList.remove('text-xs', 'text-sm', 'text-base', 'text-lg', 'text-xl', 'text-2xl');
+        document.documentElement.classList.add(fontSize);
+    }, [fontSize]);
+
     const toggleDarkMode = () => {
         document.documentElement.classList.toggle('dark');
+        setDark(!dark);
     };
+
+    const changeFontSize = (size: string) => {
+        setFontSize(size);
+    };
+
+    // const toggleDarkMode = () => {
+    //     document.documentElement.classList.toggle('dark');
+    // };
 
     return (
         <nav className="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 border-b border-gray-100 dark:border-gray-800">
