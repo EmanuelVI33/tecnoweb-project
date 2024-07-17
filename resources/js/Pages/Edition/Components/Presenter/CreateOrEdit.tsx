@@ -1,23 +1,27 @@
-import { Dialog } from "@/Components/Ui/Dialog"
 import FormCreateOrEdit from "./FormCreateOrEdit"
-import { useState } from "react";
+import { CustomDialog2 } from "@/Components/Ui/CustomDialog2";
+
+export const presenterModalKey = 'presenterModal'
 
 function CreateOrEdit() {
-    const [open, setOpen] = useState(false);
+    // const [open, setOpen] = useState(false);
 
-    const handleTogle = () => {
-        setOpen((open) => !open);
-    }
+    // const handleTogle = () => {
+    //     setOpen((open) => !open);
+    // }
 
     return (
-        <Dialog 
-            open={open}
-            handleTogleModal={handleTogle}
-            title="Registrando presentador"
-            titleButton="Registrar presentador" 
+        <CustomDialog2 
+            title="Creando Presentador" 
+            titleButton="Crear Presentador" 
+            modalKey={presenterModalKey}
+            // open={open}
+            // handleTogleModal={handleTogle}
+            // title="Registrando presentador"
+            // titleButton="Registrar presentador" 
         >
-            <FormCreateOrEdit handleCloseModal={handleTogle} />
-        </Dialog>
+            <FormCreateOrEdit modalKey={presenterModalKey} />
+        </CustomDialog2>
     )
 }
 

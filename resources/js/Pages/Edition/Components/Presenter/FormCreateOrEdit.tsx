@@ -34,30 +34,31 @@ const presenter = {
   photo_url: undefined,
 }
 
-function FormCreateOrEdit({ handleCloseModal }: FormCreateOrEditProps) {
-  const { data, post, processing, errors, progress, wasSuccessful } = useForm<PresenterCreate>(presenter);
+function FormCreateOrEdit({ modalKey }: { modalKey: string }) {
+  const { data, post, processing, errors, progress, wasSuccessful, reset } = useForm<PresenterCreate>(presenter);
   const form = useReactForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-  });
+      resolver: zodResolver(formSchema),
+  }); 
+  const { modals, toggleModal } = useModalStore();
   const photoRef = useRef<HTMLInputElement>(null);
   const submit = (values: z.infer<typeof formSchema>) => {
     console.log(values);
     if (photoRef.current && photoRef.current.files) {
-      data.photo_url = photoRef.current?.files[0];
+        data.photo_url = photoRef.current?.files[0];
     }
 
-    data.full_name = values.full_name;
-    data.sex = values.sex;
+        data.full_name = values.full_name;
+        data.sex = values.sex;
+       
+        post('/presenters');
+    };
 
-    post('/presenters');
-  };
-
-  useEffect(() => {
-    if (wasSuccessful) {
-      toast.success('Presentador registrado exitosamente');
-      handleCloseModal();
-    }
-  }, [wasSuccessful]);
+    useEffect(() => {
+      if (wasSuccessful) {
+        toast.success('Presentador registrado exitosamente');
+        handleCloseModal();
+      }
+    }, [wasSuccessful]);
 
   return (
     <>
@@ -142,14 +143,14 @@ function FormCreateOrEdit({ handleCloseModal }: FormCreateOrEditProps) {
             </progress>
           )}
 
-          <div className="flex justify-between gap-5 mt-5">
-            <Button type="button" variant="destructive" onClick={() => handleCloseModal()}>Cancelar</Button>
-            <Button type="submit" disabled={processing}>Registrar</Button>
-          </div>
-        </form>
-      </Form>
-    </>
-  );
-}
+            <div className="flex justify-between gap-5 mt-5">
+                <Button type="button" variant="destructive" onClick={() => handleCloseModal()}>Cancelar</Button>
+                <Button type="submit" disabled={processing}>Registrar</Button>
+            </div>
+          </form>
+        </Form>
+      </>
+    );
+  }
 
 export default FormCreateOrEdit;

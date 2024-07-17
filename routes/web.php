@@ -7,6 +7,7 @@ use App\Http\Controllers\NosotrosController;
 use App\Http\Controllers\Production\NewsCategoryController;
 use App\Http\Controllers\Production\NewsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -67,6 +68,11 @@ Route::middleware('auth')->group(function () {
             Route::put('/{id}', [NewsCategoryController::class, 'update'])->name('news-categories.update');
             Route::delete('/{id}', [NewsCategoryController::class, 'destroy'])->name('news-categories.destroy');
         });
+    });
+
+    Route::group(['prefix' => '/user'], function () {
+        Route::get('/', [UserController::class, 'index'])->name('user.index');
+        Route::post('/', [UserController::class, 'suscription'])->name('user.suscription');
     });
 });
 
