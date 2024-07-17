@@ -28,7 +28,7 @@ export function CustomDialog2({
 
   return (
     <div>
-      <Button className="flex gap-2" onClick={() => toggleModal(modalKey)}>
+      <Button className="flex gap-2" onClick={() => toggleModal(modalKey)} type="button">
         <span>{titleButton}</span>
         {icon ? icon : null}
       </Button>

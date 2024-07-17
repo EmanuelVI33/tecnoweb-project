@@ -9,10 +9,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/shadcn/ui/input";
 import { PresenterCreate, Sex } from "@/Pages/Edition/models/presenter";
 import { useEffect, useRef } from "react";
-
-type FormCreateOrEditProps = {
-    handleCloseModal: () => void;
-}
+import { useModalStore } from "@/store/modal-store";
 
 const formSchema = z.object({
     full_name: z.string().min(3),
@@ -26,30 +23,41 @@ const presenter = {
     photo_url: undefined,
 }
 
-function FormCreateOrEdit({ handleCloseModal } : FormCreateOrEditProps) {
-    const { data, post, processing, errors, progress, wasSuccessful } = useForm<PresenterCreate>(presenter);
-    const form = useReactForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-    }); 
-    const photoRef = useRef<HTMLInputElement>(null);
-    const submit = (values: z.infer<typeof formSchema>) => {
-        console.log(values);
-        if (photoRef.current && photoRef.current.files) {
-            data.photo_url = photoRef.current?.files[0];
-        }
+function FormCreateOrEdit({ modalKey }: { modalKey: string }) {
+  const { data, post, processing, errors, progress, wasSuccessful, reset } = useForm<PresenterCreate>(presenter);
+  const form = useReactForm<z.infer<typeof formSchema>>({
+      resolver: zodResolver(formSchema),
+  }); 
+  const { modals, toggleModal } = useModalStore();
+  const photoRef = useRef<HTMLInputElement>(null);
+  const submit = (values: z.infer<typeof formSchema>) => {
+    console.log(values);
+    if (photoRef.current && photoRef.current.files) {
+        data.photo_url = photoRef.current?.files[0];
+    }
 
-        data.full_name = values.full_name;
-        data.sex = values.sex;
-       
-        post('/presenters');
-    };
-
-    useEffect(() => {
-      if (wasSuccessful) {
-        toast.success('Presentador registrado exitosamente');
-        handleCloseModal();
+    data.full_name = values.full_name;
+    data.sex = values.sex;
+    
+    post('/presenters', {
+      onError: (serverErrors) => {
+          // Maneja los errores del servidor aquí
+          console.log(serverErrors);
+      },
+      onSuccess: () => {
+          // Maneja el éxito del servidor aquí
+          toast.success('Presentador registrado exitosamente');
+          toggleModal(modalKey);
       }
-    }, [wasSuccessful]);
+    });
+  };
+
+    // useEffect(() => {
+    //   if (!errors && wasSuccessful) {
+    //     toast.success('Presentador registrado exitosamente');
+    //     toggleModal(modalKey);
+    //   }
+    // }, [wasSuccessful, errors]);
 
     return (
       <>
@@ -135,7 +143,7 @@ function FormCreateOrEdit({ handleCloseModal } : FormCreateOrEditProps) {
             )}
 
             <div className="flex justify-between gap-5 mt-5">
-                <Button type="button" variant="destructive" onClick={() => handleCloseModal()}>Cancelar</Button>
+                <Button type="button" variant="destructive" onClick={() => toggleModal(modalKey)}>Cancelar</Button>
                 <Button type="submit" disabled={processing}>Registrar</Button>
             </div>
           </form>

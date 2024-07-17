@@ -5,6 +5,7 @@ use App\Http\Controllers\Edition\PresenterController;
 use App\Http\Controllers\Edition\ProjectController;
 use App\Http\Controllers\NosotrosController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -54,6 +55,11 @@ Route::middleware('auth')->group(function () {
             Route::get('/', [ElementController::class, 'index'])->name('news.index');
             // Route::post('/', [ElementController::class, 'index'])->name('projects.index');
         });
+    });
+
+    Route::group(['prefix' => '/user'], function () {
+        Route::get('/', [UserController::class, 'index'])->name('user.index');
+        Route::post('/', [UserController::class, 'suscription'])->name('user.suscription');
     });
 });
 

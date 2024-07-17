@@ -2,9 +2,11 @@ import { useState, PropsWithChildren, ReactNode } from 'react';
 import { User } from '@/types';
 import Navbar from '../Components/Navbar';
 import Sidebar from '../Components/Sidebars';
+import { useLocalStorage } from "@uidotdev/usehooks";
 
 export function AdminLayout({ user,  children }: PropsWithChildren<{ user: User }>) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);

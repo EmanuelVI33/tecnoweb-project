@@ -63,16 +63,36 @@ function FormProject({ modalKey }: FormCreateOrEditProps) {
     data.cover_url = acceptedFiles[0] || values.cover_url;
 
     modalState.isEditing 
-      ? post(route("projects.update", modalState.currentId!))
-      : post(route("projects.store"));
+      ? post(route("projects.update", modalState.currentId!),  {
+        onError: (serverErrors) => {
+            // Maneja los errores del servidor aquí
+            console.log(serverErrors);
+        },
+        onSuccess: () => {
+            // Maneja el éxito del servidor aquí
+            toast.success('Proyecto registrado exitosamente');
+            toggleModal(modalKey);
+        }
+    })
+      : post(route("projects.store"),  {
+        onError: (serverErrors) => {
+            // Maneja los errores del servidor aquí
+            console.log(serverErrors);
+        },
+        onSuccess: () => {
+            // Maneja el éxito del servidor aquí
+            toast.success('Proyecto actualizado exitosamente');
+            toggleModal(modalKey);
+        }
+    });
   }
 
-  useEffect(() => {
-    if (wasSuccessful) {
-      toast.success(`Projecto ${modalState.isEditing ? 'actualizado' : 'creado'} exitosamente`);
-      toggleModal(modalKey);
-    }
-  }, [wasSuccessful]);
+  // useEffect(() => {
+  //   if (wasSuccessful ) {
+  //     toast.success(`Projecto ${modalState.isEditing ? 'actualizado' : 'creado'} exitosamente`);
+  //     toggleModal(modalKey);
+  //   }
+  // }, [wasSuccessful]);
 
   return (
     <Form {...form}>
