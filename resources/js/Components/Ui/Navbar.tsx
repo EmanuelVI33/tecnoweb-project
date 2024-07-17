@@ -6,6 +6,7 @@ import { useEffect, useState } from "react"
 import { ProjectShowPageProps } from '../../types/index';
 import SaveToogle from "./SaveToogle"
 import { useLocalStorage } from "@uidotdev/usehooks"
+import FontSizeDropdown from "./FontSizeDropdown"
 
 function Navbar() {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
@@ -37,10 +38,6 @@ function Navbar() {
     const changeFontSize = (size: string) => {
         setFontSize(size);
     };
-
-    // const toggleDarkMode = () => {
-    //     document.documentElement.classList.toggle('dark');
-    // };
 
     return (
         <nav className="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 border-b border-gray-100 dark:border-gray-800">
@@ -76,6 +73,7 @@ function Navbar() {
                             >
                                 🌙
                             </button>
+                            <FontSizeDropdown changeFontSize={changeFontSize} />
                             <div className="ms-3 relative">
                                 <Dropdown>
                                     <Dropdown.Trigger>

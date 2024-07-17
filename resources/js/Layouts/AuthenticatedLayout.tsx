@@ -1,13 +1,34 @@
-import { useState, PropsWithChildren, ReactNode } from 'react';
+import { useState, PropsWithChildren, ReactNode, useEffect } from 'react';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
 import { User } from '@/types';
 import { Toaster } from '@/shadcn/ui/sonner';
+import { useLocalStorage } from '@uidotdev/usehooks';
+import FontSizeDropdown from '@/Components/Ui/FontSizeDropdown';
 
 export default function Authenticated({ user, header, children, sidebar }: PropsWithChildren<{ user: User, header?: ReactNode, sidebar?: ReactNode}>) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+    const [dark, setDark] = useLocalStorage("dark", false);
+    const [fontSize, setFontSize] = useLocalStorage("fontSize", "text-base");
+
+    useEffect(() => {
+        if (dark) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    },[]);
+
+    useEffect(() => {
+        document.documentElement.classList.remove('text-xs', 'text-sm', 'text-base', 'text-lg', 'text-xl', 'text-2xl');
+        document.documentElement.classList.add(fontSize);
+    }, [fontSize]);
+
+    const changeFontSize = (size: string) => {
+        setFontSize(size);
+    };
 
     const toggleDarkMode = () => {
         document.documentElement.classList.toggle('dark');
@@ -37,6 +58,8 @@ export default function Authenticated({ user, header, children, sidebar }: Props
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ms-6">
+                            <FontSizeDropdown changeFontSize={changeFontSize} />
+
                             <button
                                 className="rounded text-gray-900 dark:text-gray-100 hover:bg-slate-100 dark:hover:bg-slate-700 px-1 ml-4"
                                 onClick={toggleDarkMode}
