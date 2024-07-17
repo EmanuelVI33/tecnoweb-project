@@ -1,6 +1,6 @@
 import { Link, Head } from '@inertiajs/react';
 import { PageProps } from '@/types';
-import { IonIcon } from '@ionic/react'; // Asegúrate de importar IonIcon
+// import { IonIcon } from '@ionic/react'; // Asegúrate de importar IonIcon
 
 export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<{ laravelVersion: string, phpVersion: string }>) {
   return (
@@ -45,7 +45,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
             </a>
 
             <button className="nav-toggle-btn" data-nav-toggle-btn>
-              <IonIcon name="menu-outline"></IonIcon>
+              {/* <IonIcon name="menu-outline"></IonIcon> */}
             </button>
 
             <nav className="navbar" data-navbar>
@@ -95,7 +95,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
                 <div className="hero-btn-group">
 
                   <button className="btn btn-primary">
-                    <IonIcon name="tv-outline"></IonIcon>
+                    {/* <IonIcon name="tv-outline"></IonIcon> */}
 
                     <span>Ver Ahora</span>
                   </button>
@@ -105,19 +105,19 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
                     <p className="btn-title">Síguenos en:</p>
 
                     <a href="#" className="btn-link">
-                      <IonIcon name="logo-youtube"></IonIcon>
+                      {/* <IonIcon name="logo-youtube"></IonIcon> */}
 
                       <span>YouTube</span>
                     </a>
 
                     <a href="#" className="btn-link">
-                      <IonIcon name="logo-facebook"></IonIcon>
+                      {/* <IonIcon name="logo-facebook"></IonIcon> */}
 
                       <span>Facebook</span>
                     </a>
 
                     <a href="#" className="btn-link">
-                      <IonIcon name="logo-instagram"></IonIcon>
+                      {/* <IonIcon name="logo-instagram"></IonIcon> */}
 
                       <span>Instagram</span>
                     </a>
@@ -141,7 +141,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
                     <figure className="card-banner">
                       <img src="/assets/images/podcast-1.png" alt="La Universidad Autónoma Gabriel René Moreno ha inaugurado una nueva biblioteca con recursos modernos para estudiantes y docentes." />
                       <div className="card-banner-icon">
-                        <IonIcon name="play"></IonIcon>
+                        {/* <IonIcon name="play"></IonIcon> */}
                       </div>
                     </figure>
 
@@ -164,7 +164,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
                     <figure className="card-banner">
                       <img src="/assets/images/podcast-2.png" alt="La UAGRM abre convocatoria para becas de investigación en diversas áreas científicas y tecnológicas. ¡Aplica ahora!" />
                       <div className="card-banner-icon">
-                        <IonIcon name="play"></IonIcon>
+                        {/* <IonIcon name="play"></IonIcon> */}
                       </div>
                     </figure>
 
@@ -187,7 +187,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
                     <figure className="card-banner">
                       <img src="/assets/images/podcast-3.png" alt="La UAGRM celebra la Semana de la Ciencia y Tecnología con exposiciones, conferencias y talleres abiertos al público." />
                       <div className="card-banner-icon">
-                        <IonIcon name="play"></IonIcon>
+                        {/* <IonIcon name="play"></IonIcon> */}
                       </div>
                     </figure>
 
