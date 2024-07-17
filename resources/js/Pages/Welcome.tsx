@@ -87,7 +87,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
 
               <div className="hero-content">
 
-                <img src="http://mail.tecnoweb.org.bo/inf513/grupo23sa/proyecto2/public/assets/images/hero-title.png" alt="Canal 11 TVU" className="hero-title" />
+                <img src="/Logo.jpg" alt="Canal 11 TVU" className="hero-title" />
                 <p className="hero-text">
                   Bienvenido a Canal 11 TVU, donde encontrarás la mejor programación en noticias, entretenimiento, y eventos en vivo. ¡Sintoniza ahora y no te pierdas nada!
                 </p>
