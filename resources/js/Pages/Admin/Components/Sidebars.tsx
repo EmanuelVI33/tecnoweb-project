@@ -43,7 +43,7 @@ const menuOptions = [
         url: '#',
       },
       {
-        label: 'Crear Suscripción',
+        label: 'Lista de planes',
         url: '#',
       },
     ],
@@ -106,7 +106,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
                     onClick={() => toggleMenu(option.id)}
                   >
                     <div className="flex items-center">
-                      <Icon icon={option.icon} width="24" height="24" className="mr-2" />
+                      {/* <Icon icon={option.icon} width="24" height="24" className="mr-2" /> */}
                       {option.label}
                     </div>
                     <Icon icon={menuOpen[option.id] ? arrowUp : arrowDown} width="24" height="24" />
@@ -114,7 +114,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
                 ) : (
                   <Link href={option.url} className="flex items-center justify-between w-full text-gray-900 dark:text-gray-100 p-2 rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition duration-200">
                     <div className="flex items-center">
-                      <Icon icon={option.icon} width="24" height="24" className="mr-2" />
+                      {/* <Icon icon={option.icon} width="24" height="24" className="mr-2" /> */}
                       {option.label}
                     </div>
                   </Link>
