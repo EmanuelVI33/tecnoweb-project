@@ -42,16 +42,9 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
           )}
         </div>
 
-
-
-
-
         <header className="active" data-header>
           <div className="container">
 
-            <!--
-            - overlay
-        -->
             <div className="overlay" data-overlay></div>
 
             <a href="#" className="logo">
