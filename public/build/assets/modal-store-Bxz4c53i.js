@@ -1,1 +1,0 @@
-import{c as r}from"./index-gOUqg7wj.js";const n=r(e=>({modals:{},toggleModal:(o,s=!1,d=null)=>e(l=>{var a;return{modals:{...l.modals,[o]:{open:!((a=l.modals[o])!=null&&a.open),isEditing:s,currentId:d}}}})}));export{n as u};

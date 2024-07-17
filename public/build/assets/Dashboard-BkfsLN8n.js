@@ -1,0 +1,1 @@
+import{j as r}from"./app-CYo2BHhq.js";import{A as s}from"./AuthenticatedLayout-B-6518v9.js";import"./ResponsiveNavLink-CNak4_nl.js";import"./transition-BGFIUmFy.js";import"./sonner-C8b32o-S.js";import"./index-D4ankv4Q.js";function u({auth:t,presenters:o}){return console.log(o),r.jsx(s,{user:t.user,children:r.jsx("p",{children:"Vista user"})})}export{u as default};

@@ -84,9 +84,9 @@ function GenericForm<T extends Model>({ modalKey, schema, defaultValues, entityR
                   </>
                 </FormControl>
                 <FormMessage />
-                {errors[field.name as keyof T] && (
+                {/* {errors[field.name as keyof T] && (
                   <p className="mt-2 text-sm text-red-600">{errors[field.name as keyof T]}</p>
-                )}
+                )} */}
               </FormItem>
             )}
           />

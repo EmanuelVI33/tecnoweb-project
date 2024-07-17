@@ -1,0 +1,1 @@
+import{j as t}from"./app-CYo2BHhq.js";import{A as s}from"./AuthenticatedLayout-B-6518v9.js";import"./ResponsiveNavLink-CNak4_nl.js";import"./transition-BGFIUmFy.js";import"./sonner-C8b32o-S.js";import"./index-D4ankv4Q.js";function n({auth:o,presenters:r}){return console.log(r),t.jsx(s,{user:o.user})}export{n as default};

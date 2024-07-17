@@ -16,8 +16,7 @@ import withModal, { useModal } from "@/Contexts/ModalContext";
 import ErrorModal from "@/Components/Ui/ErrorModal";
 import Player from "./Components/Project/Player";
 
-function ProjectShow({ project, flash} : ProjectShowPageProps) {
-    console.log(flash);
+function ProjectShow({ project, success, error} : ProjectShowPageProps) {
     const { toggleModal } = useModal();
     const { initElement, elements, togleSave } = useSelectedProjectStore();
     const { post, wasSuccessful, errors } = useForm<{elements: Element[], project_id: string;}>({
@@ -27,13 +26,13 @@ function ProjectShow({ project, flash} : ProjectShowPageProps) {
 
     useEffect(() => {
         console.log('activado')
-        if (flash.success) {
+        if (success) {
             toast.success('Generando vídeos');
             togleSave();
-        } else if (flash.error != null) {
+        } else if (error != null) {
             toggleModal(); 
         }
-    }, [wasSuccessful, flash]);
+    }, [wasSuccessful, success, errors]);
 
     useEffect(() => {
         const elements = ElementMapper.fromElementResponseToEntity(project.elements);
@@ -84,7 +83,7 @@ function ProjectShow({ project, flash} : ProjectShowPageProps) {
                     <Timeline />
                 </div>
 
-                {flash.error && <ErrorModal error={flash.error} />}
+                {error && <ErrorModal error={error} />}
             </div>
         </EditionLayout>
     )

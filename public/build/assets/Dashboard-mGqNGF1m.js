@@ -1,1 +1,0 @@
-import{j as r}from"./app-CtOOS7DE.js";import{A as e}from"./AuthenticatedLayout-DpvhGbd5.js";import"./ResponsiveNavLink-DyQfDSFr.js";import"./transition-DeeN6His.js";import"./sonner-DaLyzcpo.js";import"./index-DdRWKeN6.js";function u({auth:o,presenters:t}){return console.log(t),r.jsx(e,{user:o.user,children:r.jsx("h1",{children:"User normal"})})}export{u as default};
