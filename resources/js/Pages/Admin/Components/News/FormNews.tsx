@@ -5,9 +5,9 @@ import { News } from '../../Models/news';
 import { NewsIndexProps } from '../../Models';
 
 const formSchema = z.object({
-  title: z.string().min(3),
-  content: z.string().min(3),
-  news_category_id: z.string().min(1),
+  title: z.string().min(3, { message: 'El titulo debe tener al menos 3 caracteres' }),
+  content: z.string().min(3, { message: 'El contenido debe tener al menos 3 caracteres' }),
+  news_category_id: z.string().min(1, { message: 'El id de la categoria de noticias es obligatorio' }),
 });
 
 const newsForm = {
@@ -19,15 +19,15 @@ const newsForm = {
 
 const fields: FormFieldConfig[] = [
   { name: 'title', label: 'Título de la noticia', placeholder: 'título', type: FormFieldType.TEXT, },
-  { name: 'content', label: 'Contenido', placeholder: 'Redacta la noticia', type: FormFieldType.TEXTAREA,},
-  { 
-    name: 'news_category_id', 
-    label: 'Categorías', 
+  { name: 'content', label: 'Contenido', placeholder: 'Redacta la noticia', type: FormFieldType.TEXTAREA, },
+  {
+    name: 'news_category_id',
+    label: 'Categorías',
     placeholder: 'Selecciona una categoría',
-    type: FormFieldType.SELECT, 
+    type: FormFieldType.SELECT,
   },
 ];
-  
+
 function FormNews({ modalKey }: { modalKey: string }) {
   const { newsCategories } = usePage<NewsIndexProps>().props;
   fields[2].options = newsCategories.map(category => ({ value: category.id!, label: category.name }));

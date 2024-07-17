@@ -16,18 +16,21 @@ import { useModalStore } from "@/store/modal-store";
 import { useDropzone } from 'react-dropzone';
 
 const formSchema = z.object({
-    name: z.string().min(3),
-    description: z.string().optional(),
-    cover_url: z.union([z.string(), z.instanceof(File)]), 
-    presenter_id: z.string(),
+  name: z.string().min(3, { message: 'El nombre debe tener al menos 3 caracteres' }),
+  description: z.string().optional(),
+  cover_url: z.union([
+    z.string().url({ message: 'La URL de la portada no es válida' }),
+    z.instanceof(File, { message: 'El archivo de portada debe ser un archivo válido' })
+  ]),
+  presenter_id: z.string().min(1, { message: 'Seleccione un presentador para su proyecto' }),
 });
 
 const projectForm = {
-    id: '',
-    name: '',
-    description: '',
-    cover_url: '',
-    presenter_id: '',
+  id: '',
+  name: '',
+  description: '',
+  cover_url: '',
+  presenter_id: '',
 }
 
 interface FormCreateOrEditProps {
@@ -35,12 +38,12 @@ interface FormCreateOrEditProps {
 }
 
 function FormProject({ modalKey }: FormCreateOrEditProps) {
-  const { props: { presenters, projects }} = usePage<ProjectPageProps>();
+  const { props: { presenters, projects } } = usePage<ProjectPageProps>();
   const { modals, toggleModal } = useModalStore();
   const modalState = modals[modalKey] || { open: false, isEditing: false, currentId: null };
   const project = getInitialProject(modalState, projects) || projectForm;
   const { data, post, wasSuccessful, progress, processing, errors } = useForm({
-    ...project, 
+    ...project,
     _method: modalState.isEditing ? 'PUT' : undefined,
   });
   const form = useReactForm<z.infer<typeof formSchema>>({
@@ -48,8 +51,8 @@ function FormProject({ modalKey }: FormCreateOrEditProps) {
     defaultValues: {
       ...project
     },
-  }); 
-  const onDrop =  useCallback((acceptedFiles: File[]) => {
+  });
+  const onDrop = useCallback((acceptedFiles: File[]) => {
   }, []);
 
   const { getRootProps, getInputProps, acceptedFiles } = useDropzone({ onDrop });
@@ -59,10 +62,10 @@ function FormProject({ modalKey }: FormCreateOrEditProps) {
 
     data.name = values.name;
     data.description = values.description;
-    data.presenter_id = values.presenter_id; 
+    data.presenter_id = values.presenter_id;
     data.cover_url = acceptedFiles[0] || values.cover_url;
 
-    modalState.isEditing 
+    modalState.isEditing
       ? post(route("projects.update", modalState.currentId!))
       : post(route("projects.store"));
   }
@@ -85,10 +88,10 @@ function FormProject({ modalKey }: FormCreateOrEditProps) {
             <FormItem className="mb-3">
               <FormLabel htmlFor="name">Nombre del Proyecto</FormLabel>
               <FormControl>
-                <Input 
-                    id="name"
-                    placeholder="nombre"
-                    {...field} 
+                <Input
+                  id="name"
+                  placeholder="nombre"
+                  {...field}
                 />
               </FormControl>
               <FormMessage />
@@ -103,10 +106,10 @@ function FormProject({ modalKey }: FormCreateOrEditProps) {
             <FormItem className="mb-3">
               <FormLabel htmlFor="description">Descripción</FormLabel>
               <FormControl>
-                <Textarea 
-                    id="description"
-                    placeholder="descripción" 
-                    {...field} 
+                <Textarea
+                  id="description"
+                  placeholder="descripción"
+                  {...field}
                 />
               </FormControl>
               <FormMessage />
@@ -178,7 +181,7 @@ function FormProject({ modalKey }: FormCreateOrEditProps) {
                       </FormItem>
                     ))}
                   </div>
-                </RadioGroup>  
+                </RadioGroup>
               </FormControl>
               <FormMessage />
               {errors.presenter_id && <p className="mt-2 text-sm text-red-600">{errors.presenter_id}</p>}
@@ -186,14 +189,14 @@ function FormProject({ modalKey }: FormCreateOrEditProps) {
           )}
         />
         {progress && (
-            <progress value={progress.percentage} max="100">
-                {progress.percentage}%
-            </progress>
+          <progress value={progress.percentage} max="100">
+            {progress.percentage}%
+          </progress>
         )}
 
         <div className="flex justify-between gap-5 mt-5">
-            <Button type="button" variant="destructive" onClick={() => toggleModal(modalKey)}>Cancelar</Button>
-            <Button type="submit" disabled={processing}>{modalState.isEditing ? 'Actualizar' : 'Registrar'}</Button>
+          <Button type="button" variant="destructive" onClick={() => toggleModal(modalKey)}>Cancelar</Button>
+          <Button type="submit" disabled={processing}>{modalState.isEditing ? 'Actualizar' : 'Registrar'}</Button>
         </div>
       </form>
     </Form>
@@ -207,7 +210,7 @@ const getInitialProject = (
 ): ProjectCreate | null => {
   if (modalState.isEditing) {
     const projectInit = projects.find(project => project.id === modalState.currentId);
-    if (projectInit) {  
+    if (projectInit) {
       return {
         id: projectInit.id,
         name: projectInit.name,

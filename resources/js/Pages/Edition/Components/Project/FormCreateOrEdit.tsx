@@ -15,26 +15,26 @@ import CreateOrEdit from "../Presenter/CreateOrEdit";
 import { ProjectPageProps } from "@/types";
 
 const formSchema = z.object({
-    name: z.string().min(3),
-    description: z.string().optional(),
-    cover_url: z.string(),
-    presenter_id: z.string(),
+  name: z.string().min(3, { message: 'El nombre debe tener al menos 3 caracteres' }),
+  description: z.string().optional(),
+  cover_url: z.string().url({ message: 'La URL de la portada no es válida' }),
+  presenter_id: z.string().min(1, { message: 'Seleccione un presentador para su proyecto' }),
 });
 
 const project: ProjectCreate = {
-    name: '',
-    description: '',
-    cover_url: undefined,
-    presenter_id: '',
+  name: '',
+  description: '',
+  cover_url: undefined,
+  presenter_id: '',
 }
 
 function FormCreateOrEdit() {
   const { data, post, processing, errors, progress, wasSuccessful } = useForm<ProjectCreate>(project);
-  const { props: { presenters }} = usePage<ProjectPageProps>();
+  const { props: { presenters } } = usePage<ProjectPageProps>();
   const { handleTogle } = useContext(CustomDialogContext);
   const form = useReactForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-  }); 
+  });
   const coverRef = useRef<HTMLInputElement>(null);
 
   console.log(`Desde el form: ${presenters}`)
@@ -42,13 +42,13 @@ function FormCreateOrEdit() {
   const submit = (values: z.infer<typeof formSchema>) => {
     console.log(values);
     if (coverRef.current && coverRef.current.files) {
-        data.cover_url = coverRef.current?.files[0];
+      data.cover_url = coverRef.current?.files[0];
     }
 
     data.name = values.name;
     data.description = values.description;
     data.presenter_id = values.presenter_id;
-    
+
     post('/projects');
   };
 
@@ -69,10 +69,10 @@ function FormCreateOrEdit() {
             <FormItem className="mb-3">
               <FormLabel htmlFor="name">Nombre del Proyecto</FormLabel>
               <FormControl>
-                <Input 
-                    id="name"
-                    placeholder="nombre"
-                    {...field} 
+                <Input
+                  id="name"
+                  placeholder="nombre"
+                  {...field}
                 />
               </FormControl>
               <FormMessage />
@@ -87,10 +87,10 @@ function FormCreateOrEdit() {
             <FormItem className="mb-3">
               <FormLabel htmlFor="description">Descripción</FormLabel>
               <FormControl>
-                <Textarea 
-                    id="description"
-                    placeholder="descripción" 
-                    {...field} 
+                <Textarea
+                  id="description"
+                  placeholder="descripción"
+                  {...field}
                 />
               </FormControl>
               <FormMessage />
@@ -105,11 +105,11 @@ function FormCreateOrEdit() {
             <FormItem className="mb-3">
               <FormLabel>Portada</FormLabel>
               <FormControl>
-                <Input 
-                    type="file" 
-                    placeholder="foto"
-                    {...field} 
-                    ref={coverRef}
+                <Input
+                  type="file"
+                  placeholder="foto"
+                  {...field}
+                  ref={coverRef}
                 />
               </FormControl>
               <FormMessage />
@@ -149,7 +149,7 @@ function FormCreateOrEdit() {
                       </FormItem>
                     ))}
                   </div>
-                </RadioGroup>  
+                </RadioGroup>
               </FormControl>
               <FormMessage />
               {errors.presenter_id && <p className="mt-2 text-sm text-red-600">{errors.presenter_id}</p>}
@@ -157,14 +157,14 @@ function FormCreateOrEdit() {
           )}
         />
         {progress && (
-            <progress value={progress.percentage} max="100">
-                {progress.percentage}%
-            </progress>
+          <progress value={progress.percentage} max="100">
+            {progress.percentage}%
+          </progress>
         )}
 
         <div className="flex justify-between gap-5 mt-5">
-            <Button type="button" variant="destructive" onClick={() => handleTogle()}>Cancelar</Button>
-            <Button type="submit" disabled={processing}>Registrar</Button>
+          <Button type="button" variant="destructive" onClick={() => handleTogle()}>Cancelar</Button>
+          <Button type="submit" disabled={processing}>Registrar</Button>
         </div>
       </form>
     </Form>

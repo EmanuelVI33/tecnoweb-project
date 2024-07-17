@@ -8,7 +8,7 @@ export default function Dashboard({ auth, presenters }: PageProps) {
         <AdminLayout
             user={auth.user}
         >
-            Pagina de administrativo asdsadsad
+            Pagina de administrativo
         </AdminLayout>
     );
 }
