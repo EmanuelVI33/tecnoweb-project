@@ -41,7 +41,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
             <div className="overlay" data-overlay></div>
 
             <a href="#" className="logo">
-              <img src="https://raw.githubusercontent.com/EmanuelVI33/tecnoweb-project/main/public/assets/images/hero-title.png" alt="Canal 11 TVU logo" width="50" height="50" />
+              <img src="public/assets/images/hero-title.png" alt="Canal 11 TVU logo" width="50" height="50" />
             </a>
 
             <button className="nav-toggle-btn" data-nav-toggle-btn>
@@ -87,7 +87,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
 
               <div className="hero-content">
 
-                {/* <img src="/Logo.jpg" alt="Canal 11 TVU" className="hero-title" /> */}
+                <img src="public/assets/images/Logo.jpg" alt="Canal 11 TVU" className="hero-title" />
                 <p className="hero-text">
                   Bienvenido a Canal 11 TVU, donde encontrarás la mejor programación en noticias, entretenimiento, y eventos en vivo. ¡Sintoniza ahora y no te pierdas nada!
                 </p>
@@ -139,7 +139,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
                   <a href="#" className="podcast-card">
 
                     <figure className="card-banner">
-                      <img src="assets/images/podcast-1.png" alt="La Universidad Autónoma Gabriel René Moreno ha inaugurado una nueva biblioteca con recursos modernos para estudiantes y docentes." />
+                      <img src="public/assets/images/podcast-1.png" alt="La Universidad Autónoma Gabriel René Moreno ha inaugurado una nueva biblioteca con recursos modernos para estudiantes y docentes." />
                       <div className="card-banner-icon">
                         {/* <IonIcon name="play"></IonIcon> */}
                       </div>
@@ -162,7 +162,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
                   <a href="#" className="podcast-card">
 
                     <figure className="card-banner">
-                      <img src="/podcast-2.png" alt="La UAGRM abre convocatoria para becas de investigación en diversas áreas científicas y tecnológicas. ¡Aplica ahora!" />
+                      <img src="public/assets/images/podcast-2.png" alt="La UAGRM abre convocatoria para becas de investigación en diversas áreas científicas y tecnológicas. ¡Aplica ahora!" />
                       <div className="card-banner-icon">
                         {/* <IonIcon name="play"></IonIcon> */}
                       </div>
@@ -185,7 +185,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
                   <a href="#" className="podcast-card">
 
                     <figure className="card-banner">
-                      {/* <img src="/inf513/grupo23sa/proyecto2/public/assets/images/podcast-3.png" alt="La UAGRM celebra la Semana de la Ciencia y Tecnología con exposiciones, conferencias y talleres abiertos al público." /> */}
+                      <img src="/public/assets/images/podcast-3.png" alt="La UAGRM celebra la Semana de la Ciencia y Tecnología con exposiciones, conferencias y talleres abiertos al público." />
                       <div className="card-banner-icon">
                         {/* <IonIcon name="play"></IonIcon> */}
                       </div>
@@ -217,7 +217,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
               <div className="footer-brand">
 
                 <a href="#" className="logo">
-                  <img src="http://mail.tecnoweb.org.bo/inf513/grupo23sa/proyecto2/public/assets/images/logo.png" alt="Canal 11 TVU logo" width="50" height="50" />
+                  <img src="public/assets/images/logo.png" alt="Canal 11 TVU logo" width="50" height="50" />
                 </a>
 
                 <p className="footer-text">
