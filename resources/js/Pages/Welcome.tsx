@@ -139,7 +139,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
                   <a href="#" className="podcast-card">
 
                     <figure className="card-banner">
-                      {/* <img src="/inf513/grupo23sa/proyecto2/public/assets/images/podcast-1.png" alt="La Universidad Autónoma Gabriel René Moreno ha inaugurado una nueva biblioteca con recursos modernos para estudiantes y docentes." /> */}
+                      <img src="assets/images/podcast-1.png" alt="La Universidad Autónoma Gabriel René Moreno ha inaugurado una nueva biblioteca con recursos modernos para estudiantes y docentes." />
                       <div className="card-banner-icon">
                         {/* <IonIcon name="play"></IonIcon> */}
                       </div>
