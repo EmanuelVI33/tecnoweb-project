@@ -45,7 +45,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
             </a>
 
             <button className="nav-toggle-btn" data-nav-toggle-btn>
-              {/* <IonIcon name="menu-outline"></IonIcon> */}
+              {/* <IonIcon name="menu-outline"></IonIcon> test test */}
             </button>
 
             <nav className="navbar" data-navbar>
