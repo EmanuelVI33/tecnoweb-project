@@ -8,6 +8,7 @@ use App\Clases\UploadFileStrategy\UploadFileSystemStrategy;
 use App\Data\Edition\ElementData;
 use App\Enum\ElementType;
 use App\Models\Edition\Element;
+use App\Models\Edition\Project;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\UploadedFile;
@@ -34,6 +35,7 @@ class ElementService
         /** @var ElementData $elementData */
         foreach ($elementsData as $elementData) {
             if ($elementData->id !== null) continue;
+
 
             if ($elementData->type === ElementType::VIDEO) {
                 // Si es video almacenamos el video
@@ -70,15 +72,18 @@ class ElementService
             throw new \Exception('Usuario no autenticado');
         }
 
+        $project = Project::where('id', $projectId)->with('presenter')->first();
+        $photoUrl = 'http://mail.tecnoweb.org.bo/inf513/grupo23sa/proyecto2/public/' . $project->presenter->photo_url;
+
         $pointer = $user->pointer;
         foreach ($createElementDtos as $elementDto) {
             try {
                 $videoId = '';
-                $videoId = $this->dIdService->generateVideo($elementDto['content'], $elementDto['expression']);
-                dd($videoId);
+                $videoId = $this->dIdService->generateVideo($elementDto['content'], $elementDto['expression'], $photoUrl);
                 $elementDto['video_id'] = $videoId;
 
                 $element = Element::where('id', $elementDto['id'])->where('project_id', $projectId)->with('element')->first();
+
 
                 if ($element) {
                     // Decrementar puntos

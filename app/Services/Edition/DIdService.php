@@ -11,18 +11,21 @@ class DIdService
 
     public function __construct()
     {
-        $this->webhookUrl = config('app.url') . '/elements/webhook';
+        $this->webhookUrl = 'http://mail.tecnoweb.org.bo/inf513/grupo23sa/proyecto2/public' . '/elements/webhook';
+        // $this->webhookUrl = config('app.url') . '/elements/webhook';
     }
 
-    public function generateVideo($text, $expression)
+    public function generateVideo($text, $expression, $image)
     {
         $options = [
             'method' => 'POST',
-            'url' => config('services.did.url') . '/talks',
+            // 'url' => config('services.did.url') . '/talks',
+            'url' => 'https://api.d-id.com' . '/talks',
             'headers' => [
                 'accept' => 'application/json',
                 'content-type' => 'application/json',
-                'authorization' => 'Basic ' . config('services.did.api_key'),
+                // 'authorization' => 'Basic ' . config('services.did.api_key'),
+                'authorization' => 'Basic ' . 'Y2FoZWJvNjYyNkB0aWVydmlvLmNvbQ:numg69R0VeQiu0N8g1k-B',
             ],
             'json' => [
                 'script' => [
@@ -48,13 +51,14 @@ class DIdService
                         ]
                     ]
                 ],
-                'source_url' => 'https://media-television.nyc3.digitaloceanspaces.com/emanuel.jpeg',
+                'source_url' => $image,
                 'webhook' => $this->webhookUrl,
             ],
         ];
 
         try {
             $response = Http::withHeaders($options['headers'])->post($options['url'], $options['json']);
+            dd($response);
             $responseData = $response->json();
             if ($response->status() !== 200) {
                 Log::error('Error generating video: ' . $responseData['description']);

@@ -19,7 +19,7 @@ import Player from "./Components/Project/Player";
 function ProjectShow({ project, success, error} : ProjectShowPageProps) {
     const { toggleModal } = useModal();
     const { initElement, elements, togleSave } = useSelectedProjectStore();
-    const { post, wasSuccessful, errors } = useForm<{elements: Element[], project_id: string;}>({
+    const { post, wasSuccessful, data, errors } = useForm<{elements: Element[], project_id: string;}>({
         elements: [],
         project_id: project.id.toString()
     });
@@ -40,18 +40,24 @@ function ProjectShow({ project, success, error} : ProjectShowPageProps) {
     }, [])
 
     const handleGenerate = async () => {
+        console.log(`Elementos ${JSON.stringify(elements)}`);
         const presenterElements = elements
             .filter(element => element.type === ElementType.PRESENTER)
             .filter(element => !element.videoUrl);
             
+        console.log(`Elementos ${JSON.stringify(presenterElements)}`);
+
         if (presenterElements.length < 1) return
 
-        router.post(`/elements/generate/${project.id}`, {
-            elements: JSON.stringify(presenterElements),
-            project_id: project.id.toString()
-        });
-
+        data.elements = presenterElements;
         post(`/elements/generate/${project.id}`);
+
+        // router.post(`/elements/generate/${project.id}`, {
+        //     elements: JSON.stringify(presenterElements),
+        //     project_id: project.id.toString()
+        // });
+
+        // post(`/elements/generate/${project.id}`);
     }
 
     return (
