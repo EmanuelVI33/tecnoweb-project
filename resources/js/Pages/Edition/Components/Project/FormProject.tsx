@@ -18,16 +18,16 @@ import { useDropzone } from 'react-dropzone';
 const formSchema = z.object({
   name: z.string().min(3, { message: 'El nombre debe tener al menos 3 caracteres' }),
   description: z.string().optional(),
-  // cover_url: z.union([
-  //   z.string().url({ message: 'La URL de la portada no es válida' }),
-  //   z.instanceof(File, { message: 'El archivo de portada debe ser un archivo válido' })
-  // ]),
+  cover_url: z.union([
+    z.string().url(),
+    z.instanceof(File)
+  ]),
   presenter_id: z.string().min(1, { message: 'Seleccione un presentador para su proyecto' }),
 });
 
 const projectForm = {
   id: '',
-  
+
   name: '',
   description: '',
   cover_url: '',
