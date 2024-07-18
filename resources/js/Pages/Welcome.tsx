@@ -41,7 +41,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
             <div className="overlay" data-overlay></div>
 
             <a href="#" className="logo">
-              <img src="http://mail.tecnoweb.org.bo/inf513/grupo23sa/proyecto2/public/assets/images/logo.png" alt="Canal 11 TVU logo" width="50" height="50" />
+              <img src="https://github.com/EmanuelVI33/tecnoweb-project/blob/main/public/hero-banner.png" alt="Canal 11 TVU logo" width="50" height="50" />
             </a>
 
             <button className="nav-toggle-btn" data-nav-toggle-btn>
