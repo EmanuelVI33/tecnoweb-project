@@ -27,6 +27,7 @@ const formSchema = z.object({
 
 const projectForm = {
   id: '',
+  
   name: '',
   description: '',
   cover_url: '',
