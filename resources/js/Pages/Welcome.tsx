@@ -217,7 +217,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
               <div className="footer-brand">
 
                 <a href="#" className="logo">
-                  <img src="/inf513/grupo23sa/proyecto2/public/assets/images/logo.png" alt="Canal 11 TVU logo" width="50" height="50" />
+                  <img src="http://mail.tecnoweb.org.bo/inf513/grupo23sa/proyecto2/public/assets/images/logo.png" alt="Canal 11 TVU logo" width="50" height="50" />
                 </a>
 
                 <p className="footer-text">
