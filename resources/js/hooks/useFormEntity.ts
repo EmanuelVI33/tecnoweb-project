@@ -33,6 +33,9 @@ export function useEntityForm<T extends Model>({ modalKey, schema, defaultValues
   });
 
   const submit = (values: z.infer<typeof schema>) => {
+    console.log(values);
+    console.log(schema.safeParse(values));
+    schema.safeParse(values);
     Object.assign(data, values);
 
     modalState.isEditing 

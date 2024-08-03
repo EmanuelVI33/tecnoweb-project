@@ -13,6 +13,7 @@ export enum FormFieldType {
   TEXTAREA = 'textarea',
   SELECT = 'select',
   RADIO = 'radio',
+  NUMBER = 'number',
 };
 
 export interface FormFieldConfig {
@@ -51,6 +52,9 @@ function GenericForm<T extends Model>({ modalKey, schema, defaultValues, entityR
                 <FormLabel htmlFor={field.name}>{field.label}</FormLabel>
                 <FormControl>
                   <>
+                    {field.type === FormFieldType.NUMBER && (
+                      <Input id={field.name} type="number" placeholder={field.placeholder} {...formField} />
+                    )}
                     {field.type === FormFieldType.TEXT && (
                       <Input id={field.name} placeholder={field.placeholder} {...formField} />
                     )}

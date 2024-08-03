@@ -7,10 +7,6 @@ import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import arrowDown from '@iconify/icons-mdi/chevron-down';
 import arrowUp from '@iconify/icons-mdi/chevron-up';
-import { listIcons } from '@iconify/react';
-
-// List all loaded Material Design Icons
-console.log(listIcons());
 
 interface SidebarProps {
   isOpen: boolean;
@@ -18,6 +14,21 @@ interface SidebarProps {
 }
 
 const menuOptions = [
+  {
+    id: 'subscription',
+    label: 'Suscripciones',
+    icon: informationIcon,
+    subItems: [
+      {
+        label: 'Lista de Pagos',
+        url: 'payments.index',
+      },
+      {
+        label: 'Lista de Suscripciones',
+        url: 'subscriptions.index',
+      },
+    ],
+  },
   {
     id: 'news',
     label: 'Gestionar Noticias',
@@ -33,36 +44,21 @@ const menuOptions = [
       },
     ],
   },
-  {
-    id: 'subscription',
-    label: 'Gestionar Suscripciones',
-    icon: informationIcon,
-    subItems: [
-      {
-        label: 'Lista de Suscripciones',
-        url: '#',
-      },
-      {
-        label: 'Lista de planes',
-        url: '#',
-      },
-    ],
-  },
-  {
-    id: 'user',
-    label: 'Gestionar Usuarios',
-    icon: informationIcon,
-    subItems: [
-      {
-        label: 'Lista de Usuarios',
-        url: '#',
-      },
-      {
-        label: 'Crear Usuario',
-        url: '#',
-      },
-    ],
-  },
+  // {
+  //   id: 'user',
+  //   label: 'Gestionar Usuarios',
+  //   icon: informationIcon,
+  //   subItems: [
+  //     {
+  //       label: 'Lista de Usuarios',
+  //       url: '#',
+  //     },
+  //     {
+  //       label: 'Crear Usuario',
+  //       url: '#',
+  //     },
+  //   ],
+  // },
   {
     id: 'report',
     label: 'Reportes y estadísticas',
