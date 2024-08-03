@@ -7,5 +7,6 @@ return [
         'news' => $baseAdmin . '/News',
         'news-categories' => $baseAdmin . '/NewsCategories',
         'users' => $baseAdmin . '/Users',
+        'subscriptions' => $baseAdmin . '/Subscriptions',
     ],
 ];
