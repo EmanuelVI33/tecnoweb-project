@@ -1,6 +1,6 @@
 import { Project, ProjectCreate } from "@/Pages/Edition/models/project";
 import { useForm, usePage } from "@inertiajs/react";
-import { useCallback, useEffect } from "react"
+import { useCallback, useEffect, useRef } from "react"
 import { z } from "zod";
 import { useForm as useReactForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shadcn/ui/form";
@@ -18,16 +18,17 @@ import { useDropzone } from 'react-dropzone';
 const formSchema = z.object({
   name: z.string().min(3, { message: 'El nombre debe tener al menos 3 caracteres' }),
   description: z.string().optional(),
-  cover_url: z.union([
-    z.string().url(),
-    z.instanceof(File)
-  ]),
+  // cover_url: z.union([
+  //   z.string().url(),
+  //   z.instanceof(File)
+  // ]),
+  // cover_url: z.string().optional(),
+  cover_url: z.union([z.string(), z.instanceof(File)]), 
   presenter_id: z.string().min(1, { message: 'Seleccione un presentador para su proyecto' }),
 });
 
-const projectForm = {
+const projectForm: ProjectCreate = {
   id: '',
-
   name: '',
   description: '',
   cover_url: '',
@@ -47,6 +48,7 @@ function FormProject({ modalKey }: FormCreateOrEditProps) {
     ...project,
     _method: modalState.isEditing ? 'PUT' : undefined,
   });
+  const coverRef = useRef<HTMLInputElement>(null);
   const form = useReactForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -60,6 +62,9 @@ function FormProject({ modalKey }: FormCreateOrEditProps) {
 
   const submit = (values: z.infer<typeof formSchema>) => {
     console.log(values, data)
+    // if (coverRef.current && coverRef.current.files) {
+    //   data.cover_url = coverRef.current?.files[0];
+    // }
 
     data.name = values.name;
     data.description = values.description;
@@ -90,13 +95,6 @@ function FormProject({ modalKey }: FormCreateOrEditProps) {
         }
     });
   }
-
-  // useEffect(() => {
-  //   if (wasSuccessful ) {
-  //     toast.success(`Projecto ${modalState.isEditing ? 'actualizado' : 'creado'} exitosamente`);
-  //     toggleModal(modalKey);
-  //   }
-  // }, [wasSuccessful]);
 
   return (
     <Form {...form}>
@@ -146,6 +144,13 @@ function FormProject({ modalKey }: FormCreateOrEditProps) {
               <FormLabel>Portada</FormLabel>
               <FormControl>
                 <>
+                  {/* <Input
+                    type="file"
+                    id="cover_url"
+                    placeholder="Portada"
+                    {...field}
+                    ref={coverRef}
+                  /> */}
                   {modalState.isEditing && project.cover_url && !acceptedFiles[0] && (
                     <div>
                       <img src={project.cover_url as string} alt="Current Cover" style={{ width: '100px' }} />

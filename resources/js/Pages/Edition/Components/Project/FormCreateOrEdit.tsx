@@ -15,7 +15,7 @@ import CreateOrEdit from "../Presenter/CreateOrEdit";
 import { ProjectPageProps } from "@/types";
 
 const formSchema = z.object({
-  name: z.string().min(3, { message: 'El nombre debe tener al menos 3 caracteres' }),
+  name: z.string().min(3, { message: 'El nombre del proyecto debe tener al menos 3 caracteres' }),
   description: z.string().optional(),
   cover_url: z.string().url(),
   presenter_id: z.string().min(1, { message: 'Seleccione un presentador para su proyecto' }),
