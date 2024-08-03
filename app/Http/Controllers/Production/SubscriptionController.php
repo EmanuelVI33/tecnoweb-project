@@ -10,8 +10,6 @@ use App\Traits\ResponseControllerTrait;
 
 class SubscriptionController extends Controller
 {
-    use ResponseControllerTrait;
-
     private const BASE_ROUTE = 'subscriptions';
     private $page;
 

@@ -11,8 +11,6 @@ use Inertia\Inertia;
 
 class NewsCategoryController extends Controller
 {
-    use ResponseControllerTrait;
-
     private const BASE_ROUTE = 'news-categories';
     private $page;
 

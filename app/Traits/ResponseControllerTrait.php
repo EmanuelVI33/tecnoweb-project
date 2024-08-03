@@ -6,7 +6,7 @@ use Inertia\Inertia;
 
 trait ResponseControllerTrait
 {
-    private function handleResponse(string $route = 'Welcome', array $data = [], string $message = '')
+    public function handleResponse(string $route = 'Welcome', array $data = [], string $message = '')
     {
         return Inertia::render($route, $data)->with('success', $message);
     }
@@ -14,7 +14,7 @@ trait ResponseControllerTrait
     /**
      * Handle the success and return the appropriate response.
      */
-    private function handleSuccess(string $route = 'welcome', array $data = [], string $message = 'Operación realizada correctamente')
+    public function handleSuccess(string $route = 'welcome', array $data = [], string $message = 'Operación realizada correctamente')
     {
         return to_route($route, $data)->with('success', $message);
     }
@@ -22,7 +22,7 @@ trait ResponseControllerTrait
     /**
      * Handle the error and return the appropriate response.
      */
-    private function handleError(\Exception $e)
+    public function handleError(\Exception $e)
     {
         return back()->with('error', [
             'status' => $e->getCode(),

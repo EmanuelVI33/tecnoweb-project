@@ -11,7 +11,6 @@ use App\Traits\ResponseControllerTrait;
 
 class NewsController extends Controller
 {
-    use ResponseControllerTrait;
     private const BASE_ROUTE = 'news';
     private $page;
 
