@@ -16,8 +16,10 @@ import { useModalStore } from "@/store/modal-store";
 import { projectModalKey } from "./DialogProject";
 import { useState } from "react";
 import ConfirmationModal from "./ConfirmDelete";
+import { usePathImage } from "@/hooks/usePathImage";
 
 function TableProject() {
+    const { path } = usePathImage();
     const { toggleModal } = useModalStore();
     const { props: { projects } } = usePage<ProjectPageProps>();
     const openProject = useSelectedProjectStore(state => state.openProject);
@@ -62,7 +64,7 @@ function TableProject() {
                                 <p>{project.description ?? 'Proyecto'}</p>
                             </TableCell>
                             <TableCell>
-                                <img className="w-[70px] h-[70px] object-cover" src={project.cover_url} alt="" />
+                                <img className="w-[70px] h-[70px] object-cover" src={`${path}${project.cover_url}`} alt="" />
                             </TableCell>
                             <TableCell className="text-end flex justify-around ">
                                 <Button onClick={() => handleOpenProject(project)}>

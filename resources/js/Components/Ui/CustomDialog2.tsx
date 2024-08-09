@@ -24,8 +24,6 @@ export function CustomDialog2({
   modalKey,
 }: PropsWithChildren<DialogProps>) {
   const { modals, toggleModal } = useModalStore();
-  console.log(`Estado de modal ${modalKey}`, modals[modalKey]); 
-  console.log(`Estado de modal`, modals);
   const modalState = modals[modalKey] || { open: false, isEditing: false, currentId: null };
 
   return (

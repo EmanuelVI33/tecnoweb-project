@@ -2,42 +2,54 @@ import Dropdown from "@/Components/Dropdown";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { PageProps } from "@/types";
 import { Link, usePage } from "@inertiajs/react";
-import { useState } from "react";
-import menuIcon from '@iconify/icons-mdi/menu';
+import { useEffect, useState } from "react";
+import menuIcon from "@iconify/icons-mdi/menu";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useLocalStorage } from "@uidotdev/usehooks";
 
 interface NavbarProps {
-  toggleSidebar: () => void;
+    toggleSidebar: () => void;
 }
 
-function Navbar({ toggleSidebar } : NavbarProps) {
-    const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+function Navbar({ toggleSidebar }: NavbarProps) {
+    const [showingNavigationDropdown, setShowingNavigationDropdown] =
+        useState(false);
     const [dark, setDark] = useLocalStorage("dark", false);
+    const { props } = usePage<PageProps>();
+    const {
+        auth: { user },
+    } = props;
 
     const toggleDarkMode = () => {
-        document.documentElement.classList.toggle('dark');
+        document.documentElement.classList.toggle("dark");
         setDark(!dark);
     };
-    
-    const { props } = usePage<PageProps>();
-    const { auth: { user } } = props;
+
+    useEffect(() => {
+        if (dark) {
+            document.documentElement.classList.add("dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+        }
+    }, []);
 
     return (
         <nav className="w-full h-20 bg-white dark:bg-gray-800 shadow-md px-4 py-2">
             <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16">
                     <div className="flex gap-5">
-                        <button
-                            className=""
-                            onClick={toggleSidebar}
-                        >
-                            <Icon className="text-black dark:text-white" icon={menuIcon} width="24" height="24"/>
+                        <button className="" onClick={toggleSidebar}>
+                            <Icon
+                                className="text-black dark:text-white"
+                                icon={menuIcon}
+                                width="24"
+                                height="24"
+                            />
                         </button>
 
                         <div className="shrink-0 flex items-center">
                             <Link href="/">
-                                <img className="h-14" src="/Logo.jpg" alt=""  />
+                                <img className="h-14" src="/Logo.jpg" alt="" />
                             </Link>
                         </div>
                     </div>
@@ -53,13 +65,12 @@ function Navbar({ toggleSidebar } : NavbarProps) {
                             <div className="ms-3 relative">
                                 <Dropdown>
                                     <Dropdown.Trigger>
-                                        <div className='flex gap-5 justify-center items-center'>
+                                        <div className="flex gap-5 justify-center items-center">
                                             <span className="inline-flex rounded-md">
                                                 <button
                                                     type="button"
                                                     className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white dark:text-white dark:bg-gray-800 hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                                 >
-                                                
                                                     {user.name}
 
                                                     <svg
@@ -80,9 +91,22 @@ function Navbar({ toggleSidebar } : NavbarProps) {
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
-                                        <Dropdown.Link href={route('profile.edit')}>Perfil</Dropdown.Link>
-                                        <Dropdown.Link href={route('logout')} method="post" as="button">
-                                        Cerrar Sesión
+                                        <Dropdown.Link
+                                            href={route("profile.edit")}
+                                        >
+                                            Perfil
+                                        </Dropdown.Link>
+                                        <Dropdown.Link
+                                            href={route("settings.index")}
+                                        >
+                                            Configuración
+                                        </Dropdown.Link>
+                                        <Dropdown.Link
+                                            href={route("logout")}
+                                            method="post"
+                                            as="button"
+                                        >
+                                            Cerrar Sesión
                                         </Dropdown.Link>
                                     </Dropdown.Content>
                                 </Dropdown>
@@ -92,19 +116,36 @@ function Navbar({ toggleSidebar } : NavbarProps) {
 
                     <div className="-me-2 flex items-center sm:hidden">
                         <button
-                            onClick={() => setShowingNavigationDropdown((previousState) => !previousState)}
+                            onClick={() =>
+                                setShowingNavigationDropdown(
+                                    (previousState) => !previousState
+                                )
+                            }
                             className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
                         >
-                            <svg className="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <svg
+                                className="h-6 w-6"
+                                stroke="currentColor"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                            >
                                 <path
-                                    className={!showingNavigationDropdown ? 'inline-flex' : 'hidden'}
+                                    className={
+                                        !showingNavigationDropdown
+                                            ? "inline-flex"
+                                            : "hidden"
+                                    }
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                     strokeWidth="2"
                                     d="M4 6h16M4 12h16M4 18h16"
                                 />
                                 <path
-                                    className={showingNavigationDropdown ? 'inline-flex' : 'hidden'}
+                                    className={
+                                        showingNavigationDropdown
+                                            ? "inline-flex"
+                                            : "hidden"
+                                    }
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                     strokeWidth="2"
@@ -116,9 +157,17 @@ function Navbar({ toggleSidebar } : NavbarProps) {
                 </div>
             </div>
 
-            <div className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
+            <div
+                className={
+                    (showingNavigationDropdown ? "block" : "hidden") +
+                    " sm:hidden"
+                }
+            >
                 <div className="pt-2 pb-3 space-y-1">
-                    <ResponsiveNavLink href={route('projects.index')} active={route().current('projects')}>
+                    <ResponsiveNavLink
+                        href={route("projects.index")}
+                        active={route().current("projects")}
+                    >
                         Dashboard
                     </ResponsiveNavLink>
                 </div>
@@ -128,19 +177,27 @@ function Navbar({ toggleSidebar } : NavbarProps) {
                         <div className="font-medium text-base text-gray-800">
                             {user?.name}
                         </div>
-                        <div className="font-medium text-sm text-gray-500">{user?.email}</div>
+                        <div className="font-medium text-sm text-gray-500">
+                            {user?.email}
+                        </div>
                     </div>
 
                     <div className="mt-3 space-y-1">
-                        <ResponsiveNavLink href={route('profile.edit')}>Perfil</ResponsiveNavLink>
-                        <ResponsiveNavLink method="post" href={route('logout')} as="button">
+                        <ResponsiveNavLink href={route("profile.edit")}>
+                            Perfil
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            method="post"
+                            href={route("logout")}
+                            as="button"
+                        >
                             Cerrar Sesión
                         </ResponsiveNavLink>
                     </div>
                 </div>
             </div>
         </nav>
-    )
+    );
 }
 
-export default Navbar
+export default Navbar;

@@ -4,7 +4,9 @@ namespace App\Http\Middleware;
 
 use App\Clases\UploadFileStrategy\FileUploader;
 use App\Clases\UploadFileStrategy\UploadFileSystemStrategy;
+use App\Models\Setting;
 use App\Services\Edition\PresenterService;
+use App\Services\SettingService;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -35,6 +37,7 @@ class HandleInertiaRequests extends Middleware
         $presenters = (new PresenterService(
             new FileUploader(new UploadFileSystemStrategy())
         ))->getAll();
+        $settings = (new SettingService(new Setting()))->getAll();
 
         return [
             ...parent::share($request),
@@ -42,6 +45,7 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
             ],
             'presenters' => $presenters,
+            'settings' => $settings,
             // 'flash' => [
             //     'success' => fn () => $request->session()->get('success'),
             //     'error' => fn () => $request->session()->get('error'),

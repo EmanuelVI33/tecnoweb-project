@@ -41,7 +41,7 @@ export default function HomePage({ auth } : PageProps) {
                 <div className="flex flex-wrap justify-center">
                     {owners.map((owner, index) => (
                     <div key={index} className="max-w-xs m-4 ">
-                        <img src={owner.image} alt={owner.name} className="rounded-full mb-4 mx-auto h-72 w-60" />
+                        <img src={`/${owner.image}`} alt={owner.name} className="rounded-full mb-4 mx-auto h-72 w-60" />
                         <h3 className="text-2xl font-bold text-center mb-2">{owner.name}</h3>
                         <p className="text-center">{owner.description}</p>
                     </div>

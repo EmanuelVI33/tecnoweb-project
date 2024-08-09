@@ -1,6 +1,8 @@
-import { Project } from '@/Pages/Edition/models/project';
-import { Presenter } from '../Pages/Edition/models/presenter';
-import { ProjectResponse } from '@/Pages/Edition/models/response';
+import { Project } from "@/Pages/Edition/models/project";
+import { Presenter } from "../Pages/Edition/models/presenter";
+import { ProjectResponse } from "@/Pages/Edition/models/response";
+import SettingsIndex from "../Pages/Admin/Pages/SettingsIndex";
+import { set } from "react-hook-form";
 
 // type ID = string | number;
 
@@ -20,13 +22,25 @@ export interface ErrorMessage {
     statu: string;
 }
 
-export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
+interface Setting {
+    key: string;
+    value: string;
+    label?: string;
+    placeholder?: string;
+    type: string;
+    description?: string;
+}
+
+export type PageProps<
+    T extends Record<string, unknown> = Record<string, unknown>
+> = T & {
     auth: {
         user: User;
     };
     presenters: Presenter[];
     success: string;
     error: ErrorMessage;
+    settings: Setting[];
 };
 
 export type ProjectPageProps = PageProps & {

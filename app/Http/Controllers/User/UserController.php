@@ -1,21 +1,19 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Production\NewsController;
+use App\Http\Controllers\Controller;
 use App\Services\Production\NewsService;
-use App\Traits\ResponseControllerTrait;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    use ResponseControllerTrait;
     private const BASE_ROUTE = 'user';
     private $page;
 
     public function __construct(private NewsService $newsService)
     {
-        $this->page = 'User/User';
+        $this->page = config('pages.user.' . self::BASE_ROUTE);
     }
 
     /**
