@@ -1,14 +1,9 @@
 <?php
 
-use App\Http\Controllers\Edition\ElementController;
-use App\Http\Controllers\Edition\PresenterController;
-use App\Http\Controllers\Edition\ProjectController;
-use App\Http\Controllers\NosotrosController;
-use App\Http\Controllers\Production\NewsCategoryController;
-use App\Http\Controllers\Production\NewsController;
-use App\Http\Controllers\Production\PaymentController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\User\PaymentController;
+use App\Http\Controllers\User\SubscriptionController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -27,14 +22,23 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    Route::post('/', [UserController::class, 'suscription'])->name('user.suscription');
 });
 
+// User
 Route::get('/news', [UserController::class, 'index'])->name('user.index');
+
+Route::prefix('/subscriptions')->name('subscriptions.')->group(function () {
+    Route::get('/', [SubscriptionController::class, 'index'])->name('index');
+    Route::post('/', [SubscriptionController::class, 'store'])->name('store');
+});
+
+Route::prefix('/payments')->name('payments.')->group(function () {
+    Route::post('/', [PaymentController::class, 'store'])->name('store');
+});
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';
