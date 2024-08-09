@@ -21,22 +21,22 @@ class PaymentController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
-        $subs = $this->subscriptionService->getOne($request->id);
+        // dd($request->id);
+        $sub = $this->subscriptionService->getOne($request->id);
 
-        // dd($subs);
+        // dd($sub);
 
         // Detalle solo una suscripción
         $laPedidoDetalle = [];
         $laPedidoDetalle[] = [
             "Serial" => "1",
-            "Producto" => $subs->name,
+            "Producto" => $sub->name,
             "Cantidad" => "1",
-            "Precio" => $subs->price,
+            "Precio" => $sub->price,
             "Descuento" => "0",
-            "Total" => $subs->price,
+            "Total" => $sub->price,
         ];
-        $lnMontoTotal = $subs->price;
+        $lnMontoTotal = $sub->price;
 
         // Detalle de la transacción
         try {
@@ -96,7 +96,7 @@ class PaymentController extends Controller
 
                 // echo '<img src="' . $laQrImage . '" alt="Imagen base64">';
 
-                return $this->handleResponse($this->page . 'Qr', compact('laQrImage', 'lnNroTran'));
+                return $this->handleResponse($this->page . 'Qr', compact('laQrImage', 'lnNroTran', 'sub'));
 
                 // return redirect()->route('PagoQr')->with([
                 //     'tnNroVenta' => $lnNroTran,
@@ -144,5 +144,25 @@ class PaymentController extends Controller
         $texto = '<h5 class="text-center mb-4">Estado Transacción: ' . $laResultEstadoTransaccion->values->messageEstado . '</h5><br>';
 
         return response()->json(['message' => $texto]);
+    }
+
+    public function callback(Request $request)
+    {
+        dd($request);
+        $Venta = $request->input("PedidoID");
+        $Fecha = $request->input("Fecha");
+        $NuevaFecha = date("Y-m-d", strtotime($Fecha));
+        $Hora = $request->input("Hora");
+        $MetodoPago = $request->input("MetodoPago");
+        $Estado = $request->input("Estado");
+        $Ingreso = true;
+
+        try {
+            $arreglo = ['error' => 0, 'status' => 1, 'message' => "Pago realizado correctamente.", 'values' => true];
+        } catch (\Throwable $th) {
+            $arreglo = ['error' => 1, 'status' => 1, 'messageSistema' => "[TRY/CATCH] " . $th->getMessage(), 'message' => "No se pudo realizar el pago, por favor intente de nuevo.", 'values' => false];
+        }
+
+        return response()->json($arreglo);
     }
 }

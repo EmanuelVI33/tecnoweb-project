@@ -11,14 +11,16 @@ import {
 
 export interface ICardProps {
     subscription: Subscription;
-    buttonText: string;
+    buttonText?: string;
     onClick: (id: string) => void;
+    isProcessing?: boolean;
 }
 
 export default function SubsCard({
     subscription: { id, name, description, price },
     buttonText,
     onClick,
+    isProcessing = false,
 }: ICardProps) {
     return (
         <CardShadcn>
@@ -35,9 +37,13 @@ export default function SubsCard({
                     )}
                 </div>
             </CardContent>
-            <CardFooter>
-                <Button onClick={() => onClick(id)}>{buttonText}</Button>
-            </CardFooter>
+            {buttonText && (
+                <CardFooter>
+                    <Button onClick={() => onClick(id)} disabled={isProcessing}>
+                        {buttonText}
+                    </Button>
+                </CardFooter>
+            )}
         </CardShadcn>
     );
 }

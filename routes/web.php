@@ -38,6 +38,7 @@ Route::prefix('/subscriptions')->name('subscriptions.')->group(function () {
 
 Route::prefix('/payments')->name('payments.')->group(function () {
     Route::post('/', [PaymentController::class, 'store'])->name('store');
+    Route::get('/callback', [PaymentController::class, 'callback'])->name('callback');
 });
 
 require __DIR__ . '/auth.php';

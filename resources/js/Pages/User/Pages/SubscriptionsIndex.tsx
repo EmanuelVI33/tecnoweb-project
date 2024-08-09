@@ -1,18 +1,20 @@
 import { SubscriptionIndexProps } from "../Models";
 import Layout from "../Layout/Layout";
 import SubsCard from "../Components/Card";
-import { router } from "@inertiajs/react";
+import { router, useForm } from "@inertiajs/react";
+import { Progress } from "@/shadcn/ui/progress";
 
 export default function SubscriptionsIndex({
     auth,
     subscriptions,
 }: SubscriptionIndexProps) {
-    console.log(subscriptions);
+    const { data, post, processing, progress, errors } = useForm({
+        id: "",
+    });
 
     function handleBuy(id: string) {
-        console.log("Buy", id);
-
-        router.post(route("payments.store"), { id });
+        data.id = id;
+        post(route("payments.store"));
     }
 
     return (
@@ -28,10 +30,24 @@ export default function SubscriptionsIndex({
                                 key={sub.id}
                                 subscription={sub}
                                 buttonText="Comprar"
+                                isProcessing={processing}
                                 onClick={handleBuy}
                             />
                         ))}
                     </div>
+                    {processing && (
+                        <div className="my-5">
+                            <p className="text-center text-xl">
+                                Redireccionando...
+                            </p>
+                            <Progress
+                                value={progress?.percentage}
+                                max={100}
+                                className="m-auto"
+                            />
+                        </div>
+                    )}
+                    {errors && <p className="text-red-600">{errors.id}</p>}
                 </div>
             </section>
         </Layout>

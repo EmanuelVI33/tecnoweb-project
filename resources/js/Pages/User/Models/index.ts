@@ -13,4 +13,5 @@ export type SubscriptionIndexProps = PageProps & {
 export type PaymentsIndexProps = PageProps & {
     laQrImage: string;
     lnNroTran: string;
+    sub: Subscription;
 };
