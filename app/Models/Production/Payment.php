@@ -13,5 +13,9 @@ class Payment extends Model
         'user_id',
         'subscription_id',
         'type_payment',
+        'customer_name',
+        'customer_ci',
+        'phone',
+        'transaction_id',
     ];
 }
