@@ -12,12 +12,19 @@ function SettingsIndex({ auth, settings }: SettingsIndexProps) {
         const formData = new FormData(event.target as HTMLFormElement);
         const settingsData: { key: string; value: string | File }[] = [];
 
-        formData.entries().forEach((entry) => {
+        for (const entry of formData.entries()) {
             settingsData.push({
                 key: entry[0],
                 value: entry[1],
             });
-        });
+        }
+
+        // formData.entries().forEach((entry): void => {
+        //     settingsData.push({
+        //         key: entry[0],
+        //         value: entry[1],
+        //     });
+        // });
 
         router.post(
             route("settings.store"),
