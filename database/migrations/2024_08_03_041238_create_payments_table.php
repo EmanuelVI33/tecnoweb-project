@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('subscription_id')->constrained()->onDelete('cascade');
-            $table->unsignedInteger('type_payment'); // 1: Tigo Money
+            $table->unsignedInteger('type_payment'); // 1: QR  2: Tigo Money
             $table->timestamps();
         });
     }
