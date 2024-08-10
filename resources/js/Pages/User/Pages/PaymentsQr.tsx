@@ -1,6 +1,7 @@
 import { PaymentsIndexProps, SubscriptionIndexProps } from "../Models";
 import Layout from "../Layout/Layout";
 import SubsCard from "../Components/Card";
+import { Button } from "@headlessui/react";
 
 export default function PaymentsQr({
     auth,
@@ -34,6 +35,7 @@ export default function PaymentsQr({
                         <div className="">
                             <h2 className="my-2">Compra de suscripcion</h2>
                             <SubsCard subscription={sub} onClick={() => {}} />
+                            <Button>Consultar Pago</Button>
                         </div>
                     </div>
                 </div>

@@ -19,13 +19,6 @@ function SettingsIndex({ auth, settings }: SettingsIndexProps) {
             });
         }
 
-        // formData.entries().forEach((entry): void => {
-        //     settingsData.push({
-        //         key: entry[0],
-        //         value: entry[1],
-        //     });
-        // });
-
         router.post(
             route("settings.store"),
             { settings: settingsData },
