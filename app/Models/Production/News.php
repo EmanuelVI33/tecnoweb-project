@@ -17,6 +17,8 @@ class News extends Model
         'project_id',
         'news_category_id',
         'publication_date',
+        'is_premium',
+        'is_published',
     ];
 
     public function project()
