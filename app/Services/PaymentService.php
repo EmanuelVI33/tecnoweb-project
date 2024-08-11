@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Data\PFPaymentData;
+use App\Data\PFResponsePaymentData;
 use App\Models\Production\Payment;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,18 +14,23 @@ class PaymentService
         $this->payment = $payment;
     }
 
-
     public function getAll()
     {
         return $this->payment->all();
     }
 
-    public function getByUserId($userId)
+    public function getAllPaymentUser()
     {
-        return $this->payment->where('user_id', $userId)->get();
+        $userId = Auth::id();
+        return $this->payment->where('user_id', $userId)->with('subscription')->get();
     }
 
-    public function store(PFPaymentData $payment, String $transactionId)
+    public function getPaymentWithSubscription($id)
+    {
+        return $this->payment->with('subscription')->findOrfail($id);
+    }
+
+    public function store(PFPaymentData $payment, PFResponsePaymentData $pFResponse): ?Int
     {
         try {
             $userId = Auth::id();
@@ -35,10 +41,12 @@ class PaymentService
                 'customer_name' => $payment->client->name,
                 'customer_ci' => $payment->client->ci,
                 'phone' => $payment->client->phone,
-                'transaction_id' => $transactionId,
+                'transaction_id' => $pFResponse->nroTran,
+                'qr_image' => $pFResponse->qrImage,
             ];
 
-            $this->payment->create($paymentData);
+            $payment = $this->payment->create($paymentData);
+            return $payment->id;
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), 500);
         }

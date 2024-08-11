@@ -62,10 +62,15 @@ export default function Layout({
                                     />
                                 </Link>
                             </div>
-                            <Link href={route("user.index")}>Inicio</Link>
-                            <Link href={route("subscriptions.index")}>
-                                Suscripciones
-                            </Link>
+                            <div className="flex justify-evenly gap-5">
+                                <Link href={route("user.index")}>Inicio</Link>
+                                <Link href={route("subscriptions.index")}>
+                                    Suscripciones
+                                </Link>
+                                <Link href={route("payments.index")}>
+                                    Pagos
+                                </Link>
+                            </div>
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ms-6">

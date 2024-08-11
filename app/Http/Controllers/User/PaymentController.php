@@ -21,12 +21,8 @@ class PaymentController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->id);
         $sub = $this->subscriptionService->getOne($request->id);
 
-        // dd($sub);
-
-        // Detalle solo una suscripción
         $laPedidoDetalle = [];
         $laPedidoDetalle[] = [
             "Serial" => "1",
@@ -38,7 +34,6 @@ class PaymentController extends Controller
         ];
         $lnMontoTotal = $sub->price;
 
-        // Detalle de la transacción
         try {
             $lcComerceID           = "d029fa3a95e174a19934857f535eb9427d967218a36ea014b70ad704bc6c8d1c";
             $lnMoneda              = 2;
@@ -54,7 +49,6 @@ class PaymentController extends Controller
             $lcUrl                 = "";
             $loClient = new Client();
 
-            // if ($request->typeService == 1) {
             if (1) {
                 $lcUrl = "https://serviciostigomoney.pagofacil.com.bo/api/servicio/generarqrv2";
             } else {
@@ -87,30 +81,13 @@ class PaymentController extends Controller
             $laResult = json_decode($loResponse->getBody()->getContents());
             $lnNroTran = explode(';', $laResult->values)[0];
 
-            // if ($request->tnTipoServicio == 1) {
             if (1) {
                 $laValues = explode(";", $laResult->values)[1];
-                // dd($laValues);
 
                 $laQrImage = "data:image/png;base64," . json_decode($laValues)->qrImage;
 
-                // echo '<img src="' . $laQrImage . '" alt="Imagen base64">';
-
                 return $this->handleResponse($this->page . 'Qr', compact('laQrImage', 'lnNroTran', 'sub'));
-
-                // return redirect()->route('PagoQr')->with([
-                //     'tnNroVenta' => $lnNroTran,
-                //     'tcQRImage' => $laQrImage,
-                // ]);
             } elseif ($request->tnTipoServicio == 2) {
-
-                //redirigri y
-
-                // dd($laResult);
-                // return redirect()->route('PagoQr')->with([
-                //     'tnTransaccion' =>  $laResult->values,
-                //     'tcMensaje' => $laResult->message,
-                // ]);
                 return $this->handleResponse($this->page . 'Index', compact('lnNroTran'));
             }
         } catch (\Throwable $th) {

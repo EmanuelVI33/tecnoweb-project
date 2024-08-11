@@ -28,7 +28,7 @@ class StorePaymentRequest extends FormRequest
     {
         return [
             'id' => ['required', 'integer', 'exists:subscriptions,id'],
-            'user_id' => ['required', 'integer', 'exists:users,id'],
+            // 'user_id' => ['required', 'integer', 'exists:users,id'],
             // Client data
             'customer_name' => ['required', 'string'],
             'customer_ci' => ['required', 'string'],

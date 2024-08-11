@@ -11,5 +11,6 @@ class PFPaymentData extends Data
         public Int $typePayment,
         public PFClientData $client,
         public array $products,
+        public ?String $total = "0",
     ) {}
 }

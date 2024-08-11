@@ -17,5 +17,13 @@ class Payment extends Model
         'customer_ci',
         'phone',
         'transaction_id',
+        'qr_image',
+        'state',
+        'state_tran'
     ];
+
+    public function subscription()
+    {
+        return $this->belongsTo(Subscription::class);
+    }
 }

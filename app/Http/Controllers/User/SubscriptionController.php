@@ -29,4 +29,11 @@ class SubscriptionController extends Controller
 
         return $this->handleResponse($this->page . 'Index');
     }
+
+    public function buy(Request $request)
+    {
+        // dd($request->id);
+        $subscription = $this->subscriptionService->getOne($request->id);
+        return $this->handleResponse($this->page . 'Buy', compact('subscription'));
+    }
 }

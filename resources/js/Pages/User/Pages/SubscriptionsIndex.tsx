@@ -8,13 +8,14 @@ export default function SubscriptionsIndex({
     auth,
     subscriptions,
 }: SubscriptionIndexProps) {
-    const { data, post, processing, progress, errors } = useForm({
+    const { data, get, processing, progress, errors, clearErrors } = useForm({
         id: "",
     });
 
     function handleBuy(id: string) {
+        console.log(id);
         data.id = id;
-        post(route("payments.store"));
+        get(route("subscriptions.buy", id));
     }
 
     return (

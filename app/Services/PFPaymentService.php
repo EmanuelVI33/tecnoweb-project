@@ -3,7 +3,9 @@
 namespace App\Services;
 
 use App\Data\PFPaymentData;
+use App\Data\PFResponsePaymentData;
 use App\Services\Production\SubscriptionService;
+use GuzzleHttp\Client;
 
 class PFPaymentService
 {
@@ -18,11 +20,11 @@ class PFPaymentService
         $this->loClient = new \GuzzleHttp\Client();
     }
 
-    public function createPayment(PFPaymentData $paymentData): array
+    public function createPayment(PFPaymentData $paymentData): PFResponsePaymentData
     {
-        $this->total = 0;
-        $subscription = $this->subscriptionService->getOne($paymentData->id);
-        $this->productsData = $this->getProductsData($subscription->name, $subscription->price);
+        // $this->total = 0;
+        // $subscription = $this->subscriptionService->getOne($paymentData->id);
+        // $this->productsData = $this->getProductsData($subscription->name, $subscription->price);
         if ($paymentData->typePayment == 1) {
             $lcUrl = "https://serviciostigomoney.pagofacil.com.bo/api/servicio/generarqrv2";
         } else {
@@ -39,7 +41,9 @@ class PFPaymentService
             'json' => $laBody
         ]);
 
+
         $laResult = json_decode($loResponse->getBody()->getContents());
+
         $lnNroTran = explode(';', $laResult->values)[0];
 
         $response = [
@@ -53,6 +57,8 @@ class PFPaymentService
             $response['qrImage'] = $laQrImage;
         }
 
+        $response = PFResponsePaymentData::from($response);
+
         return $response;
     }
 
@@ -64,7 +70,7 @@ class PFPaymentService
         $lcNombreUsuario       = $paymentData->client->name;
         $lnCiNit               = $paymentData->client->ci;
         $lcNroPago             = "test-" . rand(100000, 999999);  //se lo puede poner una venta
-        $lnMontoClienteEmpresa = $this->total;
+        $lnMontoClienteEmpresa = $paymentData->total;
         $lcCorreo              = "ccuellar260@gmail.com";
         $lcUrlCallBack         = "https://cristiancuellar.site/api/venta/store/realizarpago/callback";
         $lcUrlReturn           = "https://cristiancuellar.site/api/pagoExitoso";
@@ -81,26 +87,35 @@ class PFPaymentService
             "tcCorreo"              => $lcCorreo,
             'tcUrlCallBack'         => $lcUrlCallBack,
             "tcUrlReturn"           => $lcUrlReturn,
-            'taPedidoDetalle'       => $this->productsData
+            'taPedidoDetalle'       => $paymentData->products
         ];
 
         return $laBody;
     }
 
-    private function getProductsData(String $name = "Subscripción", String $price = "1"): array
+    public function consultarEstado(Int $tranId)
     {
-        $productsData = [];
+        $loClientEstado = new Client();
 
-        $productsData[] = [
-            "serial" => "1",
-            "product" => $name,
-            "precio" => $price,
-            "amount" => "1",
-            "descuento" => "0",
+        $lcUrlEstadoTransaccion = "https://serviciostigomoney.pagofacil.com.bo/api/servicio/consultartransaccion";
+
+        $laHeaderEstadoTransaccion = [
+            'Accept' => 'application/json'
         ];
 
-        $this->total += floatval($price);
+        $laBodyEstadoTransaccion = [
+            "TransaccionDePago" => $tranId
+        ];
 
-        return $productsData;
+        $loEstadoTransaccion = $loClientEstado->post($lcUrlEstadoTransaccion, [
+            'headers' => $laHeaderEstadoTransaccion,
+            'json' => $laBodyEstadoTransaccion
+        ]);
+
+        $laResultEstadoTransaccion = json_decode($loEstadoTransaccion->getBody()->getContents());
+
+        // dd($laResultEstadoTransaccion);
+
+        return $laResultEstadoTransaccion;
     }
 }

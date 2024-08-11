@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SubsPaymentController;
 use App\Http\Controllers\User\PaymentController;
 use App\Http\Controllers\User\SubscriptionController;
 use App\Http\Controllers\User\UserController;
@@ -33,11 +34,15 @@ Route::get('/news', [UserController::class, 'index'])->name('user.index');
 
 Route::prefix('/subscriptions')->name('subscriptions.')->group(function () {
     Route::get('/', [SubscriptionController::class, 'index'])->name('index');
+    Route::get('/{id}/buy', [SubscriptionController::class, 'buy'])->name('buy');
     Route::post('/', [SubscriptionController::class, 'store'])->name('store');
 });
 
 Route::prefix('/payments')->name('payments.')->group(function () {
-    Route::post('/', [PaymentController::class, 'store'])->name('store');
+    Route::get('/', [SubsPaymentController::class, 'index'])->name('index');
+    Route::post('/', [SubsPaymentController::class, 'store'])->name('store');
+    Route::get('/{id}', [SubsPaymentController::class, 'show'])->name('show');
+    Route::post('/{id}/consultar', [SubsPaymentController::class, 'consultar'])->name('consultar');
     Route::get('/callback', [PaymentController::class, 'callback'])->name('callback');
 });
 

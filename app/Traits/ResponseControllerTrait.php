@@ -14,7 +14,7 @@ trait ResponseControllerTrait
     /**
      * Handle the success and return the appropriate response.
      */
-    public function handleSuccess(string $route = 'welcome', array $data = [], string $message = 'Operación realizada correctamente')
+    public function handleSuccess(string $route = 'welcome', array | string $data = [], string $message = 'Operación realizada correctamente')
     {
         return to_route($route, $data)->with('success', $message);
     }
