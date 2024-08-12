@@ -7,6 +7,7 @@ import menuIcon from "@iconify/icons-mdi/menu";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import FontSizeDropdown from "@/Components/Ui/FontSizeDropdown";
+import Imagen from "@/Components/Image";
 
 interface NavbarProps {
     toggleSidebar: () => void;
@@ -67,7 +68,11 @@ function Navbar({ toggleSidebar }: NavbarProps) {
 
                         <div className="shrink-0 flex items-center">
                             <Link href="/">
-                                <img className="h-14" src="/Logo.jpg" alt="" />
+                                <Imagen
+                                    src="Logo.jpg"
+                                    alt="Logo"
+                                    className="h-14"
+                                />
                             </Link>
                         </div>
                     </div>

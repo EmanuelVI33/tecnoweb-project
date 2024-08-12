@@ -21,6 +21,7 @@ import CreateOrEdit from "../Presenter/CreateOrEdit";
 import { ProjectPageProps } from "@/types";
 import { useModalStore } from "@/store/modal-store";
 import { useDropzone } from "react-dropzone";
+import Imagen from "@/Components/Image";
 
 const formSchema = z.object({
     name: z
@@ -189,12 +190,17 @@ function FormProject({ modalKey }: FormCreateOrEditProps) {
                                         project.cover_url &&
                                         !acceptedFiles[0] && (
                                             <div>
-                                                <img
+                                                {/* <img
                                                     src={
                                                         project.cover_url as string
                                                     }
                                                     alt="Current Cover"
                                                     style={{ width: "100px" }}
+                                                /> */}
+                                                <Imagen
+                                                    src={project.cover_url}
+                                                    alt={project.name}
+                                                    className="h-20 w-20"
                                                 />
                                             </div>
                                         )}
@@ -207,6 +213,13 @@ function FormProject({ modalKey }: FormCreateOrEditProps) {
                                                 alt="Preview"
                                                 style={{ width: "100px" }}
                                             />
+                                            {/* <Imagen
+                                                src={URL.createObjectURL(
+                                                    project.cover_url
+                                                )}
+                                                alt={project.name}
+                                                className="h-20 w-20"
+                                            /> */}
                                         </div>
                                     )}
                                     <div
@@ -266,7 +279,7 @@ function FormProject({ modalKey }: FormCreateOrEditProps) {
                                                                     presenter.full_name
                                                                 }
                                                             </p>
-                                                            <img
+                                                            {/* <img
                                                                 className="h-20 w-20"
                                                                 src={
                                                                     presenter.photo_url
@@ -274,6 +287,15 @@ function FormProject({ modalKey }: FormCreateOrEditProps) {
                                                                 alt={
                                                                     presenter.full_name
                                                                 }
+                                                            /> */}
+                                                            <Imagen
+                                                                src={
+                                                                    presenter.photo_url
+                                                                }
+                                                                alt={
+                                                                    presenter.full_name
+                                                                }
+                                                                className="h-20 w-20"
                                                             />
                                                         </div>
                                                     </FormLabel>

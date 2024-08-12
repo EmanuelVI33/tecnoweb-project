@@ -1,5 +1,6 @@
 import { PageProps } from "@/types";
 import { Link, usePage } from "@inertiajs/react";
+import Imagen from "../Image";
 
 function WelcomeNavbar() {
     const { auth } = usePage<PageProps>().props;
@@ -19,11 +20,7 @@ function WelcomeNavbar() {
 
     return (
         <nav className="px-5 flex justify-between items-center h-14 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 border-b border-gray-100 dark:border-gray-800">
-            <img
-                src="/assets/images/logo.png"
-                alt="Canal 11 TVU"
-                className="h-14"
-            />
+            <Imagen src="Logo.jpg" alt="Logo" className="h-14" />
             <div className="px-2">
                 {user ? (
                     <Link

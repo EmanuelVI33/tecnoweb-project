@@ -6,6 +6,7 @@ import { User } from "@/types";
 import { Toaster } from "@/shadcn/ui/sonner";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import FontSizeDropdown from "@/Components/Ui/FontSizeDropdown";
+import Imagen from "@/Components/Image";
 
 export default function Layout({
     user,
@@ -55,10 +56,15 @@ export default function Layout({
                             <div className="shrink-0 flex items-center">
                                 <Link href="/">
                                     {/* <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" /> */}
-                                    <img
+                                    {/* <img
                                         className="h-14"
                                         src="Logo.jpg"
                                         alt=""
+                                    /> */}
+                                    <Imagen
+                                        src="Logo.jpg"
+                                        alt="Logo"
+                                        className="h-14"
                                     />
                                 </Link>
                             </div>

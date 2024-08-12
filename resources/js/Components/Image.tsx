@@ -15,7 +15,16 @@ export default function Imagen(props: Props) {
     const setting = settings.find((setting) => setting.key === "path");
     console.log(setting);
 
-    const src = setting ? `${setting.value}${props.src}` : props.src;
+    let src = props.src;
+    if (props.src.length > 0) {
+        if (props.src[0] === "/") {
+            // Remove the first character of the string
+            src = props.src.slice(1);
+            console.log(props.src);
+        }
+    }
+
+    src = setting ? `${setting.value}${src}` : src;
 
     return (
         <>
