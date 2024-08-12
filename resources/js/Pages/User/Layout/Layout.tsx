@@ -98,7 +98,11 @@ export default function Layout({
                                                     type="button"
                                                     className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none transition ease-in-out duration-150"
                                                 >
-                                                    {user.name}
+                                                    {`${user.name}${
+                                                        user.is_premium
+                                                            ? " Premium"
+                                                            : ""
+                                                    }`}
 
                                                     <svg
                                                         className="ms-2 -me-0.5 h-4 w-4"

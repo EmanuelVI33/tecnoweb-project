@@ -41,9 +41,12 @@ class SubsPaymentService
         $payment = $this->paymentService->get($subsId);
         $tranId = $payment->transaction_id;
         $response = $this->pFPaymentService->consultarEstado($tranId);
+
+        // dd($response);
         $status = $response->status;
         // $status = 2;
         $stateTran = $response->values->EstadoTransaccion;
+        $estadoPago = $response->values->estadoPago;
         $data = [];
 
         if ($payment->state_tran != $stateTran) {
@@ -51,6 +54,7 @@ class SubsPaymentService
         }
 
         if ($status == 2) {
+            dd("Premium");
             // El user ya pagó, es premium
             $this->userService->update($payment->user_id, ['is_premium' => true]);
 

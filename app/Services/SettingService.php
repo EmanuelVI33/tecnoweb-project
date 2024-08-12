@@ -57,4 +57,11 @@ class SettingService
             'description' => $description,
         ]);
     }
+
+    public function incrementCount($key)
+    {
+        $setting = $this->get("{$key}_count");
+        $setting->value = $setting->value + 1;
+        $setting->save();
+    }
 }

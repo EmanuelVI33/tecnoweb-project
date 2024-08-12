@@ -17,6 +17,7 @@ export type PaymentsIndexProps = PageProps & {
 
 export type PaymentsQrProps = PageProps & {
     payment: Payment;
+    response: string;
 };
 
 export type SubscriptionBuyProps = PageProps & {

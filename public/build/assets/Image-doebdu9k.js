@@ -1,0 +1,1 @@
+import{q as r,j as n}from"./app-DHScwIJP.js";function o(s){const{props:{settings:c}}=r(),e=c.find(i=>i.key==="path");console.log(e);let t=s.src;return s.src.length>0&&s.src[0]==="/"&&(t=s.src.slice(1),console.log(s.src)),t=e?`${e.value}${t}`:t,n.jsx(n.Fragment,{children:n.jsx("img",{...s,src:t})})}export{o as I};

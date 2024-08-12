@@ -13,6 +13,7 @@ export interface User extends Model {
     email: string;
     email_verified_at: string;
     pointer: number;
+    is_premium: boolean;
 }
 
 export interface Role extends Model {

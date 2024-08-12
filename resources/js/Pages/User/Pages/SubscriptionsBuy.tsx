@@ -16,24 +16,23 @@ import {
 export default function SubscriptionBuy({
     auth,
     subscription,
+    response,
 }: SubscriptionBuyProps) {
     const { data, setData, errors, post } = useForm({
         id: subscription.id,
         customer_name: "",
         customer_ci: "",
         phone: "",
-        type_payment: "",
+        type_payment: "1",
     });
 
-    console.log(errors);
+    console.log(response);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         post(route("payments.store"), {
             preserveScroll: true,
-            onSuccess: () => {
-                alert("Compra exitosa");
-            },
+            onSuccess: () => {},
         });
     };
 
@@ -60,6 +59,7 @@ export default function SubscriptionBuy({
                             onChange={(e) =>
                                 setData("customer_name", e.target.value)
                             }
+                            placeholder="Nombre del cliente"
                             id="customer_name"
                         />
                         {errors.customer_name && <p>{errors.customer_name}</p>}
@@ -77,6 +77,7 @@ export default function SubscriptionBuy({
                             onChange={(e) =>
                                 setData("customer_ci", e.target.value)
                             }
+                            placeholder="CI del cliente"
                             id="customer_ci"
                         />
                         {errors.customer_ci && <p>{errors.customer_ci}</p>}
@@ -93,6 +94,7 @@ export default function SubscriptionBuy({
                             name={data.phone}
                             onChange={(e) => setData("phone", e.target.value)}
                             id="phone"
+                            placeholder="Número de celular"
                         />
                         {errors.phone && <p>{errors.phone}</p>}
                     </div>
@@ -100,8 +102,8 @@ export default function SubscriptionBuy({
                         <label className="text-xl font-medium mb-5">
                             Tipo de pago
                         </label>
-                        <Select>
-                            <SelectTrigger className="">
+                        {/* <Select name="type_payment">
+                            <SelectTrigger className="" name="type_payment">
                                 <SelectValue placeholder="Seleccionar Tipo de Pagó" />
                             </SelectTrigger>
                             <SelectContent>
@@ -113,17 +115,19 @@ export default function SubscriptionBuy({
                                     </SelectItem>
                                 </SelectGroup>
                             </SelectContent>
-                        </Select>
-                        {/* <select
+                        </Select> */}
+                        <select
+                            className="block w-full p-2 border border-gray-300 rounded-md"
                             name={data.type_payment}
                             onChange={(e) =>
                                 setData("type_payment", e.target.value)
                             }
+                            value={data.type_payment}
                             id="type_payment"
                         >
                             <option value="1">QR</option>
                             <option value="2">Tigo Money</option>
-                        </select> */}
+                        </select>
                         {errors.type_payment && <p>{errors.type_payment}</p>}
                     </div>
 

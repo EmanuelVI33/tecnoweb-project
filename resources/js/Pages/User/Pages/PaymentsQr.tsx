@@ -4,11 +4,15 @@ import SubsCard from "../Components/Card";
 import { Button } from "@/shadcn/ui/button";
 import { router, useForm } from "@inertiajs/react";
 
-export default function PaymentsQr({ auth, payment }: PaymentsQrProps) {
+export default function PaymentsQr({
+    auth,
+    payment,
+    response,
+}: PaymentsQrProps) {
     const { post, errors, data } = useForm({
         id: payment.id,
     });
-    console.log(payment);
+    console.log(payment, response);
 
     function handleConsultar(id: string) {
         post(route("payments.consultar", id));
@@ -75,6 +79,11 @@ export default function PaymentsQr({ auth, payment }: PaymentsQrProps) {
                             <p className="text-center mb-1">
                                 Si realizo el pago, click en consultar pago
                             </p>
+                            {response && (
+                                <p className="text-center text-lg font-medium">
+                                    Consulta: {response}
+                                </p>
+                            )}
                         </div>
                     </div>
                 </div>
