@@ -9,6 +9,8 @@ class Comando extends Model
 {
     use HasFactory;
 
+    protected $table = 'comando';
+
     protected $fillable = [
         'nro',
         'caso_uso',
