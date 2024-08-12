@@ -1,1 +1,0 @@
-import{j as a}from"./app-BaRKjdtB.js";import{a as o,b as x,c,d as r,e as j,f as t}from"./table-zcjc7qBt.js";function h({caption:l,headers:i,data:n,renderRow:d}){return a.jsxs(o,{children:[a.jsx(x,{children:l}),a.jsx(c,{children:a.jsx(r,{children:i.map((e,s)=>a.jsx(j,{children:e},s))})}),a.jsx(t,{children:n.map((e,s)=>a.jsx(r,{children:d(e)},s))})]})}export{h as C};
