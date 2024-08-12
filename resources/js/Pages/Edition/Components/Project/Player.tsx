@@ -58,7 +58,7 @@ function Player() {
         ) {
             console.log("modificando");
             console.log(`Video Url: ${elements[currentIndex].videoUrl}`);
-            const videoUrl = `${appURL}${path}${elements[currentIndex].videoUrl}`;
+            const videoUrl = `${path}${elements[currentIndex].videoUrl}`;
             videoRef.current.src = videoUrl;
             await videoRef.current.load();
             play();
@@ -79,7 +79,7 @@ function Player() {
             >
                 {currentIndex !== -1 && (
                     <source
-                        src={`${appURL}${path}${elements[currentIndex]?.videoUrl}`}
+                        src={`${path}${elements[currentIndex]?.videoUrl}`}
                         type="video/mp4"
                     />
                 )}
