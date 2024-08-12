@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\User\PaymentController\StorePaymentRequest;
 use App\Services\PaymentService;
 use App\Services\PFPaymentService;
+use App\Services\SettingService;
 use App\Services\SubsPaymentService;
 use Illuminate\Http\Request;
 
@@ -17,12 +18,14 @@ class SubsPaymentController extends Controller
         private SubsPaymentService $subsPaymentService,
         private PaymentService $paymentService,
         private PFPaymentService $pFPaymentService,
+        private SettingService $settingService,
     ) {
         $this->page = config('pages.user.' . self::BASE_ROUTE);
     }
 
     public function index()
     {
+        $this->settingService->incrementCount('payment_index', 'Pago index');
         $payments = $this->paymentService->getAllPaymentUser();
         return $this->handleResponse($this->page . 'Index', compact('payments'));
     }
@@ -36,6 +39,7 @@ class SubsPaymentController extends Controller
 
     public function show($id)
     {
+        $this->settingService->incrementCount('payment_show', 'Pago mostrar');
         $payment = $this->paymentService->getPaymentWithSubscription($id);
         return $this->handleResponse($this->page . 'Qr', compact('payment'));
     }

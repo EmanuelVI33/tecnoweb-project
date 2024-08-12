@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Setting;
 use App\Services\Production\NewsService;
+use App\Services\SettingService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -11,8 +13,10 @@ class UserController extends Controller
     private const BASE_ROUTE = 'user';
     private $page;
 
-    public function __construct(private NewsService $newsService)
-    {
+    public function __construct(
+        private NewsService $newsService,
+        private SettingService $settingService,
+    ) {
         $this->page = config('pages.user.' . self::BASE_ROUTE);
     }
 
@@ -22,6 +26,9 @@ class UserController extends Controller
     public function index()
     {
         try {
+            // Registrar contador 
+            $this->settingService->incrementCount('user_index', 'User index');
+            // $pages = $this->settingService->getSettingPages();
             $news = $this->newsService->getAllForUser();
 
             return $this->handleResponseWithPaginate(

@@ -4,16 +4,17 @@ use App\Http\Controllers\Production\NewsCategoryController;
 use App\Http\Controllers\Production\NewsController;
 use App\Http\Controllers\Production\PaymentController;
 use App\Http\Controllers\Production\SubscriptionController;
+use App\Http\Controllers\Production\UserController;
 use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 Route::middleware(['auth', 'role:administrative'])->group(function () {
     // Ruta para el administrativo
     Route::prefix('/admin')->name('admin.')->group(function () {
-        Route::get('/', function () {
-            return Inertia::render('Admin/Dashboard');
-        })->name('dashboard');
+        Route::get('/', [UserController::class, 'index'])->name('dashboard');
+        // Route::get('/', function () {
+        //     return Inertia::render('Admin/Dashboard');
+        // })->name('dashboard');
         Route::prefix('/news')->name('news.')->group(function () {
             Route::get('/', [NewsController::class, 'index'])->name('index');
             Route::post('/', [NewsController::class, 'store'])->name('store');

@@ -81,10 +81,19 @@ export interface PageWithPaginationProps<T> {
     settings: Setting[];
 }
 
+export interface UserIndex<T> extends PageWithPaginationProps<T> {
+    pages: Setting[];
+}
+
 export type ProjectPageProps = PageProps & {
     projects: Project[];
 };
 
 export type ProjectShowPageProps = PageProps & {
     project: ProjectResponse;
+};
+
+export type AdminPageProps = PageProps & {
+    pages: Setting[];
+    total: number;
 };

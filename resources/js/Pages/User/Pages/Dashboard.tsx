@@ -1,5 +1,3 @@
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
 import { PageProps } from "@/types";
 import { AdminLayout } from "../../Admin/Layout/AdminLayout";
 

@@ -16,9 +16,8 @@ import {
     CardTitle,
 } from "@/shadcn/ui/card";
 import { ChartConfig, ChartContainer } from "@/shadcn/ui/chart";
-const chartData = [
-    { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-];
+import { AdminPageProps } from "@/types";
+import { usePage } from "@inertiajs/react";
 
 const chartConfig = {
     visitors: {
@@ -31,11 +30,23 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function Visitors() {
+    const {
+        props: { total },
+    } = usePage<AdminPageProps>();
+
+    const chartData = [
+        {
+            browser: "safari",
+            visitors: Math.trunc(total),
+            fill: "var(--color-safari)",
+        },
+    ];
+
     return (
         <Card className="flex flex-col">
             <CardHeader className="items-center pb-0">
-                <CardTitle>Radial Chart - Text</CardTitle>
-                <CardDescription>January - June 2024</CardDescription>
+                <CardTitle>Total de Visitas</CardTitle>
+                <CardDescription>Agosto - 2024</CardDescription>
             </CardHeader>
             <CardContent className="flex-1 pb-0">
                 <ChartContainer
@@ -105,11 +116,11 @@ export function Visitors() {
             </CardContent>
             <CardFooter className="flex-col gap-2 text-sm">
                 <div className="flex items-center gap-2 font-medium leading-none">
-                    Trending up by 5.2% this month{" "}
+                    Visicas totales
                     <TrendingUp className="h-4 w-4" />
                 </div>
                 <div className="leading-none text-muted-foreground">
-                    Showing total visitors for the last 6 months
+                    Visualizando todas las visitas del mes
                 </div>
             </CardFooter>
         </Card>

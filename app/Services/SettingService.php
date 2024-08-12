@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Data\SettingData;
 use App\Models\Setting;
+use Illuminate\Support\Facades\DB;
 
 class SettingService
 {
@@ -58,10 +59,34 @@ class SettingService
         ]);
     }
 
-    public function incrementCount($key)
+    public function getSettingPages()
     {
+        return $this->setting->where('type', 'page')->get();
+    }
+
+
+    // Sumar la cantidad de visitas de las paginas
+    public function getTotalVisit()
+    {
+        return $this->setting->where('type', 'page')
+            ->sum(DB::raw('CAST(value AS DECIMAL(10, 2))'));
+    }
+
+
+    public function incrementCount($key, ?String $label)
+    {
+        // Crear o editar
         $setting = $this->get("{$key}_count");
-        $setting->value = $setting->value + 1;
-        $setting->save();
+        if (!$setting) {
+            $setting = $this->setting->create([
+                'key' => "{$key}_count",
+                'value' => 1,
+                'label' => $label,
+                'type' => 'page'
+            ]);
+        } else {
+            $setting->value = $setting->value + 1;
+            $setting->save();
+        }
     }
 }
