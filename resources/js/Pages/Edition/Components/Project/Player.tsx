@@ -1,12 +1,25 @@
 import { appURL } from "@/constants/constant";
 import { Button } from "@/shadcn/ui/button";
-import { useSelectedProjectStore } from "@/store/selected-project"
+import { useSelectedProjectStore } from "@/store/selected-project";
+import { PageProps } from "@/types";
+import { usePage } from "@inertiajs/react";
 import { useEffect, useRef, useState } from "react";
 
 function Player() {
     const { elements, currentElement } = useSelectedProjectStore();
-        const [currentIndex, setCurrentIndex] = useState(currentElement);
+    const [currentIndex, setCurrentIndex] = useState(currentElement);
     const videoRef = useRef<HTMLVideoElement | null>(null);
+    const {
+        props: { settings },
+    } = usePage<PageProps>();
+
+    const setting = settings.find((setting) => setting.key === "path");
+    let path = setting ? setting.value : "/";
+
+    // if (path.length > 1 && path[path.length - 1] === "/") {
+    //     path = path.slice(0, path.length - 1);
+    // }
+    console.log(`Path: ${path}`);
 
     useEffect(() => {
         console.log(`Cambio elemento actual`);
@@ -38,26 +51,37 @@ function Player() {
     };
 
     const setVideo = async () => {
-        if (currentIndex !== -1 && videoRef.current && elements[currentIndex].videoUrl) {
-            console.log('modificando')
+        if (
+            currentIndex !== -1 &&
+            videoRef.current &&
+            elements[currentIndex].videoUrl
+        ) {
+            console.log("modificando");
             console.log(`Video Url: ${elements[currentIndex].videoUrl}`);
-            const videoUrl = `${appURL}/${elements[currentIndex].videoUrl}`;
+            const videoUrl = `${appURL}${path}${elements[currentIndex].videoUrl}`;
             videoRef.current.src = videoUrl;
             await videoRef.current.load();
             play();
         }
-    }
+    };
 
     useEffect(() => {
-        console.log('Cambio index')
+        console.log("Cambio index");
         setVideo();
     }, [currentIndex]);
 
     return (
         <div className="py-2 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 flex flex-col items-center justify-between border-8 border-slate-200 dark:border-slate-900">
-            <video ref={videoRef} controls className="w-full max-w-lg h-full rounded-lg mb-4">
+            <video
+                ref={videoRef}
+                controls
+                className="w-full max-w-lg h-full rounded-lg mb-4"
+            >
                 {currentIndex !== -1 && (
-                    <source src={`${appURL}/${elements[currentIndex]?.videoUrl}`} type="video/mp4" />
+                    <source
+                        src={`${appURL}${path}${elements[currentIndex]?.videoUrl}`}
+                        type="video/mp4"
+                    />
                 )}
             </video>
             <div className="flex space-x-4 bg-slate-600 p-2 rounded">
