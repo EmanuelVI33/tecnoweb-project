@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('news', function (Blueprint $table) {
-            $table->boolean('is_premium')->default(false);
+            // Modificar campo user_id
+            $table->foreignId('user_id')->nullable()->references('id')->on('users')->change();
         });
     }
 
@@ -22,7 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('news', function (Blueprint $table) {
-            $table->dropColumn('is_premium');
+            //
         });
     }
 };

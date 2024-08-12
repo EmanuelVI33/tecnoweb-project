@@ -14,7 +14,8 @@ class SubsPaymentService
     public function __construct(
         private SubscriptionService $subscriptionService,
         private PFPaymentService $pFPaymentService,
-        private PaymentService $paymentService
+        private PaymentService $paymentService,
+        private UserService $userService
     ) {}
 
     public function createPayment(PFPaymentData $payment): ?Int
@@ -35,11 +36,13 @@ class SubsPaymentService
         return $id;
     }
 
-    public function consultar(Int $id)
+    public function consultar(Int $subsId)
     {
-        $payment = $this->paymentService->get($id);
+        $payment = $this->paymentService->get($subsId);
         $tranId = $payment->transaction_id;
         $response = $this->pFPaymentService->consultarEstado($tranId);
+        $status = $response->status;
+        // $status = 2;
         $stateTran = $response->values->EstadoTransaccion;
         $data = [];
 
@@ -47,12 +50,15 @@ class SubsPaymentService
             $data['state_tran'] = $stateTran;
         }
 
-        if ($response->status == 2) {
-            $data['state'] = $response->status;
+        if ($status == 2) {
+            // El user ya pagó, es premium
+            $this->userService->update($payment->user_id, ['is_premium' => true]);
+
+            $data['state'] = $status;
         }
 
         if (!empty($data)) {
-            $this->paymentService->update($id, $data);
+            $this->paymentService->update($subsId, $data);
         }
 
         return $response->values->messageEstado;

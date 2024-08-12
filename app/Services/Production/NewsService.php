@@ -3,16 +3,27 @@
 namespace App\Services\Production;
 
 use App\Models\Production\News;
+use Illuminate\Support\Facades\Auth;
 
 class NewsService
 {
-    public function __construct(private News $news)
-    {
-    }
+    public function __construct(private News $news) {}
 
     public function getAll()
     {
         return $this->news::with('project', 'newsCategory')->get();
+    }
+
+    public function getAllForUser()
+    {
+        $user = Auth::user();
+
+        // Obtener las noticias que estén publicadas y que sean premium si el usuario es premium
+        if ($user->is_premium) {
+            return $this->news::with('project', 'newsCategory')->where('is_public', true)->paginate(10);
+        } else {
+            return $this->news::with('project', 'newsCategory')->where('is_public', true)->where('is_premium', false)->paginate(5);
+        }
     }
 
     public function getOne(int $id)

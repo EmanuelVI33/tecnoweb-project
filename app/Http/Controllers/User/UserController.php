@@ -22,12 +22,11 @@ class UserController extends Controller
     public function index()
     {
         try {
-            $news = $this->newsService->getAll();
+            $news = $this->newsService->getAllForUser();
 
-            return $this->handleResponse(
+            return $this->handleResponseWithPaginate(
                 route: $this->page . 'Index',
-                data: compact('news'),
-                message: 'Listado de usuarios',
+                paginate: $news, // Datos paginados
             );
         } catch (\Exception $e) {
             return $this->handleError($e);

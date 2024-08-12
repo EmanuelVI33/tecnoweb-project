@@ -11,6 +11,20 @@ trait ResponseControllerTrait
         return Inertia::render($route, $data)->with('success', $message);
     }
 
+    public function handleResponseWithPaginate(string $route = 'Welcome', $paginate = [], array $data = [], string $message = '')
+    {
+        return Inertia::render(
+            $route,
+            array_merge(
+                [
+                    'response' => $paginate
+                ],
+                $data
+            )
+        )
+            ->with('success', $message);
+    }
+
     /**
      * Handle the success and return the appropriate response.
      */

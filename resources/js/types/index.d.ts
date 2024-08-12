@@ -1,8 +1,6 @@
 import { Project } from "@/Pages/Edition/models/project";
 import { Presenter } from "../Pages/Edition/models/presenter";
 import { ProjectResponse } from "@/Pages/Edition/models/response";
-import SettingsIndex from "../Pages/Admin/Pages/SettingsIndex";
-import { set } from "react-hook-form";
 
 // type ID = string | number;
 
@@ -42,6 +40,39 @@ export type PageProps<
     error: ErrorMessage;
     settings: Setting[];
 };
+
+export interface Link {
+    url: null | string;
+    label: string;
+    active: boolean;
+}
+
+export interface Pagination<T> {
+    current_page: number;
+    data: T[];
+    first_page_url: string;
+    from: number;
+    last_page: number;
+    last_page_url: string;
+    links: Link[];
+    next_page_url: string;
+    path: string;
+    per_page: number;
+    prev_page_url: null;
+    to: number;
+    total: number;
+}
+
+export interface PageWithPaginationProps<T> {
+    response: Pagination<T>;
+    auth: {
+        user: User;
+    };
+    presenters: Presenter[];
+    success: string;
+    error: ErrorMessage;
+    settings: Setting[];
+}
 
 export type ProjectPageProps = PageProps & {
     projects: Project[];
