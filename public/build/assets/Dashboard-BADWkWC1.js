@@ -1,0 +1,1 @@
+import{j as t}from"./app-DRYE0ikS.js";import{A as i}from"./AuthenticatedLayout-YLs4e7O6.js";import"./FontSizeDropdown-2pbcVfCZ.js";import"./transition-DI6V-ZyP.js";import"./NavLink-JKBeHBNR.js";import"./sonner-B78dA61C.js";import"./index-B7adf0BC.js";import"./index-BrPZQBQn.js";function x({auth:o,presenters:r}){return console.log(r),t.jsx(i,{user:o.user})}export{x as default};

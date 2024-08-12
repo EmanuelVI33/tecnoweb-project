@@ -45,7 +45,7 @@ class NewsCategoryController extends Controller
         try {
             $this->newsCategoryService->create($request->validated());
             return $this->handleSuccess(
-                route: self::BASE_ROUTE . '.index',
+                route: 'admin.' . self::BASE_ROUTE . '.index',
                 message: 'Categoría creada correctamente'
             );
         } catch (\Exception $e) {
@@ -77,7 +77,7 @@ class NewsCategoryController extends Controller
         try {
             $this->newsCategoryService->update($id, $request->validated());
             return $this->handleSuccess(
-                route: self::BASE_ROUTE . '.index',
+                route: 'admin.' . self::BASE_ROUTE . '.index',
                 message: 'Categoría actualizada correctamente'
             );
         } catch (\Exception $e) {
@@ -91,9 +91,10 @@ class NewsCategoryController extends Controller
     public function destroy(string $id)
     {
         try {
-            $this->newsCategoryService->delete($id);
+            $b = $this->newsCategoryService->delete($id);
+            dd($b);
             return $this->handleSuccess(
-                route: self::BASE_ROUTE . '.index',
+                route: 'admin.' . self::BASE_ROUTE . '.index',
                 message: 'Categoría eliminada correctamente'
             );
         } catch (\Exception $e) {

@@ -22,20 +22,12 @@ class NewsCategoryService
 
     public function getOne(int $id): NewsCategory
     {
-        try {
-            return $this->newsCategory->findOrFail($id);
-        } catch (ModelNotFoundException $e) {
-            throw new \Exception(trans('news_category.not_found'), 404);
-        }
+        return $this->newsCategory->findOrFail($id);
     }
 
     public function create(array $data): NewsCategory
     {
-        try {
-            return $this->newsCategory->create($data);
-        } catch (\Exception $e) {
-            throw new \Exception(trans('news_category.create_error'), 500);
-        }
+        return $this->newsCategory->create($data);
     }
 
     public function update(int $id, array $data): NewsCategory
@@ -47,10 +39,11 @@ class NewsCategoryService
         return $newsCategory;
     }
 
-    public function delete(int $id): bool
+    public function delete(int $id)
     {
         $newsCategory = $this->getOne($id);
         $newsCategory->delete();
+
         return true;
     }
 }
