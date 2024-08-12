@@ -33,7 +33,7 @@ class StoreSettingRequest extends FormRequest
     protected function passedValidation(): void
     {
         $settingData = 'App\Data\SettingData';
-        foreach ($this->settings as $setting) {
+        foreach ($this->settings as $key => $setting) {
             $this->settingsData[] = $settingData::from($setting);
         }
     }

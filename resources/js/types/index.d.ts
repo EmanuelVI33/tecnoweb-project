@@ -15,6 +15,10 @@ export interface User extends Model {
     pointer: number;
 }
 
+export interface Role extends Model {
+    name: string;
+}
+
 export interface ErrorMessage {
     message: string;
     statu: string;
@@ -34,6 +38,7 @@ export type PageProps<
 > = T & {
     auth: {
         user: User;
+        rol: Role;
     };
     presenters: Presenter[];
     success: string;
@@ -67,6 +72,7 @@ export interface PageWithPaginationProps<T> {
     response: Pagination<T>;
     auth: {
         user: User;
+        rol: string;
     };
     presenters: Presenter[];
     success: string;

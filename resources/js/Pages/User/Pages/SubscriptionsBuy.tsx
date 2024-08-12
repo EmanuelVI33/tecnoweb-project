@@ -2,7 +2,16 @@ import { useForm } from "@inertiajs/react";
 import Layout from "../Layout/Layout";
 import { SubscriptionBuyProps } from "../Models";
 import { Input } from "@/shadcn/ui/input";
-import { Button } from "@headlessui/react";
+import { Button } from "@/shadcn/ui/button";
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/shadcn/ui/select";
 
 export default function SubscriptionBuy({
     auth,
@@ -30,11 +39,19 @@ export default function SubscriptionBuy({
 
     return (
         <Layout user={auth.user}>
-            <div>
-                <h1>Comprar subcripcion {subscription.name}</h1>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label htmlFor="customer_name">
+            <div className="w-full md:w-1/2 mx-auto mt-5">
+                <h1 className="text-2xl font-bold mb-2">
+                    Comprar subcripcion {subscription.name}
+                </h1>
+                <p className="text-lg mb-2">
+                    Rellene los siguinte campos para realizar el pagó
+                </p>
+                <form className="p-2" onSubmit={handleSubmit}>
+                    <div className="mb-5">
+                        <label
+                            className="text-xl font-medium mb-2"
+                            htmlFor="customer_name"
+                        >
                             Nombre del cliente
                         </label>
                         <Input
@@ -47,8 +64,13 @@ export default function SubscriptionBuy({
                         />
                         {errors.customer_name && <p>{errors.customer_name}</p>}
                     </div>
-                    <div>
-                        <label htmlFor="customer_ci">CI del cliente</label>
+                    <div className="mb-5">
+                        <label
+                            className="text-xl font-medium mb-2"
+                            htmlFor="customer_ci"
+                        >
+                            CI del cliente
+                        </label>
                         <Input
                             type="text"
                             name={data.customer_ci}
@@ -59,8 +81,13 @@ export default function SubscriptionBuy({
                         />
                         {errors.customer_ci && <p>{errors.customer_ci}</p>}
                     </div>
-                    <div>
-                        <label htmlFor="phone">Número de celular</label>
+                    <div className="mb-5">
+                        <label
+                            className="text-xl font-medium mb-2"
+                            htmlFor="phone"
+                        >
+                            Número de celular
+                        </label>
                         <Input
                             type="number"
                             name={data.phone}
@@ -69,9 +96,25 @@ export default function SubscriptionBuy({
                         />
                         {errors.phone && <p>{errors.phone}</p>}
                     </div>
-                    <div>
-                        <label htmlFor="type_payment">Tipo de pago</label>
-                        <select
+                    <div className="mb-5">
+                        <label className="text-xl font-medium mb-5">
+                            Tipo de pago
+                        </label>
+                        <Select>
+                            <SelectTrigger className="">
+                                <SelectValue placeholder="Seleccionar Tipo de Pagó" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectGroup>
+                                    <SelectLabel>Tipo de Pagó</SelectLabel>
+                                    <SelectItem value="1">QR</SelectItem>
+                                    <SelectItem value="2">
+                                        Tigo Money
+                                    </SelectItem>
+                                </SelectGroup>
+                            </SelectContent>
+                        </Select>
+                        {/* <select
                             name={data.type_payment}
                             onChange={(e) =>
                                 setData("type_payment", e.target.value)
@@ -80,11 +123,18 @@ export default function SubscriptionBuy({
                         >
                             <option value="1">QR</option>
                             <option value="2">Tigo Money</option>
-                        </select>
+                        </select> */}
                         {errors.type_payment && <p>{errors.type_payment}</p>}
                     </div>
 
-                    <Button type="submit">Comprar</Button>
+                    <div className="flex justify-end">
+                        <Button
+                            className="block w-full md:w-1/2 xl:w-1/3"
+                            type="submit"
+                        >
+                            Comprar
+                        </Button>
+                    </div>
                 </form>
             </div>
         </Layout>

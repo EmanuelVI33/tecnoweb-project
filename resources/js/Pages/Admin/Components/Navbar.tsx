@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import menuIcon from "@iconify/icons-mdi/menu";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useLocalStorage } from "@uidotdev/usehooks";
+import FontSizeDropdown from "@/Components/Ui/FontSizeDropdown";
 
 interface NavbarProps {
     toggleSidebar: () => void;
@@ -16,6 +17,7 @@ function Navbar({ toggleSidebar }: NavbarProps) {
         useState(false);
     const [dark, setDark] = useLocalStorage("dark", false);
     const { props } = usePage<PageProps>();
+    const [fontSize, setFontSize] = useLocalStorage("fontSize", "text-base");
     const {
         auth: { user },
     } = props;
@@ -32,6 +34,22 @@ function Navbar({ toggleSidebar }: NavbarProps) {
             document.documentElement.classList.remove("dark");
         }
     }, []);
+
+    useEffect(() => {
+        document.documentElement.classList.remove(
+            "text-xs",
+            "text-sm",
+            "text-base",
+            "text-lg",
+            "text-xl",
+            "text-2xl"
+        );
+        document.documentElement.classList.add(fontSize);
+    }, [fontSize]);
+
+    const changeFontSize = (size: string) => {
+        setFontSize(size);
+    };
 
     return (
         <nav className="w-full h-20 bg-white dark:bg-gray-800 shadow-md px-4 py-2">
@@ -62,6 +80,9 @@ function Navbar({ toggleSidebar }: NavbarProps) {
                             >
                                 🌙
                             </button>
+
+                            <FontSizeDropdown changeFontSize={changeFontSize} />
+
                             <div className="ms-3 relative">
                                 <Dropdown>
                                     <Dropdown.Trigger>
@@ -97,7 +118,7 @@ function Navbar({ toggleSidebar }: NavbarProps) {
                                             Perfil
                                         </Dropdown.Link>
                                         <Dropdown.Link
-                                            href={route("settings.index")}
+                                            href={route("admin.settings.index")}
                                         >
                                             Configuración
                                         </Dropdown.Link>

@@ -20,7 +20,7 @@ function SettingsIndex({ auth, settings }: SettingsIndexProps) {
         }
 
         router.post(
-            route("settings.store"),
+            route("admin.settings.store"),
             { settings: settingsData },
             {
                 onSuccess: (page) => {
@@ -46,25 +46,29 @@ function SettingsIndex({ auth, settings }: SettingsIndexProps) {
                             Configuraciones
                         </h2>
                         <form onSubmit={onSubmit}>
-                            {settings.map((setting) => (
-                                <div key={setting.key}>
-                                    <label htmlFor={setting.key}>
-                                        {setting.label}
-                                    </label>
-                                    <Input
-                                        id={setting.key}
-                                        name={setting.key}
-                                        className="mt-2"
-                                        defaultValue={
-                                            setting.type !== "file"
-                                                ? setting.value
-                                                : ""
-                                        }
-                                        placeholder={setting.placeholder}
-                                        type={setting.type}
-                                    />
-                                </div>
-                            ))}
+                            {settings.map((setting) =>
+                                setting.type !== "file" ? (
+                                    <div key={setting.key}>
+                                        <label htmlFor={setting.key}>
+                                            {setting.label}
+                                        </label>
+                                        <Input
+                                            id={setting.key}
+                                            name={setting.key}
+                                            className="mt-2"
+                                            defaultValue={
+                                                setting.type !== "file"
+                                                    ? setting.value
+                                                    : ""
+                                            }
+                                            placeholder={setting.placeholder}
+                                            type={setting.type}
+                                        />
+                                    </div>
+                                ) : (
+                                    <></>
+                                )
+                            )}
                             <Button>Guardar</Button>
                         </form>
                     </section>

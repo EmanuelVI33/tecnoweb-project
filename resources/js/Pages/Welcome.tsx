@@ -1,6 +1,7 @@
 import { PageProps } from "@/types";
 import WelcomeNavbar from "@/Components/Ui/WelcomeNavbar";
 import { Button } from "@/shadcn/ui/button";
+import Imagen from "@/Components/Image";
 
 export default function Welcome({ auth }: PageProps) {
     return (
@@ -45,8 +46,6 @@ export default function Welcome({ auth }: PageProps) {
                                 </a>
                             </div>
                         </div>
-
-                        {/* <div className="hero-banner"></div> */}
                     </section>
 
                     <section className="p-5 border-b border-gray-4 mt-10 h-full">
@@ -57,11 +56,16 @@ export default function Welcome({ auth }: PageProps) {
                                     className="w-full flex justify-evenly"
                                 >
                                     <figure className="card-banner">
-                                        <img
-                                            src="/assets/images/podcast-1.png"
+                                        <Imagen
+                                            src="assets/images/podcast-1.png"
                                             alt="La Universidad Autónoma Gabriel René Moreno ha inaugurado una nueva biblioteca con recursos modernos para estudiantes y docentes."
                                             className="block h-56 w-full object-cover"
                                         />
+                                        {/* <img
+                                            src="/assets/images/podcast-1.png"
+                                            alt="La Universidad Autónoma Gabriel René Moreno ha inaugurado una nueva biblioteca con recursos modernos para estudiantes y docentes."
+                                            className="block h-56 w-full object-cover"
+                                        /> */}
                                         <div className="card-banner-icon">
                                             {/* <IonIcon name="play"></IonIcon> */}
                                         </div>

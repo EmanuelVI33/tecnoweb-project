@@ -10,12 +10,13 @@ use App\Traits\ResponseControllerTrait;
 
 class SubscriptionController extends Controller
 {
-    private const BASE_ROUTE = 'subscriptions';
+    private const BASE_PAGE = 'subscriptions';
+    private const BASE_ROUTE = 'admin.subscriptions';
     private $page;
 
     public function __construct(private SubscriptionService $subscriptionService)
     {
-        $this->page = config('pages.admin.' . self::BASE_ROUTE);
+        $this->page = config('pages.admin.' . self::BASE_PAGE);
     }
 
     public function index()

@@ -6,9 +6,9 @@ const formSchema = z.object({
     name: z
         .string()
         .min(3, { message: "El nombre debe tener al menos 3 caracteres" }),
-    description: z.string().optional(),
+    description: z.string().optional().nullable(),
     duration: z.coerce.number().int().positive(),
-    price: z.coerce.number().int().positive(),
+    price: z.coerce.number().positive(),
 });
 
 const subscriptionForm: Subscription = {

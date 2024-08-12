@@ -25,6 +25,11 @@ export default function Layout({
         }
     }, []);
 
+    const toggleDarkMode = () => {
+        document.documentElement.classList.toggle("dark");
+        setDark(!dark);
+    };
+
     useEffect(() => {
         document.documentElement.classList.remove(
             "text-xs",
@@ -36,11 +41,6 @@ export default function Layout({
         );
         document.documentElement.classList.add(fontSize);
     }, [fontSize]);
-
-    const toggleDarkMode = () => {
-        document.documentElement.classList.toggle("dark");
-        setDark(!dark);
-    };
 
     const changeFontSize = (size: string) => {
         setFontSize(size);

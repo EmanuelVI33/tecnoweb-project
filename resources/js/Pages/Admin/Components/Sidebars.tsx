@@ -21,10 +21,10 @@ const menuOptions = [
         label: "Suscripciones",
         icon: informationIcon,
         subItems: [
-            {
-                label: "Lista de Pagos",
-                url: routeName + "payments.index",
-            },
+            // {
+            //     label: "Lista de Pagos",
+            //     url: routeName + "payments.index",
+            // },
             {
                 label: "Lista de Suscripciones",
                 url: routeName + "subscriptions.index",

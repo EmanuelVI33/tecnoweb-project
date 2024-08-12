@@ -18,17 +18,18 @@ class SettingService
         return $this->setting->all();
     }
 
-    public function store(array $settingData)
+    public function store(array $settingsData)
     {
         try {
-            /** @var SettingData $settingData */
-            foreach ($settingData as $settingData) {
+            foreach ($settingsData as $settingData) {
                 if ($settingData->key === null) continue;
 
                 $setting = $this->get($settingData->key);
                 if (!$setting) continue;
 
-                $this->update($settingData->key, $settingData->value);
+                $setting->value = $settingData->value;
+                $setting->save();
+                // $this->update($settingData->key, $settingData->value);
             }
         } catch (\Exception $e) {
             throw new \Exception(trans('settings.store'), 500);

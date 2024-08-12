@@ -21,7 +21,7 @@ Route::middleware(['auth', 'role:administrative'])->group(function () {
             Route::put('/{id}', [NewsController::class, 'update'])->name('update');
             Route::delete('/{id}', [NewsController::class, 'destroy'])->name('destroy');
         });
-        Route::prefix('/subscription')->name('subscription.')->group(function () {
+        Route::prefix('/subscriptions')->name('subscriptions.')->group(function () {
             Route::get('/', [SubscriptionController::class, 'index'])->name('index');
             Route::post('/', [SubscriptionController::class, 'store'])->name('store');
             Route::get('{id}', [SubscriptionController::class, 'show'])->name('show');

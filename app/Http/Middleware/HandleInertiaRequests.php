@@ -39,10 +39,18 @@ class HandleInertiaRequests extends Middleware
         ))->getAll();
         $settings = (new SettingService(new Setting()))->getAll();
 
+        $rol = null;
+        if ($request->user()) {
+            $rol = $request->user()->roles()->first();
+        }
+
+        // dd($rol);
+
         return [
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
+                'rol' => $rol,
             ],
             'presenters' => $presenters,
             'settings' => $settings,
