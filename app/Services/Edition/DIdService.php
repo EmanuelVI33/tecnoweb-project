@@ -58,7 +58,6 @@ class DIdService
 
         try {
             $response = Http::withHeaders($options['headers'])->post($options['url'], $options['json']);
-            dd($response);
             $responseData = $response->json();
             if ($response->status() !== 200) {
                 Log::error('Error generating video: ' . $responseData['description']);

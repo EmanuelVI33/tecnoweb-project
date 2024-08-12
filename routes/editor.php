@@ -23,7 +23,7 @@ Route::middleware(['auth', 'role:editor'])->group(function () {
         });
         Route::group(['prefix' => '/elements'], function () {
             Route::post('/', [ElementController::class, 'store'])->name('elements.store');
-            Route::post('/generate/{projectId}', [ElementController::class, 'generateElements']);
+            Route::post('/generate/{projectId}', [ElementController::class, 'generateElements'])->name('elements.generate');
         });
     });
 });

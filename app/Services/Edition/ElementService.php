@@ -12,6 +12,7 @@ use App\Models\Edition\Project;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -20,12 +21,9 @@ class ElementService
     public function __construct(
         private FileUploader $fileUploader,
         private DIdService $dIdService,
-    ) {
-    }
+    ) {}
 
-    public function getAll()
-    {
-    }
+    public function getAll() {}
 
     public function store(array $elementsData)
     {
@@ -67,13 +65,13 @@ class ElementService
 
     public function generateVideo($createElementDtos, $projectId)
     {
-        $user = auth()->user();
+        $user = Auth()->user();
         if (!$user) {
             throw new \Exception('Usuario no autenticado');
         }
 
         $project = Project::where('id', $projectId)->with('presenter')->first();
-        $photoUrl = 'http://mail.tecnoweb.org.bo/inf513/grupo23sa/proyecto2/public/' . $project->presenter->photo_url;
+        $photoUrl = 'http://mail.tecnoweb.org.bo/inf513/grupo23sa/proy2/public/' . $project->presenter->photo_url;
 
         $pointer = $user->pointer;
         foreach ($createElementDtos as $elementDto) {
@@ -83,7 +81,6 @@ class ElementService
                 $elementDto['video_id'] = $videoId;
 
                 $element = Element::where('id', $elementDto['id'])->where('project_id', $projectId)->with('element')->first();
-
 
                 if ($element) {
                     // Decrementar puntos
