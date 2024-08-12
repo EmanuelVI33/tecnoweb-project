@@ -10,6 +10,7 @@ class Comando extends Model
     use HasFactory;
 
     protected $fillable = [
+        'nro',
         'caso_uso',
         'accion',
         'parametros',

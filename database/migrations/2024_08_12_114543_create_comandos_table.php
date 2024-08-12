@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('comando', function (Blueprint $table) {
             $table->id();
+            $table->string('nro');
             $table->string('caso_uso');
             $table->string('accion');
             $table->string('parametros');

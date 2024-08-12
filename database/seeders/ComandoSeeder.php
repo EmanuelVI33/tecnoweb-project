@@ -51,36 +51,42 @@ class ComandoSeeder extends Seeder
 
 
         $comandos = [
-            ['caso_uso' => 'Gestion de usuarios', 'accion' => 'agregar', 'parametros' => 'nombre, correo, contraseña, puntos', 'ejemplo' => 'agregar usuario [Pedro; pedrito@gmail.com; 123456; 30]'],
-            ['caso_uso' => 'Gestion de usuarios', 'accion' => 'modificar', 'parametros' => 'id, nombre, correo, contraseña, puntos', 'ejemplo' => 'modificar usuario [1; Pedro; pedrito@gmail.com; 123456; 30]'],
-            ['caso_uso' => 'Gestion de usuarios', 'accion' => 'listar', 'parametros' => '__', 'ejemplo' => 'listar usuario'],
-            ['caso_uso' => 'Gestion de usuarios', 'accion' => 'eliminar', 'parametros' => 'id', 'ejemplo' => 'eliminar usuario [1]'],
-            ['caso_uso' => 'Gestion de proyectos', 'accion' => 'agregar', 'parametros' => 'nombre, descripcion, cover_url, video_url, status', 'ejemplo' => 'agregar proyecto [Calle 7; programa de competencia; url de la portada; url del video; edition]'],
-            ['caso_uso' => 'Gestion de proyectos', 'accion' => 'modificar', 'parametros' => 'id, nombre, descripcion, cover_url, video_url, status', 'ejemplo' => 'modificar proyecto [1; Calle 7; programa de competencia; url de la portada; url del video; edition]'],
-            ['caso_uso' => 'Gestion de proyectos', 'accion' => 'listar', 'parametros' => '__', 'ejemplo' => 'listar proyecto'],
-            ['caso_uso' => 'Gestion de proyectos', 'accion' => 'eliminar', 'parametros' => 'id', 'ejemplo' => 'eliminar proyecto [1]'],
-            ['caso_uso' => 'Gestion de presentadores', 'accion' => 'agregar', 'parametros' => 'nombre, photo_url, sexo', 'ejemplo' => 'agregar presentador [Antonio Perez; url de la foto; hombre]'],
-            ['caso_uso' => 'Gestion de presentadores', 'accion' => 'modificar', 'parametros' => 'id, nombre, photo_url, sexo', 'ejemplo' => 'modificar presentador [1; Antonio Perez; url de la foto; hombre]'],
-            ['caso_uso' => 'Gestion de presentadores', 'accion' => 'listar', 'parametros' => '__', 'ejemplo' => 'listar presentador'],
-            ['caso_uso' => 'Gestion de presentadores', 'accion' => 'eliminar', 'parametros' =>
-            'id', 'ejemplo' => 'eliminar presentador [1]'],
-            ['caso_uso' => 'Gestion de noticias', 'accion' => 'agregar', 'parametros' => 'titulo, contenido, fecha de publicacion', 'ejemplo' => 'agregar noticia [noticia del dia; contenido de la noticia; aaaa-mm-dd]'],
-            ['caso_uso' => 'Gestion de noticias', 'accion' => 'modificar', 'parametros' => 'id, titulo, contenido, fecha de publicacion', 'ejemplo' => 'modificar noticia [1; noticia del dia; contenido de la noticia; aaaa-mm-dd]'],
-            ['caso_uso' => 'Gestion de noticias', 'accion' => 'listar', 'parametros' => '__', 'ejemplo' => 'listar noticia'],
-            ['caso_uso' => 'Gestion de noticias', 'accion' => 'eliminar', 'parametros' => 'id', 'ejemplo' => 'eliminar noticia [1]'],
-            ['caso_uso' => 'Gestion de contenido', 'accion' => 'agregar', 'parametros' => 'titulo, url del video, tipo', 'ejemplo' => 'agregar contenido [presentacion; video url; presenter]'],
-            ['caso_uso' => 'Gestion de contenido', 'accion' => 'modificar', 'parametros' => 'id, titulo, url del video, tipo', 'ejemplo' => 'modificar contenido [1; presentacion; video url; presenter]'],
-            ['caso_uso' => 'Gestion de contenido', 'accion' => 'listar', 'parametros' => '__', 'ejemplo' => 'listar contenido'],
-            ['caso_uso' => 'Gestion de contenido', 'accion' => 'eliminar', 'parametros' => 'id', 'ejemplo' => 'eliminar contenido [1]'],
-            ['caso_uso' => 'Gestion de suscripciones', 'accion' => 'agregar', 'parametros' => 'nombre, precio, duracion, descripcion', 'ejemplo' => 'agregar suscripcion [mensual; 10; 30; plan mensual]'],
-            ['caso_uso' => 'Gestion de suscripciones', 'accion' => 'modificar', 'parametros' => 'id, nombre, precio, duracion, descripcion', 'ejemplo' => 'modificar suscripcion [1; mensual; 10; 30; plan mensual]'],
-            ['caso_uso' => 'Gestion de suscripciones', 'accion' => 'listar', 'parametros' => '__', 'ejemplo' => 'listar suscripcion'],
-            ['caso_uso' => 'Gestion de suscripciones', 'accion' => 'eliminar', 'parametros' => 'id', 'ejemplo' => 'eliminar suscripcion [1]'],
-            ['caso_uso' => 'Gestion de pagos', 'accion' => 'agregar', 'parametros' => 'fecha, tipo de pago(1=QR, 2=TigoMoney), nro de telefono, nombre del cliente, carnet de identidad', 'ejemplo' => 'agregar pago [indicar la fecha aaaa-mm-dd; 1; 73397228; Pedrito; 24837749]'],
-            ['caso_uso' => 'Gestion de pagos', 'accion' => 'modificar', 'parametros' => 'id, fecha, tipo de pago(1=QR, 2=TigoMoney), nro de telefono, nombre del cliente, carnet de identidad', 'ejemplo' => 'modificar pago [1; indicar la fecha aaaa-mm-dd; 1; 73397228; Pedrito; 24837749]'],
-            ['caso_uso' => 'Gestion de pagos', 'accion' => 'listar', 'parametros' => '__', 'ejemplo' => 'listar pago'],
-            ['caso_uso' => 'Gestion de pagos', 'accion' => 'eliminar', 'parametros' => 'id', 'ejemplo' => 'eliminar pago [1]'],
-            ['caso_uso' => 'Reportes y estadisticas', 'accion' => 'listar', 'parametros' => '__', 'ejemplo' => 'listar estadistica'],
+            ['nro' => '1.1', 'caso_uso' => 'Gestion de usuarios', 'accion' => 'agregar', 'parametros' => 'nombre, correo, contraseña, puntos', 'ejemplo' => 'agregar usuario [Pedro; pedrito@gmail.com; 123456; 30]'],
+            ['nro' => '1.2', 'caso_uso' => 'Gestion de usuarios', 'accion' => 'modificar', 'parametros' => 'id, nombre, correo, contraseña, puntos', 'ejemplo' => 'modificar usuario [1; Pedro; pedrito@gmail.com; 123456; 30]'],
+            ['nro' => '1.3', 'caso_uso' => 'Gestion de usuarios', 'accion' => 'listar', 'parametros' => '__', 'ejemplo' => 'listar usuario'],
+            ['nro' => '1.4', 'caso_uso' => 'Gestion de usuarios', 'accion' => 'eliminar', 'parametros' => 'id', 'ejemplo' => 'eliminar usuario [1]'],
+            // 2
+            ['nro' => '2.1', 'caso_uso' => 'Gestion de proyectos', 'accion' => 'agregar', 'parametros' => 'nombre, descripcion, cover_url, video_url, status', 'ejemplo' => 'agregar proyecto [Calle 7; programa de competencia; url de la portada; url del video; edition]'],
+            ['nro' => '2.2', 'caso_uso' => 'Gestion de proyectos', 'accion' => 'modificar', 'parametros' => 'id, nombre, descripcion, cover_url, video_url, status', 'ejemplo' => 'modificar proyecto [1; Calle 7; programa de competencia; url de la portada; url del video; edition]'],
+            ['nro' => '2.3', 'caso_uso' => 'Gestion de proyectos', 'accion' => 'listar', 'parametros' => '__', 'ejemplo' => 'listar proyecto'],
+            ['nro' => '2.4', 'caso_uso' => 'Gestion de proyectos', 'accion' => 'eliminar', 'parametros' => 'id', 'ejemplo' => 'eliminar proyecto [1]'],
+            // 3
+            ['nro' => '3.1', 'caso_uso' => 'Gestion de presentadores', 'accion' => 'agregar', 'parametros' => 'nombre, photo_url, sexo', 'ejemplo' => 'agregar presentador [Antonio Perez; url de la foto; hombre]'],
+            ['nro' => '3.2', 'caso_uso' => 'Gestion de presentadores', 'accion' => 'modificar', 'parametros' => 'id, nombre, photo_url, sexo', 'ejemplo' => 'modificar presentador [1; Antonio Perez; url de la foto; hombre]'],
+            ['nro' => '3.3', 'caso_uso' => 'Gestion de presentadores', 'accion' => 'listar', 'parametros' => '__', 'ejemplo' => 'listar presentador'],
+            ['nro' => '3.4', 'caso_uso' => 'Gestion de presentadores', 'accion' => 'eliminar', 'parametros' => 'id', 'ejemplo' => 'eliminar presentador [1]'],
+            // 4
+            ['nro' => '4.1', 'caso_uso' => 'Gestion de noticias', 'accion' => 'agregar', 'parametros' => 'titulo, contenido, fecha de publicacion', 'ejemplo' => 'agregar noticia [noticia del dia; contenido de la noticia; aaaa-mm-dd]'],
+            ['nro' => '4.2', 'caso_uso' => 'Gestion de noticias', 'accion' => 'modificar', 'parametros' => 'id, titulo, contenido, fecha de publicacion', 'ejemplo' => 'modificar noticia [1; noticia del dia; contenido de la noticia; aaaa-mm-dd]'],
+            ['nro' => '4.3', 'caso_uso' => 'Gestion de noticias', 'accion' => 'listar', 'parametros' => '__', 'ejemplo' => 'listar noticia'],
+            ['nro' => '4.4', 'caso_uso' => 'Gestion de noticias', 'accion' => 'eliminar', 'parametros' => 'id', 'ejemplo' => 'eliminar noticia [1]'],
+            // 5
+            ['nro' => '5.1', 'caso_uso' => 'Gestion de contenido', 'accion' => 'agregar', 'parametros' => 'titulo, url del video, tipo', 'ejemplo' => 'agregar contenido [presentacion; video url; presenter]'],
+            ['nro' => '5.2', 'caso_uso' => 'Gestion de contenido', 'accion' => 'modificar', 'parametros' => 'id, titulo, url del video, tipo', 'ejemplo' => 'modificar contenido [1; presentacion; video url; presenter]'],
+            ['nro' => '5.3', 'caso_uso' => 'Gestion de contenido', 'accion' => 'listar', 'parametros' => '__', 'ejemplo' => 'listar contenido'],
+            ['nro' => '5.4', 'caso_uso' => 'Gestion de contenido', 'accion' => 'eliminar', 'parametros' => 'id', 'ejemplo' => 'eliminar contenido [1]'],
+            // 6
+            ['nro' => '6.1', 'caso_uso' => 'Gestion de suscripciones', 'accion' => 'agregar', 'parametros' => 'nombre, precio, duracion, descripcion', 'ejemplo' => 'agregar suscripcion [mensual; 10; 30; plan mensual]'],
+            ['nro' => '6.2', 'caso_uso' => 'Gestion de suscripciones', 'accion' => 'modificar', 'parametros' => 'id, nombre, precio, duracion, descripcion', 'ejemplo' => 'modificar suscripcion [1; mensual; 10; 30; plan mensual]'],
+            ['nro' => '6.3', 'caso_uso' => 'Gestion de suscripciones', 'accion' => 'listar', 'parametros' => '__', 'ejemplo' => 'listar suscripcion'],
+            ['nro' => '6.4', 'caso_uso' => 'Gestion de suscripciones', 'accion' => 'eliminar', 'parametros' => 'id', 'ejemplo' => 'eliminar suscripcion [1]'],
+            // 7
+            ['nro' => '7.1', 'caso_uso' => 'Gestion de pagos', 'accion' => 'agregar', 'parametros' => 'fecha, tipo de pago(1=QR, 2=TigoMoney), nro de telefono, nombre del cliente, carnet de identidad', 'ejemplo' => 'agregar pago [indicar la fecha aaaa-mm-dd; 1; 73397228; Pedrito; 24837749]'],
+            ['nro' => '7.2', 'caso_uso' => 'Gestion de pagos', 'accion' => 'modificar', 'parametros' => 'id, fecha, tipo de pago(1=QR, 2=TigoMoney), nro de telefono, nombre del cliente, carnet de identidad', 'ejemplo' => 'modificar pago [1; indicar la fecha aaaa-mm-dd; 1; 73397228; Pedrito; 24837749]'],
+            ['nro' => '7.3', 'caso_uso' => 'Gestion de pagos', 'accion' => 'listar', 'parametros' => '__', 'ejemplo' => 'listar pago'],
+            ['nro' => '7.4', 'caso_uso' => 'Gestion de pagos', 'accion' => 'eliminar', 'parametros' => 'id', 'ejemplo' => 'eliminar pago [1]'],
+            // 8
+            ['nro' => '8.1', 'caso_uso' => 'Reportes y estadisticas', 'accion' => 'listar', 'parametros' => '__', 'ejemplo' => 'listar estadistica'],
         ];
 
         \App\Models\Comando::insert($comandos);
