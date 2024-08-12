@@ -88,7 +88,9 @@ function FormProject({ modalKey }: FormCreateOrEditProps) {
         // }
 
         data.name = values.name;
-        data.description = values.description;
+        if (values.description) {
+            data.description = values.description;
+        }
         data.presenter_id = values.presenter_id;
         data.cover_url = acceptedFiles[0] || values.cover_url;
 
@@ -157,9 +159,10 @@ function FormProject({ modalKey }: FormCreateOrEditProps) {
                             </FormLabel>
                             <FormControl>
                                 <Textarea
+                                    {...field}
                                     id="description"
                                     placeholder="descripción"
-                                    {...field}
+                                    value={project.description ?? ""}
                                 />
                             </FormControl>
                             <FormMessage />
@@ -198,7 +201,7 @@ function FormProject({ modalKey }: FormCreateOrEditProps) {
                                                     style={{ width: "100px" }}
                                                 /> */}
                                                 <Imagen
-                                                    src={project.cover_url}
+                                                    src={project.cover_url + ""}
                                                     alt={project.name}
                                                     className="h-20 w-20"
                                                 />
