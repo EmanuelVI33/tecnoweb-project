@@ -11,7 +11,7 @@ class DIdService
 
     public function __construct()
     {
-        $this->webhookUrl = 'http://mail.tecnoweb.org.bo/inf513/grupo23sa/proyecto2/public' . '/elements/webhook';
+        $this->webhookUrl = 'https://www.tecnoweb.org.bo/inf513/grupo23sa/proy2/public' . '/elements/webhook';
         // $this->webhookUrl = config('app.url') . '/elements/webhook';
     }
 

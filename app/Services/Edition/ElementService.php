@@ -71,7 +71,7 @@ class ElementService
         }
 
         $project = Project::where('id', $projectId)->with('presenter')->first();
-        $photoUrl = 'http://mail.tecnoweb.org.bo/inf513/grupo23sa/proy2/public/' . $project->presenter->photo_url;
+        $photoUrl = 'https://www.tecnoweb.org.bo/inf513/grupo23sa/proy2/public/' . $project->presenter->photo_url;
 
         $pointer = $user->pointer;
         foreach ($createElementDtos as $elementDto) {
